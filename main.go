@@ -7,6 +7,7 @@ import (
 	"LearnGo/route/admin"
 	"LearnGo/route/client"
 	"LearnGo/route/user"
+	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
@@ -36,6 +37,13 @@ func main() {
 	r := gin.Default()
 
 	r.Use(middleware.Recover(appContext))
+
+	config := cors.DefaultConfig()
+	config.AllowOrigins = []string{"http://localhost:3000"}
+	config.AllowMethods = []string{"GET", "POST", "PUT", "DELETE"}
+	config.AllowHeaders = []string{"Authorization", "Content-Type"}
+
+	r.Use(cors.New(config))
 
 	// route
 	v1 := r.Group("v1")
