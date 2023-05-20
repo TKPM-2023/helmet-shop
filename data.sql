@@ -23,5 +23,5 @@ create table images (
     id int auto_increment primary key,
     url text not null,
     width int not null,
-    height int not null,
+    height int not null
 );
