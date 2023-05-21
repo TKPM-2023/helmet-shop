@@ -21,7 +21,7 @@ func ErrWrongAuthHeader(err error) *common.AppError {
 
 func extractTokenFromHeaderString(s string) (string, error) {
 	parts := strings.Split(s, " ")
-	//Authorization : Bearn{token}
+	//Authorization : Bearer {token}
 	if parts[0] != "Bearer" || len(parts) < 2 || strings.TrimSpace(parts[1]) == "" {
 		return "", ErrWrongAuthHeader(nil)
 	}

@@ -2,6 +2,7 @@ package usermodel
 
 import (
 	"LearnGo/common"
+	"github.com/go-playground/validator/v10"
 )
 
 const EntityName = "client"
@@ -42,14 +43,35 @@ func (u *User) GetUserId() int {
 
 type UserCreate struct {
 	common.SQLModel `json:",inline"`
-	Email           string        `json:"email" form:"email" gorm:"column:email;"`
-	Password        string        `json:"password" form:"password" gorm:"column:password;"`
-	LastName        string        `json:"last_name" form:"last_name" gorm:"column:last_name;"`
-	FirstName       string        `json:"first_name" form:"first_name" gorm:"column:first_name;"`
+	Email           string        `json:"email" form:"email" validate:"required,email" gorm:"column:email;"`
+	Password        string        `json:"password" form:"password" validate:"required,min=8,max=20" gorm:"column:password;"`
+	LastName        string        `json:"last_name" form:"last_name" validate:"required" gorm:"column:last_name;"`
+	FirstName       string        `json:"first_name" form:"first_name" validate:"required" gorm:"column:first_name;"`
 	Phone           string        `json:"phone" gorm:"column:phone;"`
 	Role            string        `json:"-" gorm:"column:role;"`
 	Salt            string        `json:"-" gorm:"column:salt;"`
 	Avatar          *common.Image `json:"avatar,omitempty" gorm:"column:avatar;type:json"`
+}
+
+func (res *UserCreate) Validate() error {
+	validate := validator.New()
+
+	if err := validate.Var(res.Email, "required,email"); err != nil {
+		return InvalidEmailFormat
+	}
+
+	if err := validate.Var(res.Password, "required,min=8,max=20"); err != nil {
+		return InvalidPasswordFormat
+	}
+
+	if err := validate.Var(res.FirstName, "required"); err != nil {
+		return InvalidFirstNameFormat
+	}
+
+	if err := validate.Var(res.LastName, "required"); err != nil {
+		return InvalidLastNameFormat
+	}
+	return nil
 }
 
 func (UserCreate) TableName() string {
@@ -61,8 +83,21 @@ func (u *UserCreate) Mask(isAdmin bool) {
 }
 
 type UserLogin struct {
-	Email    string `json:"email" form:"email" gorm:"column:email;"`
-	Password string `json:"password" form:"password" gorm:"column:password;"`
+	Email    string `json:"email" form:"email" validate:"required,email" gorm:"column:email;"`
+	Password string `json:"password" form:"password" validate:"required,min=8,max=20" gorm:"column:password;"`
+}
+
+func (res *UserLogin) Validate() error {
+	validate := validator.New()
+
+	if err := validate.Var(res.Email, "required,email"); err != nil {
+		return InvalidEmailFormat
+	}
+
+	if err := validate.Var(res.Password, "required,min=8,max=20"); err != nil {
+		return InvalidPasswordFormat
+	}
+	return nil
 }
 
 func (UserLogin) TableName() string {

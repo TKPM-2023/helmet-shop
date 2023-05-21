@@ -45,6 +45,11 @@ func NewLoginBusiness(appCtx appctx.AppContext,
 // 4. Return token(s)
 
 func (biz *loginBusiness) Login(ctx context.Context, data *usermodel.UserLogin) (*usermodel.Token, error) {
+
+	if err := data.Validate(); err != nil {
+		return nil, err
+	}
+
 	user, err := biz.userStore.FindUser(ctx, map[string]interface{}{"email": data.Email})
 
 	if err != nil {
