@@ -3,6 +3,7 @@ package admin
 import (
 	"LearnGo/component/appctx"
 	"LearnGo/middleware"
+	"LearnGo/module/upload/uploadtransport/ginupload"
 	"LearnGo/module/user/usertransport/ginuser"
 	"github.com/gin-gonic/gin"
 )
@@ -14,4 +15,5 @@ func AdminRoute(appContext appctx.AppContext, v1 *gin.RouterGroup) {
 			"admin"))
 
 	admin.GET("/profile", ginuser.GetProfile(appContext))
+	admin.DELETE("/remove/:id", ginupload.Remove(appContext))
 }

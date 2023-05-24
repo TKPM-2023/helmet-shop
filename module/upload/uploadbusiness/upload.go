@@ -8,7 +8,7 @@ import (
 	"context"
 	"fmt"
 	"image"
-	// _ "image/gif"
+	_ "image/gif"
 	_ "image/jpeg"
 	_ "image/png"
 	"io"
@@ -19,7 +19,7 @@ import (
 )
 
 type CreateImageStorage interface {
-	CreateImage(context context.Context, data *common.Image) error
+	CreateImage(ctx context.Context, data *common.Image) error
 }
 
 type uploadBiz struct {
@@ -56,12 +56,12 @@ func (biz *uploadBiz) Upload(ctx context.Context, data []byte, folder, fileName 
 	img.Width = w
 	img.Height = h
 	img.CloudName = "s3"
-	img.Extension = fileExt
+	//img.Extension = fileExt
 
-	// Temporarily unused
-	//if err := biz.imageStore.CreateImage(ctx, img); err != nil {
-	//	return nil, uploadmodel.ErrCannotSaveFile(err)
-	//}
+	//Temporarily unused
+	if err := biz.imageStore.CreateImage(ctx, img); err != nil {
+		return nil, uploadmodel.ErrCannotSaveFile(err)
+	}
 
 	return img, nil
 }

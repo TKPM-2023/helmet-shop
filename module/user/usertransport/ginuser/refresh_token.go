@@ -6,7 +6,7 @@ import (
 	"LearnGo/component/hasher"
 	"LearnGo/component/tokenprovider/jwt"
 	"LearnGo/module/user/userbusiness"
-	"LearnGo/module/user/userstore"
+	"LearnGo/module/user/userstorage"
 	"github.com/gin-gonic/gin"
 	"net/http"
 )
@@ -17,7 +17,7 @@ func RefreshToken(appCtx appctx.AppContext) gin.HandlerFunc {
 		db := appCtx.GetMainDBConnection()
 		tokenProvider := jwt.NewTokenJWTProvider(appCtx.GetSecretKey()) //appctx.SecretKey()
 
-		store := userstore.NewSQLStore(db)
+		store := userstorage.NewSQLStore(db)
 		md5 := hasher.NewMd5Hash()
 
 		biz := userbusiness.NewRefreshBusiness(appCtx, store, 30*60, tokenProvider, md5)

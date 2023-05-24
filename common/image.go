@@ -13,7 +13,6 @@ type Image struct {
 	Width     int    `json:"width" gorm:"column:width;"`
 	Height    int    `json:"height" gorm:"column:height;"`
 	CloudName string `json:"cloud_name,omitempty" gorm:"column:cloud_name;"`
-	Extension string `json:"extension,omitempty" gorm:"_"`
 }
 
 func (Image) TableName() string { return "images" }

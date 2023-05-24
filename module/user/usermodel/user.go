@@ -30,6 +30,7 @@ func (u *User) Mask(isAdmin bool) {
 func (u *User) GetUserID() int {
 	return u.Id
 }
+
 func (u *User) GetUserEmail() string {
 	return u.Email
 }

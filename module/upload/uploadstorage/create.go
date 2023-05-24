@@ -1,15 +1,13 @@
-package userstore
+package uploadstorage
 
 import (
 	"LearnGo/common"
-	"LearnGo/module/user/usermodel"
 	"context"
 )
 
-func (s *sqlStore) CreateUser(ctx context.Context, data *usermodel.UserCreate) error {
+func (s *sqlStore) CreateImage(ctx context.Context, data *common.Image) error {
 	db := s.db.Begin()
-
-	if err := db.Table(data.TableName()).Create(data).Error; err != nil {
+	if err := db.Table(data.TableName()).Create(&data).Error; err != nil {
 		db.Rollback()
 		return common.ErrDB(err)
 	}
@@ -18,6 +16,5 @@ func (s *sqlStore) CreateUser(ctx context.Context, data *usermodel.UserCreate) e
 		db.Rollback()
 		return common.ErrDB(err)
 	}
-
 	return nil
 }

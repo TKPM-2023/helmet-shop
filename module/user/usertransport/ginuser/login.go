@@ -7,7 +7,7 @@ import (
 	"LearnGo/component/tokenprovider/jwt"
 	"LearnGo/module/user/userbusiness"
 	"LearnGo/module/user/usermodel"
-	"LearnGo/module/user/userstore"
+	"LearnGo/module/user/userstorage"
 	"github.com/gin-gonic/gin"
 	"net/http"
 )
@@ -23,7 +23,7 @@ func Login(appCtx appctx.AppContext) gin.HandlerFunc {
 		db := appCtx.GetMainDBConnection()
 		tokenProvider := jwt.NewTokenJWTProvider(appCtx.GetSecretKey())
 
-		store := userstore.NewSQLStore(db)
+		store := userstorage.NewSQLStore(db)
 		md5 := hasher.NewMd5Hash()
 
 		biz := userbusiness.NewLoginBusiness(appCtx, store, 60*30, 60*60*24*30, tokenProvider, md5)

@@ -4,7 +4,7 @@ import (
 	"LearnGo/common"
 	"LearnGo/component/appctx"
 	"LearnGo/component/tokenprovider/jwt"
-	"LearnGo/module/user/userstore"
+	"LearnGo/module/user/userstorage"
 	"errors"
 	"fmt"
 	"github.com/gin-gonic/gin"
@@ -44,7 +44,7 @@ func RequireAuth(appCtx appctx.AppContext) func(ctx *gin.Context) {
 
 		db := appCtx.GetMainDBConnection()
 
-		store := userstore.NewSQLStore(db)
+		store := userstorage.NewSQLStore(db)
 
 		payload, err := tokenProvider.Validate(token)
 

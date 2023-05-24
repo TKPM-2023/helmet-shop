@@ -4,6 +4,7 @@ import (
 	"LearnGo/common"
 	"LearnGo/component/appctx"
 	"LearnGo/module/upload/uploadbusiness"
+	"LearnGo/module/upload/uploadstorage"
 	"github.com/gin-gonic/gin"
 	"net/http"
 )
@@ -18,7 +19,7 @@ import (
 
 func Upload(appCtx appctx.AppContext) func(*gin.Context) {
 	return func(c *gin.Context) {
-		//db := appCtx.GetMainDBConnection()
+		db := appCtx.GetMainDBConnection()
 
 		fileHeader, err := c.FormFile("file")
 
@@ -42,8 +43,8 @@ func Upload(appCtx appctx.AppContext) func(*gin.Context) {
 			panic(common.ErrInvalidRequest(err))
 		}
 
-		//imageStore := uploadstorage.NewSQLStore(db)
-		biz := uploadbusiness.NewUploadBiz(appCtx.UploadProvider(), nil)
+		imageStore := uploadstorage.NewSQLStore(db)
+		biz := uploadbusiness.NewUploadBiz(appCtx.UploadProvider(), imageStore)
 		img, err := biz.Upload(c.Request.Context(), dataBytes, folder, fileHeader.Filename)
 
 		if err != nil {

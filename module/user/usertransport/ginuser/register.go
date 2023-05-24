@@ -6,7 +6,7 @@ import (
 	"LearnGo/component/hasher"
 	"LearnGo/module/user/userbusiness"
 	"LearnGo/module/user/usermodel"
-	"LearnGo/module/user/userstore"
+	"LearnGo/module/user/userstorage"
 	"github.com/gin-gonic/gin"
 	"net/http"
 )
@@ -20,7 +20,7 @@ func Register(appCtx appctx.AppContext) func(*gin.Context) {
 			panic(err)
 		}
 
-		store := userstore.NewSQLStore(db)
+		store := userstorage.NewSQLStore(db)
 		md5 := hasher.NewMd5Hash()
 		biz := userbusiness.NewRegisterBusiness(store, md5)
 

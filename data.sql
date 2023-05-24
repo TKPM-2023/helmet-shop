@@ -156,5 +156,6 @@ create table images (
                         id int auto_increment primary key,
                         url text not null,
                         width int not null,
-                        height int not null
+                        height int not null,
+                        cloud_name char(50) not null
 );
