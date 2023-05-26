@@ -27,10 +27,6 @@ func (u *User) Mask(isAdmin bool) {
 	u.GenUID(common.DbTypeUser)
 }
 
-func (u *User) GetUserID() int {
-	return u.Id
-}
-
 func (u *User) GetUserEmail() string {
 	return u.Email
 }

@@ -14,7 +14,7 @@ import (
 // 2. Check file is real image
 // 3. Save image
 // 1. Save to local machine
-// 2. Save to cloud storage (S3)
+// 2. Save to cloud categorystorage (S3)
 // 3. Improve security
 
 func Upload(appCtx appctx.AppContext) func(*gin.Context) {
