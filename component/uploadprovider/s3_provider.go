@@ -1,7 +1,7 @@
 package uploadprovider
 
 import (
-	"LearnGo/common"
+	"TKPM-Go/common"
 	"bytes"
 	"context"
 	"fmt"

@@ -1,7 +1,7 @@
 package appctx
 
 import (
-	"LearnGo/component/uploadprovider"
+	"TKPM-Go/component/uploadprovider"
 	"gorm.io/gorm"
 )
 

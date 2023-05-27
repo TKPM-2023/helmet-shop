@@ -1,7 +1,7 @@
 package usermodel
 
 import (
-	"LearnGo/common"
+	"TKPM-Go/common"
 	"errors"
 )
 

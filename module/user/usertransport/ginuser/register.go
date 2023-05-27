@@ -1,12 +1,12 @@
 package ginuser
 
 import (
-	"LearnGo/common"
-	"LearnGo/component/appctx"
-	"LearnGo/component/hasher"
-	"LearnGo/module/user/userbusiness"
-	"LearnGo/module/user/usermodel"
-	"LearnGo/module/user/userstorage"
+	"TKPM-Go/common"
+	"TKPM-Go/component/appctx"
+	"TKPM-Go/component/hasher"
+	"TKPM-Go/module/user/userbusiness"
+	"TKPM-Go/module/user/usermodel"
+	"TKPM-Go/module/user/userstorage"
 	"github.com/gin-gonic/gin"
 	"net/http"
 )

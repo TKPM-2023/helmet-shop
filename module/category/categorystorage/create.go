@@ -1,8 +1,8 @@
 package categorystorage
 
 import (
-	"LearnGo/common"
-	"LearnGo/module/category/categorymodel"
+	"TKPM-Go/common"
+	"TKPM-Go/module/category/categorymodel"
 	"context"
 )
 

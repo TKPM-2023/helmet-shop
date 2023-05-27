@@ -1,10 +1,10 @@
 package middleware
 
 import (
-	"LearnGo/common"
-	"LearnGo/component/appctx"
-	"LearnGo/component/tokenprovider/jwt"
-	"LearnGo/module/user/userstorage"
+	"TKPM-Go/common"
+	"TKPM-Go/component/appctx"
+	"TKPM-Go/component/tokenprovider/jwt"
+	"TKPM-Go/module/user/userstorage"
 	"errors"
 	"fmt"
 	"github.com/gin-gonic/gin"

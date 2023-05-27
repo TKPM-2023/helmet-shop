@@ -1,8 +1,8 @@
 package userstorage
 
 import (
-	"LearnGo/common"
-	"LearnGo/module/user/usermodel"
+	"TKPM-Go/common"
+	"TKPM-Go/module/user/usermodel"
 	"context"
 )
 

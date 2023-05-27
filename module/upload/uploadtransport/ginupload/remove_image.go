@@ -1,10 +1,10 @@
 package ginupload
 
 import (
-	"LearnGo/common"
-	"LearnGo/component/appctx"
-	"LearnGo/module/upload/uploadbusiness"
-	"LearnGo/module/upload/uploadstorage"
+	"TKPM-Go/common"
+	"TKPM-Go/component/appctx"
+	"TKPM-Go/module/upload/uploadbusiness"
+	"TKPM-Go/module/upload/uploadstorage"
 	"github.com/gin-gonic/gin"
 	"net/http"
 	"strconv"

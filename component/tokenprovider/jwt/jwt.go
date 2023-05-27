@@ -1,7 +1,7 @@
 package jwt
 
 import (
-	"LearnGo/component/tokenprovider"
+	"TKPM-Go/component/tokenprovider"
 	"github.com/golang-jwt/jwt"
 	"time"
 )

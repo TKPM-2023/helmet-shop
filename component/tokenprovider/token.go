@@ -1,7 +1,7 @@
 package tokenprovider
 
 import (
-	"LearnGo/common"
+	"TKPM-Go/common"
 	"errors"
 	"time"
 )

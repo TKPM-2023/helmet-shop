@@ -1,11 +1,11 @@
 package gincategory
 
 import (
-	"LearnGo/common"
-	"LearnGo/component/appctx"
-	"LearnGo/module/category/categorybiz"
-	"LearnGo/module/category/categorymodel"
-	"LearnGo/module/category/categorystorage"
+	"TKPM-Go/common"
+	"TKPM-Go/component/appctx"
+	"TKPM-Go/module/category/categorybiz"
+	"TKPM-Go/module/category/categorymodel"
+	"TKPM-Go/module/category/categorystorage"
 	"github.com/gin-gonic/gin"
 	"net/http"
 )

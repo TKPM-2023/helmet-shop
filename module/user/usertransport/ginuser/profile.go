@@ -1,8 +1,8 @@
 package ginuser
 
 import (
-	"LearnGo/common"
-	"LearnGo/component/appctx"
+	"TKPM-Go/common"
+	"TKPM-Go/component/appctx"
 	"github.com/gin-gonic/gin"
 	"net/http"
 )

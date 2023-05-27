@@ -1,12 +1,12 @@
 package main
 
 import (
-	"LearnGo/component/appctx"
-	"LearnGo/component/uploadprovider"
-	"LearnGo/middleware"
-	"LearnGo/route/admin"
-	"LearnGo/route/client"
-	"LearnGo/route/user"
+	"TKPM-Go/component/appctx"
+	"TKPM-Go/component/uploadprovider"
+	"TKPM-Go/middleware"
+	"TKPM-Go/route/admin"
+	"TKPM-Go/route/client"
+	"TKPM-Go/route/user"
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	"gorm.io/driver/mysql"

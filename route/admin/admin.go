@@ -1,11 +1,11 @@
 package admin
 
 import (
-	"LearnGo/component/appctx"
-	"LearnGo/middleware"
-	"LearnGo/module/category/categorytransport/gincategory"
-	"LearnGo/module/upload/uploadtransport/ginupload"
-	"LearnGo/module/user/usertransport/ginuser"
+	"TKPM-Go/component/appctx"
+	"TKPM-Go/middleware"
+	"TKPM-Go/module/category/categorytransport/gincategory"
+	"TKPM-Go/module/upload/uploadtransport/ginupload"
+	"TKPM-Go/module/user/usertransport/ginuser"
 	"github.com/gin-gonic/gin"
 )
 

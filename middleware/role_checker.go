@@ -1,8 +1,8 @@
 package middleware
 
 import (
-	"LearnGo/common"
-	"LearnGo/component/appctx"
+	"TKPM-Go/common"
+	"TKPM-Go/component/appctx"
 	"errors"
 	"github.com/gin-gonic/gin"
 )

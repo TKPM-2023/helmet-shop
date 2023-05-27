@@ -1,7 +1,7 @@
 package categorymodel
 
 import (
-	"LearnGo/common"
+	"TKPM-Go/common"
 	"github.com/go-playground/validator/v10"
 )
 

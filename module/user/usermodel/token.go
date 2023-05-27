@@ -1,6 +1,6 @@
 package usermodel
 
-import "LearnGo/component/tokenprovider"
+import "TKPM-Go/component/tokenprovider"
 
 type Token struct {
 	AccessToken  *tokenprovider.Token `json:"access_token"`

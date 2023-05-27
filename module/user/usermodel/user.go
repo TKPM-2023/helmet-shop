@@ -1,7 +1,7 @@
 package usermodel
 
 import (
-	"LearnGo/common"
+	"TKPM-Go/common"
 	"github.com/go-playground/validator/v10"
 )
 

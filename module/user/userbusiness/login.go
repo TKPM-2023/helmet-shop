@@ -1,10 +1,10 @@
 package userbusiness
 
 import (
-	"LearnGo/common"
-	"LearnGo/component/appctx"
-	"LearnGo/component/tokenprovider"
-	"LearnGo/module/user/usermodel"
+	"TKPM-Go/common"
+	"TKPM-Go/component/appctx"
+	"TKPM-Go/component/tokenprovider"
+	"TKPM-Go/module/user/usermodel"
 	"context"
 )
 

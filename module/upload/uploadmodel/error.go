@@ -1,6 +1,6 @@
 package uploadmodel
 
-import "LearnGo/common"
+import "TKPM-Go/common"
 
 func ErrCannotSaveFile(err error) *common.AppError {
 	return common.NewErrorResponse(err, "can not save file", err.Error(), "ERROR_CANNOT_SAVE_FILE")

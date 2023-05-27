@@ -1,9 +1,9 @@
 package uploadbusiness
 
 import (
-	"LearnGo/common"
-	"LearnGo/component/uploadprovider"
-	"LearnGo/module/upload/uploadmodel"
+	"TKPM-Go/common"
+	"TKPM-Go/component/uploadprovider"
+	"TKPM-Go/module/upload/uploadmodel"
 	"bytes"
 	"context"
 	"fmt"
