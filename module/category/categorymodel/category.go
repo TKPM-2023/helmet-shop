@@ -59,3 +59,31 @@ func (CategoryCreate) TableName() string {
 func (c *CategoryCreate) Mask() {
 	c.GenUID(common.DbTypeUser)
 }
+
+type CategoryUpdate struct {
+	Name        string        `json:"name" validate:"required" gorm:"column:name;"`
+	Description string        `json:"description" validate:"required" gorm:"column:description;"`
+	Icon        *common.Image `json:"icon" validate:"required" gorm:"column:icon;"`
+}
+
+func (CategoryUpdate) TableName() string {
+	return Category{}.TableName()
+}
+
+func (res *CategoryUpdate) Validate() error {
+	validate := validator.New()
+
+	if err := validate.Var(res.Name, "required"); err != nil {
+		return ErrCategoryNameIsRequired
+	}
+
+	if err := validate.Var(res.Description, "required"); err != nil {
+		return ErrCategoryDescriptionIsRequired
+	}
+
+	if err := validate.Var(res.Icon, "required"); err != nil {
+		return ErrCategoryIconIsRequired
+	}
+
+	return nil
+}

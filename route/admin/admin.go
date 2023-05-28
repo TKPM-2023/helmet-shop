@@ -16,10 +16,13 @@ func AdminRoute(appContext appctx.AppContext, v1 *gin.RouterGroup) {
 			"admin"))
 
 	admin.GET("/profile", ginuser.GetProfile(appContext))
-	admin.DELETE("/remove/:id", ginupload.Remove(appContext))
+	admin.DELETE("/upload/remove/:id", ginupload.Remove(appContext))
 
 	// category
 	category := admin.Group("/categories")
 	category.POST("/", gincategory.CreateCategory(appContext))
 	category.GET("/:id", gincategory.GetCategory(appContext))
+	category.GET("/", gincategory.ListCategory(appContext))
+	category.PATCH("/:id", gincategory.UpdateCategory(appContext))
+	category.DELETE("/:id", gincategory.DeleteCategory(appContext))
 }
