@@ -42,29 +42,19 @@ create table categories
 
 
 create table products
-(
-    id          int auto_increment primary key,
-    name        varchar(255)                                                    not null,
-    description text                                                            null,
-    price       float                                                           not null,
-    quantity    int                                                             not null,
-    images      json                                                            not null,
-    status      int       default 1                                             not null,
-    created_at  timestamp default current_timestamp                             null,
-    updated_at  timestamp default current_timestamp on update current_timestamp null,
-    total_rating int     default 0                                             not null
-);
-
-create table category_products
-(
-    category_id   int                                                             not null,
-    product_id int                                                             not null,
-    status        int       default 1                                                 not null,
-    created_at    timestamp default current_timestamp                             null,
-    updated_at    timestamp default current_timestamp on update current_timestamp null,
-    primary key (category_id,  product_id),
-    index (product_id)
-);
+  (
+      id          int auto_increment primary key,
+      name        varchar(255)                                                    not null,
+      description text                                                            null,
+      price       float                                                           not null,
+      quantity    int                                                             not null,
+      images      json                                                            not null,
+      status      int       default 1                                             not null,
+      created_at  timestamp default current_timestamp                             null,
+      updated_at  timestamp default current_timestamp on update current_timestamp null,
+      total_rating int     default 0                                             not null,
+      category_id         int not null
+  );
 
 create table product_ratings
 (

@@ -4,6 +4,7 @@ import (
 	"TKPM-Go/component/appctx"
 	"TKPM-Go/middleware"
 	"TKPM-Go/module/category/categorytransport/gincategory"
+	"TKPM-Go/module/product/producttransport/ginproduct"
 	"TKPM-Go/module/upload/uploadtransport/ginupload"
 	"TKPM-Go/module/user/usertransport/ginuser"
 	"github.com/gin-gonic/gin"
@@ -25,4 +26,12 @@ func AdminRoute(appContext appctx.AppContext, v1 *gin.RouterGroup) {
 	category.GET("/", gincategory.ListCategory(appContext))
 	category.PATCH("/:id", gincategory.UpdateCategory(appContext))
 	category.DELETE("/:id", gincategory.DeleteCategory(appContext))
+
+	//product
+	product := admin.Group("/products")
+	product.POST("/", ginproduct.CreateProduct(appContext))
+	product.GET("/:id", ginproduct.GetProduct(appContext))
+	product.GET("/", ginproduct.ListProduct(appContext))
+	product.PATCH("/:id", ginproduct.UpdateProduct(appContext))
+	product.DELETE("/:id", ginproduct.DeleteProduct(appContext))
 }

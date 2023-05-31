@@ -39,6 +39,10 @@ func ListCategory(ctx appctx.AppContext) gin.HandlerFunc {
 
 		for i := range result {
 			result[i].Mask()
+			products := result[i].Products
+			for i := range products {
+				products[i].Mask()
+			}
 		}
 
 		c.JSON(http.StatusOK, common.NewSuccessResponse(result, pagingData, filter))

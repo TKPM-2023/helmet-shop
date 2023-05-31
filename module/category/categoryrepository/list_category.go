@@ -28,7 +28,7 @@ func (repo *listCategoryRepo) ListCategory(
 	filter *categorymodel.Filter,
 	paging *common.Paging,
 ) ([]categorymodel.Category, error) {
-	result, err := repo.store.ListDataWithCondition(context, filter, paging)
+	result, err := repo.store.ListDataWithCondition(context, filter, paging, "Products")
 	if err != nil {
 		return nil, err
 	}

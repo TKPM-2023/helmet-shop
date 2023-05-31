@@ -15,12 +15,11 @@ type DeleteCategoryStore interface {
 }
 
 type deleteCategoryBusiness struct {
-	store     DeleteCategoryStore
-	requester common.Requester
+	store DeleteCategoryStore
 }
 
-func NewDeleteCategoryBusiness(store DeleteCategoryStore, requester common.Requester) *deleteCategoryBusiness {
-	return &deleteCategoryBusiness{store: store, requester: requester}
+func NewDeleteCategoryBusiness(store DeleteCategoryStore) *deleteCategoryBusiness {
+	return &deleteCategoryBusiness{store: store}
 }
 
 func (business *deleteCategoryBusiness) DeleteCategory(context context.Context, id int) error {
@@ -33,10 +32,6 @@ func (business *deleteCategoryBusiness) DeleteCategory(context context.Context, 
 
 	if oldData.Status == 0 {
 		return common.ErrEntityDeleted(categorymodel.EntityName, err)
-	}
-
-	if oldData.Id != business.requester.GetUserId() {
-		return common.ErrNoPermission(nil)
 	}
 
 	if err := business.store.DeleteCategory(context, id); err != nil {

@@ -30,7 +30,7 @@ func extractTokenFromHeaderString(s string) (string, error) {
 
 // 1. Get token from header
 // 2. Validate token and parse to payload
-// 3. From the token payload, we use user_id to find from DB
+// 3. From the token payload, we use user_id to find.go from DB
 func RequireAuth(appCtx appctx.AppContext) func(ctx *gin.Context) {
 
 	tokenProvider := jwt.NewTokenJWTProvider(appCtx.GetSecretKey())

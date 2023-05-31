@@ -2,6 +2,7 @@ package categorymodel
 
 import (
 	"TKPM-Go/common"
+	"TKPM-Go/module/product/productmodel"
 	"github.com/go-playground/validator/v10"
 )
 
@@ -9,10 +10,11 @@ const EntityName = "Categories"
 
 type Category struct {
 	common.SQLModel `json:",inline"`
-	Name            string        `json:"name" gorm:"column:name;"`
-	Description     string        `json:"description" gorm:"column:description;"`
-	Icon            *common.Image `json:"icon" gorm:"column:icon;"`
-	TotalProduct    int           `json:"total_product" gorm:"column:total_product;"`
+	Name            string                 `json:"name" gorm:"column:name;"`
+	Description     string                 `json:"description" gorm:"column:description;"`
+	Icon            *common.Image          `json:"icon" gorm:"column:icon;"`
+	TotalProduct    int                    `json:"total_product" gorm:"column:total_product;"`
+	Products        []productmodel.Product `json:"products"`
 }
 
 func (Category) TableName() string {
@@ -20,7 +22,7 @@ func (Category) TableName() string {
 }
 
 func (c *Category) Mask() {
-	c.GenUID(common.DbTypeUser)
+	c.GenUID(common.DbTypeCategory)
 }
 
 func (c *Category) GetCategoryID() int {

@@ -1,15 +1,15 @@
-package gincategory
+package ginproduct
 
 import (
 	"TKPM-Go/common"
 	"TKPM-Go/component/appctx"
-	"TKPM-Go/module/category/categorybiz"
-	"TKPM-Go/module/category/categorystorage"
+	"TKPM-Go/module/product/productbiz"
+	"TKPM-Go/module/product/productstorage"
 	"github.com/gin-gonic/gin"
 	"net/http"
 )
 
-func DeleteCategory(appCtx appctx.AppContext) gin.HandlerFunc {
+func DeleteProduct(appCtx appctx.AppContext) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		db := appCtx.GetMainDBConnection()
 		uid, err := common.FromBase58(c.Param("id"))
@@ -17,10 +17,10 @@ func DeleteCategory(appCtx appctx.AppContext) gin.HandlerFunc {
 			panic(common.ErrInvalidRequest(err))
 		}
 
-		store := categorystorage.NewSQLStore(db)
-		business := categorybiz.NewDeleteCategoryBusiness(store)
+		store := productstorage.NewSQLStore(db)
+		business := productbiz.NewDeleteProductBusiness(store)
 
-		if err := business.DeleteCategory(c.Request.Context(), int(uid.GetLocalID())); err != nil {
+		if err := business.DeleteProduct(c.Request.Context(), int(uid.GetLocalID())); err != nil {
 			panic(err)
 		}
 
