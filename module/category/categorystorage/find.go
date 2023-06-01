@@ -14,14 +14,13 @@ func (s *sqlStore) FindCategoryWithCondition(ctx context.Context,
 	var data categorymodel.Category
 	db := s.db
 
-	db = db.Table(categorymodel.EntityName)
+	db = db.Table(categorymodel.Category{}.TableName())
 
 	for i := range moreKeys {
 		db = db.Preload(moreKeys[i])
 	}
 
 	if err := s.db.Where(conditions).First(&data).Error; err != nil {
-		// case: error from DB
 		if err == gorm.ErrRecordNotFound {
 			return nil, common.RecordNotFound
 		}

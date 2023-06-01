@@ -14,9 +14,16 @@ func CreateProduct(appCtx appctx.AppContext) gin.HandlerFunc {
 	return func(context *gin.Context) {
 		db := appCtx.GetMainDBConnection()
 		var data productmodel.ProductCreate
+
 		if err := context.ShouldBind(&data); err != nil {
 			panic(err)
 		}
+
+		if data.CategoryUID == nil {
+			panic(common.ErrInvalidRequest(nil))
+		}
+
+		data.CategoryId = int(data.CategoryUID.GetLocalID())
 
 		store := productstorage.NewSQLStore(db)
 		business := productbiz.NewCreateProductBusiness(store)

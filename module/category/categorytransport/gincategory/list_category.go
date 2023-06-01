@@ -42,6 +42,7 @@ func ListCategory(ctx appctx.AppContext) gin.HandlerFunc {
 			products := result[i].Products
 			for i := range products {
 				products[i].Mask()
+				products[i].GenCategoryUID()
 			}
 		}
 

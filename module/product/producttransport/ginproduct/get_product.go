@@ -24,6 +24,7 @@ func GetProduct(appCtx appctx.AppContext) gin.HandlerFunc {
 			panic(err)
 		}
 		result.Mask()
+		result.GenCategoryUID()
 
 		context.JSON(http.StatusOK, common.SimpleSuccessResponse(result))
 	}

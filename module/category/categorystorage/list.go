@@ -15,7 +15,7 @@ func (s *sqlStore) ListDataWithCondition(
 	var result []categorymodel.Category
 	db := s.db
 
-	db = db.Table(categorymodel.EntityName)
+	db = db.Table(categorymodel.Category{}.TableName())
 
 	if f := filter; f != nil {
 		if f.Status > 0 {

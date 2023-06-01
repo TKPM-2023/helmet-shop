@@ -14,7 +14,7 @@ type Category struct {
 	Description     string                 `json:"description" gorm:"column:description;"`
 	Icon            *common.Image          `json:"icon" gorm:"column:icon;"`
 	TotalProduct    int                    `json:"total_product" gorm:"column:total_product;"`
-	Products        []productmodel.Product `json:"products"`
+	Products        []productmodel.Product `json:"products" gorm:"preload:false"`
 }
 
 func (Category) TableName() string {
@@ -81,10 +81,6 @@ func (res *CategoryUpdate) Validate() error {
 
 	if err := validate.Var(res.Description, "required"); err != nil {
 		return ErrCategoryDescriptionIsRequired
-	}
-
-	if err := validate.Var(res.Icon, "required"); err != nil {
-		return ErrCategoryIconIsRequired
 	}
 
 	return nil

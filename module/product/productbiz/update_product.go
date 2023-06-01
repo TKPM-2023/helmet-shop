@@ -30,11 +30,12 @@ func (business *updateProductStore) UpdateProduct(context context.Context, id in
 	result, err := business.store.FindProductWithCondition(context, map[string]interface{}{
 		"id": id,
 	})
+
 	if err != nil {
 		return err
 	}
 
-	if result.Status == 0 {
+	if result != nil && result.Status == 0 {
 		return errors.New("data deleted")
 	}
 

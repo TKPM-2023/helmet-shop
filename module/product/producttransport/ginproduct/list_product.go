@@ -26,20 +26,21 @@ func ListProduct(ctx appctx.AppContext) gin.HandlerFunc {
 
 		pagingData.Fulfill()
 
-		var result []productmodel.Product
+		var results []productmodel.Product
 		store := productstorage.NewSQLStore(db)
 		business := productbiz.NewListProductBusiness(store)
-		result, err := business.ListProduct(c.Request.Context(), &filter, &pagingData)
+		results, err := business.ListProduct(c.Request.Context(), &filter, &pagingData)
 
 		if err != nil {
 			panic(err)
 		}
 
-		for i := range result {
-			result[i].Mask()
+		for i := range results {
+			results[i].Mask()
+			results[i].GenCategoryUID()
 		}
 
-		c.JSON(http.StatusOK, common.NewSuccessResponse(result, pagingData, filter))
+		c.JSON(http.StatusOK, common.NewSuccessResponse(results, pagingData, filter))
 
 	}
 }

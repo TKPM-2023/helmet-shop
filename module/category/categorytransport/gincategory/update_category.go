@@ -27,6 +27,6 @@ func UpdateCategory(ctx appctx.AppContext) gin.HandlerFunc {
 		if err := business.UpdateCategory(context.Request.Context(), int(uid.GetLocalID()), &data); err != nil {
 			panic(err)
 		}
-		context.JSON(http.StatusOK, gin.H{"ok": 1})
+		context.JSON(http.StatusOK, common.SimpleSuccessResponse(true))
 	}
 }

@@ -22,11 +22,16 @@ func UpdateProduct(ctx appctx.AppContext) gin.HandlerFunc {
 		if err := context.ShouldBind(&data); err != nil {
 			panic(err)
 		}
+
+		if data.CategoryUID != nil {
+			data.CategoryId = int(data.CategoryUID.GetLocalID())
+		}
+
 		store := productstorage.NewSQLStore(db)
 		business := productbiz.NewUpdateProductStore(store)
 		if err := business.UpdateProduct(context.Request.Context(), int(uid.GetLocalID()), &data); err != nil {
 			panic(err)
 		}
-		context.JSON(http.StatusOK, gin.H{"ok": 1})
+		context.JSON(http.StatusOK, common.SimpleSuccessResponse(true))
 	}
 }

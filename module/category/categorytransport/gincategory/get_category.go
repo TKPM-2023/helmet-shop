@@ -23,7 +23,13 @@ func GetCategory(appCtx appctx.AppContext) gin.HandlerFunc {
 		if err != nil {
 			panic(err)
 		}
+
 		result.Mask()
+		products := result.Products
+		for i := range products {
+			products[i].Mask()
+			products[i].GenCategoryUID()
+		}
 
 		context.JSON(http.StatusOK, common.SimpleSuccessResponse(result))
 
