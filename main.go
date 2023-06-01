@@ -39,9 +39,10 @@ func main() {
 	r.Use(middleware.Recover(appContext))
 
 	config := cors.DefaultConfig()
-	config.AllowOrigins = []string{"http://localhost:3000"}
-	config.AllowMethods = []string{"GET", "POST", "PUT", "DELETE"}
-	config.AllowHeaders = []string{"Authorization", "Content-Type"}
+	config.AllowOrigins = []string{"*"}
+	config.AllowMethods = []string{"*"}
+	config.AllowHeaders = []string{"*"}
+	config.AllowCredentials = true
 
 	r.Use(cors.New(config))
 
