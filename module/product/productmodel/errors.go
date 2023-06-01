@@ -7,14 +7,14 @@ import (
 
 var (
 	ErrProductNameExisted = common.NewCustomError(
-		errors.New("category name has already exits"),
-		"category name has already exits",
-		"ErrCategoryNameExisted")
+		errors.New("product name has already exits"),
+		"product name has already exits",
+		"ErrProductNameExisted")
 
 	ErrProductNameIsRequired = common.NewCustomError(
-		errors.New("category name is required"),
-		"category name is required",
-		"ErrCategoryNameIsRequired")
+		errors.New("product name is required"),
+		"product name is required",
+		"ErrProductNameIsRequired")
 
 	ErrProductNameLengthIsInvalid = common.NewCustomError(
 		errors.New("product name length is invalid"),
@@ -27,8 +27,8 @@ var (
 		"ErrCategoryDescriptionIsRequired")
 
 	ErrProductDescriptionLengthIsInvalid = common.NewCustomError(
-		errors.New("product description is invalid"),
-		"product description is invalid",
+		errors.New("product description length is invalid"),
+		"product description length is invalid",
 		"ErrProductDescriptionLengthIsInvalid")
 
 	ErrProductPriceIsRequired = common.NewCustomError(

@@ -38,12 +38,12 @@ func (c *Product) GetProductID() int {
 
 type ProductCreate struct {
 	common.SQLModel `json:",inline"`
-	Name            string         `json:"name" validate:"required,min=5,max=100" gorm:"column:name;"`
-	Description     string         `json:"description" validate:"required,min=5,max=100" gorm:"column:description;"`
-	Price           int            `json:"price" validate:"required,gt=0" gorm:"column:price;"`
-	Quantity        int            `json:"quantity" validate:"required,min=1" gorm:"column:quantity;"`
-	Images          *common.Images `json:"images" validate:"required" gorm:"column:images;"`
-	CategoryId      int            `json:"-" validate:"required,min=1" gorm:"column:category_id"`
+	Name            string         `json:"name" gorm:"column:name;"`
+	Description     string         `json:"description" gorm:"column:description;"`
+	Price           int            `json:"price" gorm:"column:price;"`
+	Quantity        int            `json:"quantity" gorm:"column:quantity;"`
+	Images          *common.Images `json:"images"  gorm:"column:images;"`
+	CategoryId      int            `json:"-"  gorm:"column:category_id"`
 	CategoryUID     *common.UID    `json:"category_id" gorm:"-"`
 }
 
@@ -106,12 +106,12 @@ func (res *ProductCreate) Validate() error {
 }
 
 type ProductUpdate struct {
-	Name        string         `json:"name" validate:"omitempty,min=5,max=100" gorm:"column:name;"`
-	Description string         `json:"description" validate:"omitempty,min=5,max=100" gorm:"column:description;"`
-	Price       int            `json:"price" validate:"omitempty,gt=0" gorm:"column:price;"`
-	Quantity    int            `json:"quantity" validate:"omitempty,min=0" gorm:"column:quantity;"`
+	Name        string         `json:"name" gorm:"column:name;"`
+	Description string         `json:"description" gorm:"column:description;"`
+	Price       int            `json:"price" gorm:"column:price;"`
+	Quantity    int            `json:"quantity" gorm:"column:quantity;"`
 	Images      *common.Images `json:"images" gorm:"column:images;"`
-	CategoryId  int            `json:"-" validate:"omitempty,min=1" gorm:"column:category_id"`
+	CategoryId  int            `json:"-" gorm:"column:category_id"`
 	CategoryUID *common.UID    `json:"category_id" gorm:"-"`
 }
 

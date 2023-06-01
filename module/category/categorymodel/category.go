@@ -31,9 +31,9 @@ func (c *Category) GetCategoryID() int {
 
 type CategoryCreate struct {
 	common.SQLModel `json:",inline"`
-	Name            string        `json:"name" validate:"required" gorm:"column:name;"`
-	Description     string        `json:"description" validate:"required" gorm:"column:description;"`
-	Icon            *common.Image `json:"icon" validate:"required" gorm:"column:icon;"`
+	Name            string        `json:"name" gorm:"column:name;"`
+	Description     string        `json:"description"  gorm:"column:description;"`
+	Icon            *common.Image `json:"icon" gorm:"column:icon;"`
 }
 
 func (res *CategoryCreate) Validate() error {
@@ -43,8 +43,16 @@ func (res *CategoryCreate) Validate() error {
 		return ErrCategoryNameIsRequired
 	}
 
+	if err := validate.Var(res.Name, "min=5,max=100"); err != nil {
+		return ErrCategoryNameLengthIsInvalid
+	}
+
 	if err := validate.Var(res.Description, "required"); err != nil {
 		return ErrCategoryDescriptionIsRequired
+	}
+
+	if err := validate.Var(res.Description, "min=5,max=100"); err != nil {
+		return ErrCategoryDescriptionLengthIsInvalid
 	}
 
 	if err := validate.Var(res.Icon, "required"); err != nil {
@@ -63,9 +71,9 @@ func (c *CategoryCreate) Mask() {
 }
 
 type CategoryUpdate struct {
-	Name        string        `json:"name" validate:"required" gorm:"column:name;"`
-	Description string        `json:"description" validate:"required" gorm:"column:description;"`
-	Icon        *common.Image `json:"icon" validate:"required" gorm:"column:icon;"`
+	Name        string        `json:"name" gorm:"column:name;"`
+	Description string        `json:"description" gorm:"column:description;"`
+	Icon        *common.Image `json:"icon" gorm:"column:icon;"`
 }
 
 func (CategoryUpdate) TableName() string {
@@ -75,12 +83,12 @@ func (CategoryUpdate) TableName() string {
 func (res *CategoryUpdate) Validate() error {
 	validate := validator.New()
 
-	if err := validate.Var(res.Name, "required"); err != nil {
-		return ErrCategoryNameIsRequired
+	if err := validate.Var(res.Name, "omitempty,min=5,max=100"); err != nil {
+		return ErrCategoryNameLengthIsInvalid
 	}
 
-	if err := validate.Var(res.Description, "required"); err != nil {
-		return ErrCategoryDescriptionIsRequired
+	if err := validate.Var(res.Description, "omitempty,min=5,max=100"); err != nil {
+		return ErrCategoryDescriptionLengthIsInvalid
 	}
 
 	return nil
