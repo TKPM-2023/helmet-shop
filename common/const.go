@@ -6,6 +6,7 @@ const (
 	DbTypeCategory DbType = 1
 	DbTypeUser     DbType = 2
 	DbTypeProduct  DbType = 3
+	DbTypeOrder	   DbType = 4
 )
 
 const CurrentUser = "user"
