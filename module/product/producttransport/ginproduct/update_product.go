@@ -28,7 +28,7 @@ func UpdateProduct(ctx appctx.AppContext) gin.HandlerFunc {
 		}
 
 		store := productstorage.NewSQLStore(db)
-		business := productbiz.NewUpdateProductStore(store)
+		business := productbiz.NewUpdateProductBusiness(store)
 		if err := business.UpdateProduct(context.Request.Context(), int(uid.GetLocalID()), &data); err != nil {
 			panic(err)
 		}

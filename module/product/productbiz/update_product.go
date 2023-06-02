@@ -14,15 +14,15 @@ type UpdateProductStore interface {
 	) (*productmodel.Product, error)
 }
 
-type updateProductStore struct {
+type updateProductBusiness struct {
 	store UpdateProductStore
 }
 
-func NewUpdateProductStore(store UpdateProductStore) *updateProductStore {
-	return &updateProductStore{store: store}
+func NewUpdateProductBusiness(store UpdateProductStore) *updateProductBusiness {
+	return &updateProductBusiness{store: store}
 }
 
-func (business *updateProductStore) UpdateProduct(context context.Context, id int, data *productmodel.ProductUpdate) error {
+func (business *updateProductBusiness) UpdateProduct(context context.Context, id int, data *productmodel.ProductUpdate) error {
 	if err := data.Validate(); err != nil {
 		return err
 	}
