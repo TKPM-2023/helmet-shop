@@ -27,16 +27,17 @@ func (business *createOrderBusiness) CreateOrder(context context.Context, data *
 		return err
 	}
 
-	result, err := business.store.FindOrderWithCondition(context, map[string]interface{}{"user_id": data.User_ID})
+	_, err := business.store.FindOrderWithCondition(context, map[string]interface{}{"user_id": data.User_ID})
 
 	if err != nil {
 		return err
 	}
 
+	/*
 	if result != nil {
 		return common.ErrEntityExisted(ordermodel.EntityName, nil)
 	}
-
+	*/
 	if err := business.store.CreateOrder(context, data); err != nil {
 		return common.ErrCannotCreateEntity(ordermodel.EntityName, err)
 	}
