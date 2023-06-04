@@ -9,6 +9,7 @@ import (
 )
 
 func UserRoute(appContext appctx.AppContext, v1 *gin.RouterGroup) {
+
 	v1.POST("/register", ginuser.Register(appContext))
 	v1.POST("/authenticate", ginuser.Login(appContext))
 	v1.GET("/refresh", middleware.RequireAuth(appContext), ginuser.RefreshToken(appContext))
@@ -16,4 +17,5 @@ func UserRoute(appContext appctx.AppContext, v1 *gin.RouterGroup) {
 	//upload service
 	v1.POST("/upload", ginupload.Upload(appContext))
 	v1.DELETE("/remove/:id", ginupload.Remove(appContext))
+
 }
