@@ -1,9 +1,9 @@
 package categorybiz
 
 import (
+	"TKPM-Go/common"
 	"TKPM-Go/module/category/categorymodel"
 	"context"
-	"errors"
 )
 
 type UpdateCategoryStore interface {
@@ -35,12 +35,29 @@ func (business *updateCategoryBusiness) UpdateCategory(context context.Context, 
 		return err
 	}
 
+	if result != nil {
+		return common.ErrEntityNotFound(categorymodel.EntityName, nil)
+	}
+
 	if result.Status == 0 {
-		return errors.New("data deleted")
+		return common.ErrEntityDeleted(categorymodel.EntityName, nil)
+	}
+
+	if data.Name != "" {
+		result, err := business.store.FindCategoryWithCondition(context, map[string]interface{}{
+			"name": data.Name,
+		})
+		if err != nil {
+			return err
+		}
+
+		if result != nil {
+			return categorymodel.ErrCategoryNameExisted
+		}
 	}
 
 	if err := business.store.UpdateCategory(context, id, data); err != nil {
-		return err
+		return common.ErrCannotUpdateEntity(categorymodel.EntityName, err)
 	}
 	return nil
 

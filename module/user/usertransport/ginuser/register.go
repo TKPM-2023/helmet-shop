@@ -28,7 +28,7 @@ func Register(appCtx appctx.AppContext) func(*gin.Context) {
 			panic(err)
 		}
 
-		data.Mask(false)
+		data.Mask()
 
 		ctx.JSON(http.StatusOK, common.SimpleSuccessResponse(data.FakeId.String()))
 
