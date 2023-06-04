@@ -18,4 +18,6 @@ func UserRoute(appContext appctx.AppContext, v1 *gin.RouterGroup) {
 	v1.POST("/upload", ginupload.Upload(appContext))
 	v1.DELETE("/remove/:id", ginupload.Remove(appContext))
 
+
+
 }
