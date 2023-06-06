@@ -36,6 +36,21 @@ var (
 		"invalid password format",
 		"InvalidPasswordFormat")
 
+	ErrNewPasswordIsRequired = common.NewCustomError(
+		errors.New("password new is required"),
+		"password new is required",
+		"ErrNewPasswordIsRequired")
+
+	InvalidNewPasswordFormat = common.NewCustomError(
+		errors.New("invalid new password format"),
+		"invalid new password format",
+		"InvalidNewPasswordFormat")
+
+	PasswordIncorrect = common.NewCustomError(
+		errors.New("password incorrect"),
+		"password incorrect",
+		"PasswordIncorrect")
+
 	ErrFirstNameIsRequired = common.NewCustomError(
 		errors.New("first name is required"),
 		"first name is required",
