@@ -15,9 +15,16 @@ func CreateOrderDetail(appCtx appctx.AppContext) gin.HandlerFunc {
 	return func(context *gin.Context) {
 		db := appCtx.GetMainDBConnection()
 		var data orderdetailmodel.OrderDetailCreate
+
 		if err := context.ShouldBind(&data); err != nil {
 			panic(err)
 		}
+
+		if data.Order_UID == nil {
+			panic(common.ErrInvalidRequest(nil))
+		}
+
+		data.Order_ID = int(data.Order_UID.GetLocalID())
 
 		store := orderdetailstorage.NewSQLStore(db)
 		business := orderdetailbiz.NewCreateOrderDetailBusiness(store)

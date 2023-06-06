@@ -10,7 +10,7 @@ const EntityName = "Order Details"
 
 type OrderDetail struct {
 	common.SQLModel `json:",inline"`
-	Order_UID 		*common.UID		`json:"order_id" gorm:"-"`
+	Order_UID       *common.UID     `json:"order_id" gorm:"-"`
 	Order_ID        int             `json:"-" gorm:"column:order_id"`
 	Product_Origin  *Product_Origin `json:"product_origin" gorm:"product_origin"`
 	Price           float64         `json:"price" gorm:"column:price"`
@@ -19,7 +19,7 @@ type OrderDetail struct {
 }
 
 func (OrderDetail) TableName() string {
-	return "order_detail"
+	return "order_details"
 }
 
 func (c *OrderDetail) Mask() {
@@ -33,10 +33,10 @@ func (c *OrderDetail) GetOrderDetailID() int {
 type OrderDetailCreate struct {
 	common.SQLModel `json:",inline"`
 	Order_ID        int             `json:"-" validate:"required" gorm:"column:order_id"`
-	Order_UID		*common.UID		`json:"order_id" gorm:"-"`
+	Order_UID       *common.UID     `json:"order_id" gorm:"-"`
 	Product_Origin  *Product_Origin `json:"product_origin" gorm:"product_origin"`
 	Price           float64         `json:"price" validate:"required" gorm:"column:price"`
-	Quantity        int             `json:"quantiy" validate:"required" gorm:"column:quantity"`
+	Quantity        int             `json:"quantity" validate:"required" gorm:"column:quantity"`
 	Discount        float32         `json:"discount" gorm:"column:discount"`
 }
 
@@ -66,11 +66,11 @@ func (c *OrderDetailCreate) Mask() {
 }
 
 type OrderDetailUpdate struct {
-	Order_ID        int             `json:"order_id" gorm:"column:order_id"`
-	Product_Origin  *Product_Origin `json:"product_origin" gorm:"product_origin"`
-	Price           float64         `json:"price" gorm:"column:price"`
-	Quantity        int             `json:"quantiy" gorm:"column:quantity"`
-	Discount        float32         `json:"discount" gorm:"column:discount"`
+	Order_ID       int             `json:"order_id" gorm:"column:order_id"`
+	Product_Origin *Product_Origin `json:"product_origin" gorm:"product_origin"`
+	Price          float64         `json:"price" gorm:"column:price"`
+	Quantity       int             `json:"quantiy" gorm:"column:quantity"`
+	Discount       float32         `json:"discount" gorm:"column:discount"`
 }
 
 func (OrderDetailUpdate) TableName() string {

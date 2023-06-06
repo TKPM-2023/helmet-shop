@@ -28,16 +28,17 @@ func (business *createOrderDetailBusiness) CreateOrderDetail(context context.Con
 	}
 
 	/*
-		_, err := business.store.FindOrderDetailWithCondition(context, map[string]interface{}{"user_id": data.User_ID})
+	result, err := business.store.FindOrderDetailWithCondition(context, map[string]interface{}{"order_id": data.Order_ID})
 
-		if err != nil {
-			return err
-		}
+	
+	if err != nil {
+		return err
+	}
 
-		if result != nil {
-			return common.ErrEntityExisted(orderdetailmodel.EntityName, nil)
-		}
-	*/
+	if result == nil {
+		return orderdetailmodel.ErrOrderDetailOrderIDNotFound //common.ErrEntityExisted(orderdetailmodel.EntityName, nil)
+	}*/
+
 	if err := business.store.CreateOrderDetail(context, data); err != nil {
 		return common.ErrCannotCreateEntity(orderdetailmodel.EntityName, err)
 	}

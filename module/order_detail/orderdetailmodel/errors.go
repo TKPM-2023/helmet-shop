@@ -20,4 +20,10 @@ var (
 		errors.New("product quantity for order is required"),
 		"product quantity for order is required",
 		"ErrOrderDetailQuantityIsRequired")
+
+	ErrOrderDetailOrderIDNotFound = common.NewCustomError(
+		errors.New("order id not found"),
+		"order id not found",
+		"ErrOrderDetailOrderIDNotFound")
+
 )
