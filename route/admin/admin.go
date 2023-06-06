@@ -22,6 +22,7 @@ func AdminRoute(appContext appctx.AppContext, v1 *gin.RouterGroup) {
 	user.GET("/", ginuser.ListUser(appContext))
 	user.PATCH("/:id", ginuser.UpdateUser(appContext))
 	user.DELETE("/:id", ginuser.DeleteUser(appContext))
+	user.PATCH("/:id/password", ginuser.UpdatePassword(appContext))
 
 	// category
 	category := admin.Group("/categories")

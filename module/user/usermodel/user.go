@@ -101,8 +101,8 @@ func (u *UserCreate) Mask() {
 }
 
 type UserLogin struct {
-	Email    string `json:"email" form:"email" validate:"required,email" gorm:"column:email;"`
-	Password string `json:"password" form:"password" validate:"required,min=8,max=20" gorm:"column:password;"`
+	Email    string `json:"email" form:"email"  gorm:"column:email;"`
+	Password string `json:"password" form:"password" gorm:"column:password;"`
 }
 
 func (res *UserLogin) Validate() error {
@@ -166,5 +166,35 @@ func (res *UserUpdate) Validate() error {
 		return InvalidRoleFormat
 	}
 
+	return nil
+}
+
+type PasswordUpdate struct {
+	Password    string `json:"password" form:"password" gorm:"-"`
+	NewPassword string `json:"new_password" form:"password" gorm:"column:password;"`
+}
+
+func (PasswordUpdate) TableName() string {
+	return User{}.TableName()
+}
+
+func (res *PasswordUpdate) Validate() error {
+	validate := validator.New()
+
+	if err := validate.Var(res.Password, "required"); err != nil {
+		return ErrPasswordIsRequired
+	}
+
+	if err := validate.Var(res.Password, "min=8,max=20"); err != nil {
+		return InvalidPasswordFormat
+	}
+
+	if err := validate.Var(res.NewPassword, "required"); err != nil {
+		return ErrNewPasswordIsRequired
+	}
+
+	if err := validate.Var(res.NewPassword, "min=8,max=20"); err != nil {
+		return InvalidNewPasswordFormat
+	}
 	return nil
 }
