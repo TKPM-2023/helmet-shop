@@ -3,6 +3,7 @@ package productbiz
 import (
 	"TKPM-Go/common"
 	"TKPM-Go/module/product/productmodel"
+	"TKPM-Go/pubsub"
 	"context"
 )
 
@@ -15,11 +16,12 @@ type CreateProductStore interface {
 }
 
 type createProductBusiness struct {
-	store CreateProductStore
+	store  CreateProductStore
+	pubsub pubsub.Pubsub
 }
 
-func NewCreateProductBusiness(store CreateProductStore) *createProductBusiness {
-	return &createProductBusiness{store: store}
+func NewCreateProductBusiness(store CreateProductStore, pubsub pubsub.Pubsub) *createProductBusiness {
+	return &createProductBusiness{store: store, pubsub: pubsub}
 }
 
 func (business *createProductBusiness) CreateProduct(context context.Context, data *productmodel.ProductCreate) error {
@@ -38,6 +40,9 @@ func (business *createProductBusiness) CreateProduct(context context.Context, da
 	if err := business.store.CreateCategory(context, data); err != nil {
 		return common.ErrCannotCreateEntity(productmodel.EntityName, err)
 	}
+
+	business.pubsub.Publish(context, common.TopicUserAddProduct, pubsub.NewMessage(data))
+
 	return nil
 
 }

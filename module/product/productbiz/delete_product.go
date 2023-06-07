@@ -3,6 +3,7 @@ package productbiz
 import (
 	"TKPM-Go/common"
 	"TKPM-Go/module/product/productmodel"
+	"TKPM-Go/pubsub"
 	"context"
 )
 
@@ -15,11 +16,12 @@ type DeleteProductStore interface {
 }
 
 type deleteProductBusiness struct {
-	store DeleteProductStore
+	store  DeleteProductStore
+	pubsub pubsub.Pubsub
 }
 
-func NewDeleteProductBusiness(store DeleteProductStore) *deleteProductBusiness {
-	return &deleteProductBusiness{store: store}
+func NewDeleteProductBusiness(store DeleteProductStore, pubsub pubsub.Pubsub) *deleteProductBusiness {
+	return &deleteProductBusiness{store: store, pubsub: pubsub}
 }
 
 func (business *deleteProductBusiness) DeleteProduct(context context.Context, id int) error {
@@ -37,5 +39,10 @@ func (business *deleteProductBusiness) DeleteProduct(context context.Context, id
 	if err := business.store.DeleteProduct(context, id); err != nil {
 		return common.ErrCannotDeleteEntity(productmodel.EntityName, err)
 	}
+
+	business.pubsub.Publish(context, common.TopicUserDeleteProduct, pubsub.NewMessage(&productmodel.ProductCreate{
+		CategoryId: id,
+	}))
+
 	return nil
 }
