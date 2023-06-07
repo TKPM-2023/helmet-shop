@@ -4,9 +4,11 @@ import (
 	"TKPM-Go/component/appctx"
 	"TKPM-Go/component/uploadprovider"
 	"TKPM-Go/middleware"
+	localPb "TKPM-Go/pubsub/localpub"
 	"TKPM-Go/route/admin"
 	"TKPM-Go/route/client"
 	"TKPM-Go/route/user"
+	"TKPM-Go/subscriber"
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	"gorm.io/driver/mysql"
@@ -31,8 +33,13 @@ func main() {
 	log.Println("Connect DB success", db)
 
 	s3Provider := uploadprovider.NewS3Provider(s3BucketName, s3Region, s3APIKey, s3SecretKey, s3Domain)
-	appContext := appctx.NewAppContext(db, s3Provider, secretKey)
+	pubsub := localPb.NewPubSub()
+	appContext := appctx.NewAppContext(db, s3Provider, secretKey, pubsub)
 	db = db.Debug()
+
+	if err := subscriber.NewEngine(appContext).Start(); err != nil {
+		log.Fatalln()
+	}
 
 	r := gin.Default()
 

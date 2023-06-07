@@ -12,13 +12,14 @@ import (
 func DeleteProduct(appCtx appctx.AppContext) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		db := appCtx.GetMainDBConnection()
+		pubsub := appCtx.GetPubSub()
 		uid, err := common.FromBase58(c.Param("id"))
 		if err != nil {
 			panic(common.ErrInvalidRequest(err))
 		}
 
 		store := productstorage.NewSQLStore(db)
-		business := productbiz.NewDeleteProductBusiness(store)
+		business := productbiz.NewDeleteProductBusiness(store, pubsub)
 
 		if err := business.DeleteProduct(c.Request.Context(), int(uid.GetLocalID())); err != nil {
 			panic(err)
