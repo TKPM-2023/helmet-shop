@@ -14,23 +14,15 @@ func (s *sqlStore) FindOrderWithCondition(ctx context.Context,
 	var data ordermodel.Order
 	db := s.db
 
-	var length int64
-	if err := db.Table(ordermodel.Order{}.TableName()).Count(&length).Error; err != nil {
-		return nil, common.ErrDB(err)
-	}
-
-	if length == 0 {
-		return nil, nil
-	}
+	db = db.Table(ordermodel.Order{}.TableName())
 
 	for i := range moreKeys {
-		db.Preload(moreKeys[i])
+		db = db.Preload(moreKeys[i])
 	}
 
-	if err := s.db.Where(conditions).First(&data).Error; err != nil {
-		// case: error from DB
+	if err := db.Where(conditions).First(&data).Error; err != nil {
 		if err == gorm.ErrRecordNotFound {
-			return nil, nil
+			return nil, common.RecordNotFound
 		}
 		return nil, common.ErrDB(err)
 	}

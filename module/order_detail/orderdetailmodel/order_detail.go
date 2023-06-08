@@ -18,6 +18,11 @@ type OrderDetail struct {
 	Discount        float32         `json:"discount" gorm:"column:discount"`
 }
 
+func (p *OrderDetail) GenOrderUID() {
+	uid:= common.NewUID(uint32(p.Order_ID), int(common.DbTypeCategory), 1)
+	p.Order_UID= &uid
+}
+
 func (OrderDetail) TableName() string {
 	return "order_details"
 }

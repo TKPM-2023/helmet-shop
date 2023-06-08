@@ -2,7 +2,6 @@ package orderbiz
 
 import (
 	"TKPM-Go/common"
-	"TKPM-Go/module/category/categorymodel"
 	"TKPM-Go/module/order/ordermodel"
 	"context"
 )
@@ -22,19 +21,21 @@ func NewGetOrderBusiness(store GetOrderStore) *getOrderBusiness {
 	return &getOrderBusiness{store: store}
 }
 
-func (business *getOrderBusiness) GetOrder(context context.Context, id int) (*ordermodel.Order, error) {
-	result, err := business.store.FindOrderWithCondition(context, map[string]interface{}{"id": id})
+func (business *getOrderBusiness) GetOrder(
+	ctx context.Context, id int) (*ordermodel.Order, error) {
+	result, err := business.store.FindOrderWithCondition(ctx, map[string]interface{}{"id": id}, "Products")
 
 	if err != nil {
 		if err != common.RecordNotFound {
-			return nil, common.ErrCannotGetEntity(categorymodel.EntityName, err)
+			return nil, common.ErrCannotGetEntity(ordermodel.EntityName, err)
 
 		}
-		return nil, common.ErrCannotGetEntity(categorymodel.EntityName, err)
+		return nil, common.ErrCannotGetEntity(ordermodel.EntityName, err)
 	}
 
 	if result.Status == 0 {
-		return nil, common.ErrEntityDeleted(categorymodel.EntityName, err)
+		return nil, common.ErrEntityDeleted(ordermodel.EntityName, err)
 	}
+
 	return result, err
 }
