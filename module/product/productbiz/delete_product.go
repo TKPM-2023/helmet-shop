@@ -41,7 +41,7 @@ func (business *deleteProductBusiness) DeleteProduct(context context.Context, id
 	}
 
 	business.pubsub.Publish(context, common.TopicUserDeleteProduct, pubsub.NewMessage(&productmodel.ProductCreate{
-		CategoryId: id,
+		CategoryId: oldData.CategoryId,
 	}))
 
 	return nil

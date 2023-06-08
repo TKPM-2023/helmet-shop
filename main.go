@@ -42,7 +42,6 @@ func main() {
 	}
 
 	r := gin.Default()
-
 	r.Use(middleware.Recover(appContext))
 
 	config := cors.DefaultConfig()
