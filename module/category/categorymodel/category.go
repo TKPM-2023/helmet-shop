@@ -14,7 +14,7 @@ type Category struct {
 	Description     string                 `json:"description" gorm:"column:description;"`
 	Icon            *common.Image          `json:"icon" gorm:"column:icon;"`
 	TotalProduct    int                    `json:"total_product" gorm:"column:total_product;"`
-	Products        []productmodel.Product `json:"products" gorm:"preload:false"`
+	Products        []productmodel.Product `json:"products"`
 }
 
 func (Category) TableName() string {

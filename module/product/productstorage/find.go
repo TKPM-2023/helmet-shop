@@ -27,7 +27,7 @@ func (s *sqlStore) FindProductWithCondition(ctx context.Context,
 		db.Preload(moreKeys[i])
 	}
 
-	if err := s.db.Where(conditions).First(&data).Error; err != nil {
+	if err := db.Where(conditions).First(&data).Error; err != nil {
 		// case: error from DB
 		if err == gorm.ErrRecordNotFound {
 			return nil, nil
