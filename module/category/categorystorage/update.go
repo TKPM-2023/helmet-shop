@@ -3,7 +3,6 @@ package categorystorage
 import (
 	"TKPM-Go/module/category/categorymodel"
 	"context"
-	"fmt"
 	"gorm.io/gorm"
 )
 
@@ -24,7 +23,6 @@ func (s *sqlStore) IncreaseTotalProduct(context context.Context, id int) error {
 }
 
 func (s *sqlStore) DecreaseTotalProduct(context context.Context, id int) error {
-	fmt.Println("chay vao decrease")
 	if err := s.db.Table(categorymodel.Category{}.TableName()).Where("id = ?", id).
 		Update("total_product", gorm.Expr("total_product - ?", 1)).Error; err != nil {
 		return err

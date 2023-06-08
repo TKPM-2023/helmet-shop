@@ -1,7 +1,6 @@
 drop table if exists users;
 drop table if exists categories;
 drop table if exists products;
-drop table if exists category_products;
 drop table if exists product_ratings;
 drop table if exists orders;
 drop table if exists order_details;
@@ -42,19 +41,19 @@ create table categories
 
 
 create table products
-  (
-      id          int auto_increment primary key,
-      name        varchar(255)                                                    not null,
-      description text                                                            null,
-      price       float                                                           not null,
-      quantity    int                                                             not null,
-      images      json                                                            not null,
-      status      int       default 1                                             not null,
-      created_at  timestamp default current_timestamp                             null,
-      updated_at  timestamp default current_timestamp on update current_timestamp null,
-      total_rating int     default 0                                             not null,
-      category_id         int not null
-  );
+(
+    id          int auto_increment primary key,
+    name        varchar(255)                                                    not null,
+    description text                                                            null,
+    price       float                                                           not null,
+    quantity    int                                                             not null,
+    images      json                                                            not null,
+    status      int       default 1                                             not null,
+    created_at  timestamp default current_timestamp                             null,
+    updated_at  timestamp default current_timestamp on update current_timestamp null,
+    total_rating int     default 0                                             not null,
+    category_id         int not null
+);
 
 create table product_ratings
 (
@@ -75,7 +74,8 @@ create table orders
     total_price float                                                           not null,
     status      int       default 1                                             not null,
     created_at  timestamp default current_timestamp                             null,
-    updated_at  timestamp default current_timestamp on update current_timestamp null
+    updated_at  timestamp default current_timestamp on update current_timestamp null,
+    order_status varchar(50)  not null,
 );
 
 
@@ -94,14 +94,14 @@ create table order_details
 
 
 create table contacts (
-                      id int auto_increment primary key,
-                      name varchar(255) not null,
-                      addr varchar(255) not null,
-                      phone varchar(20) null,
-                      comment text null,
-                      status int default 1 not null,
-                      created_at timestamp default current_timestamp null,
-                      updated_at timestamp default current_timestamp on update current_timestamp null
+                          id int auto_increment primary key,
+                          name varchar(255) not null,
+                          addr varchar(255) not null,
+                          phone varchar(20) null,
+                          comment text null,
+                          status int default 1 not null,
+                          created_at timestamp default current_timestamp null,
+                          updated_at timestamp default current_timestamp on update current_timestamp null
 );
 
 create table carts
@@ -141,7 +141,6 @@ create table favorite_products
     created_at  timestamp default current_timestamp                             null,
     updated_at  timestamp default current_timestamp on update current_timestamp null
 );
-
 create table images (
                         id int auto_increment primary key,
                         url text not null,
