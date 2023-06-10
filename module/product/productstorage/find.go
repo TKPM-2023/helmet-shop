@@ -12,10 +12,10 @@ func (s *sqlStore) FindProductWithCondition(ctx context.Context,
 	moreKeys ...string,
 ) (*productmodel.Product, error) {
 	var data productmodel.Product
-	db := s.db
+	db := s.db.Table(productmodel.Product{}.TableName())
 
 	var length int64
-	if err := db.Table(productmodel.Product{}.TableName()).Count(&length).Error; err != nil {
+	if err := db.Count(&length).Error; err != nil {
 		return nil, common.ErrDB(err)
 	}
 
@@ -28,7 +28,6 @@ func (s *sqlStore) FindProductWithCondition(ctx context.Context,
 	}
 
 	if err := db.Where(conditions).First(&data).Error; err != nil {
-		// case: error from DB
 		if err == gorm.ErrRecordNotFound {
 			return nil, nil
 		}

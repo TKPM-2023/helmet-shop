@@ -20,6 +20,7 @@ func AdminRoute(appContext appctx.AppContext, v1 *gin.RouterGroup) {
 	//user
 	user := admin.Group("/users")
 	user.GET("/", ginuser.ListUser(appContext))
+	user.POST("/", ginuser.CreateUser(appContext))
 	user.PATCH("/:id", ginuser.UpdateUser(appContext))
 	user.DELETE("/:id", ginuser.DeleteUser(appContext))
 	user.PATCH("/:id/password", ginuser.UpdatePassword(appContext))

@@ -4,6 +4,7 @@ import (
 	"TKPM-Go/common"
 	"TKPM-Go/module/product/productmodel"
 	"context"
+	"fmt"
 )
 
 type UpdateProductStore interface {
@@ -32,10 +33,11 @@ func (business *updateProductBusiness) UpdateProduct(context context.Context, id
 	})
 
 	if err != nil {
+		println(err)
 		return err
 	}
 
-	if result != nil {
+	if result == nil {
 		return common.ErrEntityNotFound(productmodel.EntityName, nil)
 	}
 
@@ -44,6 +46,7 @@ func (business *updateProductBusiness) UpdateProduct(context context.Context, id
 	}
 
 	if data.Name != "" {
+		fmt.Println(data)
 		result, err := business.store.FindProductWithCondition(context, map[string]interface{}{
 			"name": data.Name,
 		})
