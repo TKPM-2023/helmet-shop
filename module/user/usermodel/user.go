@@ -45,7 +45,7 @@ type UserCreate struct {
 	LastName        string        `json:"last_name" form:"last_name" gorm:"column:last_name;"`
 	FirstName       string        `json:"first_name" form:"first_name" gorm:"column:first_name;"`
 	Phone           string        `json:"phone" gorm:"column:phone;"`
-	Role            string        `json:"-" gorm:"column:role;"`
+	Role            string        `json:"role" gorm:"column:role;"`
 	Salt            string        `json:"-" gorm:"column:salt;"`
 	Avatar          *common.Image `json:"avatar,omitempty" gorm:"column:avatar;type:json"`
 }
@@ -73,7 +73,7 @@ func (res *UserCreate) Validate() error {
 		return ErrFirstNameIsRequired
 	}
 
-	if err := validate.Var(res.FirstName, "min=2,max=8"); err != nil {
+	if err := validate.Var(res.FirstName, "min=2,max=20"); err != nil {
 		return InvalidFirstNameFormat
 	}
 
@@ -81,7 +81,7 @@ func (res *UserCreate) Validate() error {
 		return ErrLastNameIsRequired
 	}
 
-	if err := validate.Var(res.LastName, "min=2,max=8"); err != nil {
+	if err := validate.Var(res.LastName, "min=2,max=20"); err != nil {
 		return InvalidLastNameFormat
 	}
 
@@ -150,11 +150,11 @@ func (res *UserUpdate) Validate() error {
 		return InvalidEmailFormat
 	}
 
-	if err := validate.Var(res.FirstName, "omitempty,min=2,max=8"); err != nil {
+	if err := validate.Var(res.FirstName, "omitempty,min=2,max=20"); err != nil {
 		return InvalidFirstNameFormat
 	}
 
-	if err := validate.Var(res.LastName, "omitempty,min=2,max=8"); err != nil {
+	if err := validate.Var(res.LastName, "omitempty,min=2,max=20"); err != nil {
 		return InvalidLastNameFormat
 	}
 
