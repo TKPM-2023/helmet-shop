@@ -1,4 +1,4 @@
-package orderbiz
+package orderrepository
 
 import (
 	"TKPM-Go/common"
@@ -6,7 +6,7 @@ import (
 	"context"
 )
 
-type ListOrderStore interface {
+type ListOrderStorage interface {
 	ListDataWithCondition(
 		ctx context.Context,
 		filter *ordermodel.Filter,
@@ -15,19 +15,20 @@ type ListOrderStore interface {
 	) ([]ordermodel.Order, error)
 }
 
-type listOrderBusiness struct {
-	store ListOrderStore
+type listOrderRepo struct {
+	store ListOrderStorage
 }
 
-func NewListOrderBusiness(store ListOrderStore) *listOrderBusiness {
-	return &listOrderBusiness{store: store}
+func NewListOrderRepo(store ListOrderStorage) *listOrderRepo {
+	return &listOrderRepo{store: store}
 }
 
-func (business *listOrderBusiness) ListOrder(context context.Context,
+func (repo *listOrderRepo) ListOrder(
+	context context.Context,
 	filter *ordermodel.Filter,
 	paging *common.Paging,
 ) ([]ordermodel.Order, error) {
-	result, err := business.store.ListDataWithCondition(context, filter, paging)
+	result, err := repo.store.ListDataWithCondition(context, filter, paging, "Products")
 	if err != nil {
 		return nil, err
 	}
