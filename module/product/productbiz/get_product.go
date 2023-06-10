@@ -23,7 +23,7 @@ func NewGetProductBusiness(store GetProductStore) *getProductBusiness {
 }
 
 func (business *getProductBusiness) GetProduct(context context.Context, id int) (*productmodel.Product, error) {
-	result, err := business.store.FindProductWithCondition(context, map[string]interface{}{"id": id})
+	result, err := business.store.FindProductWithCondition(context, map[string]interface{}{"id": id}, "Ratings")
 
 	if err != nil {
 		if err != common.RecordNotFound {

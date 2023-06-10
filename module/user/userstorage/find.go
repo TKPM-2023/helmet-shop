@@ -14,7 +14,7 @@ func (s *sqlStore) FindUser(
 	db := s.db.Table(usermodel.User{}.TableName())
 
 	for i := range moreInfo {
-		db = db.Preload(moreInfo[i])
+		db = db.Preload(moreInfo[i], "status = ?", 1)
 	}
 
 	var user usermodel.User

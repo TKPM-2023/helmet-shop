@@ -17,8 +17,8 @@ func IncreaseProductTotalAfterAddProduct(
 		Title: "Increase Product count after add product",
 		Hld: func(ctx context.Context, message *pubsub.Message) error {
 			store := categorystorage.NewSQLStore(appCtx.GetMainDBConnection())
-			likeData := message.Data().(HasCategoryId)
-			return store.IncreaseTotalProduct(ctx, likeData.GetCategoryID())
+			productData := message.Data().(HasCategoryId)
+			return store.IncreaseTotalProduct(ctx, productData.GetCategoryID())
 		},
 	}
 }

@@ -1,18 +1,18 @@
-package productstorage
+package ratingstorage
 
 import (
 	"TKPM-Go/common"
-	"TKPM-Go/module/product/productmodel"
+	"TKPM-Go/module/product_rating/ratingmodel"
 	"context"
 	"gorm.io/gorm"
 )
 
-func (s *sqlStore) FindProductWithCondition(ctx context.Context,
+func (s *sqlStore) FindDataWithCondition(ctx context.Context,
 	conditions map[string]interface{},
 	moreKeys ...string,
-) (*productmodel.Product, error) {
-	var data productmodel.Product
-	db := s.db.Table(productmodel.Product{}.TableName())
+) (*ratingmodel.Rating, error) {
+	var data ratingmodel.Rating
+	db := s.db.Table(ratingmodel.Rating{}.TableName())
 
 	var length int64
 	if err := db.Count(&length).Error; err != nil {
@@ -24,7 +24,7 @@ func (s *sqlStore) FindProductWithCondition(ctx context.Context,
 	}
 
 	for i := range moreKeys {
-		db.Preload(moreKeys[i], "status = ?", 1)
+		db.Preload(moreKeys[i])
 	}
 
 	if err := db.Where(conditions).First(&data).Error; err != nil {

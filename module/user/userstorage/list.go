@@ -31,7 +31,7 @@ func (s *sqlStore) ListDataWithCondition(
 	}
 
 	for i := range moreKeys {
-		db = db.Preload(moreKeys[i])
+		db = db.Preload(moreKeys[i], "status = ?", 1)
 	}
 
 	if v := paging.FakeCursor; v != "" {

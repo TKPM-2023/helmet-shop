@@ -36,6 +36,18 @@ func (engine *consumerEngine) Start() error {
 		DecreaseProductTotalAfterDeleteProduct(engine.appCtx),
 	)
 
+	engine.startSubTopic(
+		common.TopicUserRatingProduct,
+		true,
+		IncreaseTotalRatingAfterUserRating(engine.appCtx),
+	)
+
+	engine.startSubTopic(
+		common.TopicUserDeleteRatingProduct,
+		true,
+		DecreaseTotalRatingAfterUserRemoveRating(engine.appCtx),
+	)
+
 	return nil
 }
 
