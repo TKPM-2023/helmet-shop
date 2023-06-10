@@ -55,6 +55,10 @@ func (c *ProductCreate) Mask() {
 	c.GenUID(common.DbTypeProduct)
 }
 
+func (c *ProductCreate) GetCategoryID() int {
+	return c.CategoryId
+}
+
 func (res *ProductCreate) Validate() error {
 	validate := validator.New()
 

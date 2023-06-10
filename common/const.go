@@ -1,5 +1,7 @@
 package common
 
+import "TKPM-Go/pubsub"
+
 type DbType int
 
 const (
@@ -17,3 +19,8 @@ type Requester interface {
 	GetUserEmail() string
 	GetUserRole() string
 }
+
+const (
+	TopicUserAddProduct    pubsub.Topic = "TopicUserAddProduct"
+	TopicUserDeleteProduct pubsub.Topic = "TopicUserDeleteProduct"
+)

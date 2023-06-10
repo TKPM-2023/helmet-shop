@@ -26,7 +26,8 @@ func NewLoginBusiness(appCtx appctx.AppContext,
 	accessTokenExpiry int,
 	refreshTokenExpiry int,
 	tokenProvider tokenprovider.Provider,
-	hasher Hasher) *loginBusiness {
+	hasher Hasher,
+) *loginBusiness {
 	return &loginBusiness{
 		appCtx:             appCtx,
 		userStore:          userStore,

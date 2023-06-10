@@ -15,9 +15,14 @@ func AdminRoute(appContext appctx.AppContext, v1 *gin.RouterGroup) {
 		middleware.RequireAuth(appContext),
 		middleware.RoleChecker(appContext,
 			"admin"))
-
-	admin.GET("/profile", ginuser.GetProfile(appContext))
 	admin.DELETE("/upload/remove/:id", ginupload.Remove(appContext))
+
+	//user
+	user := admin.Group("/users")
+	user.GET("/", ginuser.ListUser(appContext))
+	user.PATCH("/:id", ginuser.UpdateUser(appContext))
+	user.DELETE("/:id", ginuser.DeleteUser(appContext))
+	user.PATCH("/:id/password", ginuser.UpdatePassword(appContext))
 
 	// category
 	category := admin.Group("/categories")

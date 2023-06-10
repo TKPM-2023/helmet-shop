@@ -1,9 +1,9 @@
 package productbiz
 
 import (
+	"TKPM-Go/common"
 	"TKPM-Go/module/product/productmodel"
 	"context"
-	"errors"
 )
 
 type UpdateProductStore interface {
@@ -35,8 +35,26 @@ func (business *updateProductBusiness) UpdateProduct(context context.Context, id
 		return err
 	}
 
-	if result != nil && result.Status == 0 {
-		return errors.New("data deleted")
+	if result != nil {
+		return common.ErrEntityNotFound(productmodel.EntityName, nil)
+	}
+
+	if result.Status == 0 {
+		return common.ErrEntityDeleted(productmodel.EntityName, nil)
+	}
+
+	if data.Name != "" {
+		result, err := business.store.FindProductWithCondition(context, map[string]interface{}{
+			"name": data.Name,
+		})
+
+		if err != nil {
+			return err
+		}
+
+		if result != nil {
+			return productmodel.ErrProductNameExisted
+		}
 	}
 
 	if err := business.store.UpdateProduct(context, id, data); err != nil {
