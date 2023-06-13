@@ -71,6 +71,7 @@ create table orders
 (
     id          int auto_increment primary key,
     user_id     int                                                             not null,
+    contact_id int                                                              not null,
     total_price float                                                           not null,
     status      int       default 1                                             not null,
     created_at  timestamp default current_timestamp                             null,
@@ -86,6 +87,7 @@ create table order_details
     product_origin json                                                            null,
     price       float                                                           not null,
     quantity    int                                                             not null,
+    comment     text                                                            null,
     discount    float     default 0                                             null,
     status      int       default 1                                             not null,
     created_at  timestamp default current_timestamp                             null,
@@ -95,10 +97,10 @@ create table order_details
 
 create table contacts (
                           id int auto_increment primary key,
+                          user_id int not null,
                           name varchar(255) not null,
                           addr varchar(255) not null,
                           phone varchar(20) null,
-                          comment text null,
                           status int default 1 not null,
                           created_at timestamp default current_timestamp null,
                           updated_at timestamp default current_timestamp on update current_timestamp null
