@@ -15,10 +15,10 @@ func (s *sqlStore) ListDataWithCondition(
 	var result []ordermodel.Order
 	db := s.db
 
-	db = db.Table(ordermodel.EntityName)
+	db = db.Table(ordermodel.Order{}.TableName())
 
 	if f := filter; f != nil {
-		if f.Status >= 0 {
+		if f.Status > 0 {
 			db = db.Where("status = ?", f.Status)
 		}
 	}
@@ -28,7 +28,7 @@ func (s *sqlStore) ListDataWithCondition(
 	}
 
 	for i := range moreKeys {
-		db = db.Preload(moreKeys[i])
+		db = db.Preload(moreKeys[i], "status = ?", 1)
 	}
 
 	if v := paging.FakeCursor; v != "" {

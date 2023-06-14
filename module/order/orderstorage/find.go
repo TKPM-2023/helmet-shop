@@ -17,7 +17,7 @@ func (s *sqlStore) FindOrderWithCondition(ctx context.Context,
 	db = db.Table(ordermodel.Order{}.TableName())
 
 	for i := range moreKeys {
-		db = db.Preload(moreKeys[i])
+		db = db.Preload(moreKeys[i], "status = ?", 1)
 	}
 
 	if err := db.Where(conditions).First(&data).Error; err != nil {
