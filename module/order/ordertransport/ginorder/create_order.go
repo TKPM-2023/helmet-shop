@@ -15,9 +15,16 @@ func CreateOrder(appCtx appctx.AppContext) gin.HandlerFunc {
 	return func(context *gin.Context) {
 		db := appCtx.GetMainDBConnection()
 		var data ordermodel.OrderCreate
+		
 		if err := context.ShouldBind(&data); err != nil {
 			panic(err)
 		}
+
+		if data.User_UID == nil {
+			panic(common.ErrInvalidRequest(nil))
+		}
+
+		data.User_ID = int(data.User_UID.GetLocalID())
 
 		store := orderstorage.NewSQLStore(db)
 		business := orderbiz.NewCreateOrderBusiness(store)
@@ -25,6 +32,7 @@ func CreateOrder(appCtx appctx.AppContext) gin.HandlerFunc {
 		if err := business.CreateOrder(context.Request.Context(), &data); err != nil {
 			panic(err)
 		}
+
 
 		data.Mask()
 
