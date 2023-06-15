@@ -43,6 +43,7 @@ func ListProduct(ctx appctx.AppContext) gin.HandlerFunc {
 				ratings[i].Mask()
 				ratings[i].GenUserUID()
 				ratings[i].GenProductUID()
+				ratings[i].User.Mask()
 			}
 		}
 

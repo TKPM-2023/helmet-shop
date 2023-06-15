@@ -2,6 +2,7 @@ package ratingmodel
 
 import (
 	"TKPM-Go/common"
+	"TKPM-Go/module/user/usermodel"
 	"github.com/go-playground/validator/v10"
 )
 
@@ -9,12 +10,13 @@ const EntityName = "ProductRatings"
 
 type Rating struct {
 	common.SQLModel `json:",inline"`
-	Point           float32     `json:"point" gorm:"column:point"`
-	Comment         string      `json:"comment" gorm:"column:comment;"`
-	UserID          int         `json:"-" gorm:"column:user_id"`
-	UserUID         *common.UID `json:"user_id" gorm:"-"`
-	ProductID       int         `json:"-" gorm:"column:product_id"`
-	ProductUID      *common.UID `json:"product_id" gorm:"-"`
+	Point           float32         `json:"point" gorm:"column:point"`
+	Comment         string          `json:"comment" gorm:"column:comment;"`
+	UserID          int             `json:"-" gorm:"column:user_id"`
+	UserUID         *common.UID     `json:"user_id" gorm:"-"`
+	ProductID       int             `json:"-" gorm:"column:product_id"`
+	ProductUID      *common.UID     `json:"product_id" gorm:"-"`
+	User            *usermodel.User `gorm:"foreignKey:UserID"`
 }
 
 func (r *Rating) GenUserUID() {
@@ -41,10 +43,11 @@ func (r *Rating) GetProductID() int {
 
 type RatingCreate struct {
 	common.SQLModel `json:",inline"`
-	Point           float32 `json:"point" gorm:"column:point"`
-	Comment         string  `json:"comment" gorm:"column:comment;"`
-	UserID          int     `json:"-" gorm:"column:user_id"`
-	ProductID       int     `json:"-" gorm:"column:product_id"`
+	Point           float32            `json:"point" gorm:"column:point"`
+	Comment         string             `json:"comment" gorm:"column:comment;"`
+	UserID          int                `json:"-" gorm:"column:user_id"`
+	User            *common.SimpleUser `json:"user"`
+	ProductID       int                `json:"-" gorm:"column:product_id"`
 }
 
 func (RatingCreate) TableName() string {

@@ -27,7 +27,7 @@ func (business *listProdcutBusiness) ListProduct(context context.Context,
 	filter *productmodel.Filter,
 	paging *common.Paging,
 ) ([]productmodel.Product, error) {
-	result, err := business.store.ListDataWithCondition(context, filter, paging, "Ratings")
+	result, err := business.store.ListDataWithCondition(context, filter, paging, "Ratings", "Ratings.User")
 	if err != nil {
 		return nil, err
 	}

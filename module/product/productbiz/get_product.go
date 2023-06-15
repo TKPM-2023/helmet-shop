@@ -2,7 +2,6 @@ package productbiz
 
 import (
 	"TKPM-Go/common"
-	"TKPM-Go/module/category/categorymodel"
 	"TKPM-Go/module/product/productmodel"
 	"context"
 )
@@ -23,18 +22,18 @@ func NewGetProductBusiness(store GetProductStore) *getProductBusiness {
 }
 
 func (business *getProductBusiness) GetProduct(context context.Context, id int) (*productmodel.Product, error) {
-	result, err := business.store.FindProductWithCondition(context, map[string]interface{}{"id": id}, "Ratings")
+	result, err := business.store.FindProductWithCondition(context, map[string]interface{}{"id": id}, "Ratings", "Ratings.User")
 
 	if err != nil {
 		if err != common.RecordNotFound {
-			return nil, common.ErrCannotGetEntity(categorymodel.EntityName, err)
+			return nil, common.ErrCannotGetEntity(productmodel.EntityName, err)
 
 		}
-		return nil, common.ErrCannotGetEntity(categorymodel.EntityName, err)
+		return nil, common.ErrCannotGetEntity(productmodel.EntityName, err)
 	}
 
 	if result.Status == 0 {
-		return nil, common.ErrEntityDeleted(categorymodel.EntityName, err)
+		return nil, common.ErrEntityDeleted(productmodel.EntityName, err)
 	}
 	return result, err
 }
