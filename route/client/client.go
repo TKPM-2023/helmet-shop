@@ -3,10 +3,12 @@ package client
 import (
 	"TKPM-Go/component/appctx"
 	"TKPM-Go/middleware"
+	"TKPM-Go/module/contact/contacttransport/gincontact"
 	"TKPM-Go/module/order/ordertransport/ginorder"
 	"TKPM-Go/module/order_detail/orderdetailtransport/ginorderdetail"
 	"TKPM-Go/module/product_rating/ratingtransport/ginrating"
 	"TKPM-Go/module/user/usertransport/ginuser"
+
 	"github.com/gin-gonic/gin"
 )
 
@@ -30,4 +32,11 @@ func ClientRoute(appContext appctx.AppContext, v1 *gin.RouterGroup) {
 	//ProductRating
 	clients.POST("/products/:id/rating", ginrating.CreateRating(appContext))
 	clients.PATCH("products/rating/:id", ginrating.UpdateRating(appContext))
+
+	//contact
+	contact:=clients.Group("/contact")
+	contact.POST("/", gincontact.CreateContact(appContext))
+	contact.GET("/:id",gincontact.GetContact(appContext))
+	contact.PATCH("/:id",gincontact.UpdateContact(appContext))
+	contact.DELETE("/:id",gincontact.DeleteContact(appContext))
 }

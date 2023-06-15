@@ -11,6 +11,7 @@ const (
 	DbTypeOrder         DbType = 4
 	DbTypeOrder_Detail  DbType = 5
 	DbTypeProductRating DbType = 6
+	DbTypeContact		DbType = 7
 )
 
 const CurrentUser = "user"
