@@ -71,10 +71,11 @@ func (c *OrderDetailCreate) Mask() {
 }
 
 type OrderDetailUpdate struct {
-	Order_ID       int             `json:"order_id" gorm:"column:order_id"`
+	Order_ID       int             `json:"-" gorm:"column:order_id"`
+	Order_UID      *common.UID     `json:"order_id" gorm:"-"`
 	Product_Origin *Product_Origin `json:"product_origin" gorm:"product_origin"`
 	Price          float64         `json:"price" gorm:"column:price"`
-	Quantity       int             `json:"quantiy" gorm:"column:quantity"`
+	Quantity       int             `json:"quantity" gorm:"column:quantity"`
 	Discount       float32         `json:"discount" gorm:"column:discount"`
 }
 

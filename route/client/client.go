@@ -28,6 +28,8 @@ func ClientRoute(appContext appctx.AppContext, v1 *gin.RouterGroup) {
 	orderdetail := clients.Group("/orderdetails")
 	orderdetail.POST("/", ginorderdetail.CreateOrderDetail(appContext))
 	orderdetail.GET("/:id", ginorderdetail.GetOrderDetail(appContext))
+	orderdetail.PATCH("/:id", ginorderdetail.UpdateOrderDetail(appContext))
+	orderdetail.DELETE("/:id",ginorderdetail.DeleteOrderDetail(appContext))
 
 	//ProductRating
 	clients.POST("/products/:id/rating", ginrating.CreateRating(appContext))

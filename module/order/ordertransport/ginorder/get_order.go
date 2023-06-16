@@ -9,8 +9,7 @@ import (
 	"net/http"
 )
 
-func GetOrder(appCtx appctx.AppContext) gin.HandlerFunc {
-	return func(context *gin.Context) {
+func GetOrder(appCtx appctx.AppContext) gin.HandlerFunc {	return func(context *gin.Context) {
 		db := appCtx.GetMainDBConnection()
 		uid, err := common.FromBase58(context.Param("id"))
 		if err != nil {
