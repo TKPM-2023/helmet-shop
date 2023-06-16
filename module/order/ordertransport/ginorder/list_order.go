@@ -37,6 +37,12 @@ func ListOrder(ctx appctx.AppContext) gin.HandlerFunc {
 
 		for i := range result {
 			result[i].Mask()
+			result[i].GenUserUID()
+			for j := range result[i].Products{
+				result[i].Products[j].GenOrderUID()
+				result[i].Products[j].GenUID(common.DbTypeOrder_Detail)
+			}
+
 		}
 
 		c.JSON(http.StatusOK, common.NewSuccessResponse(result, pagingData, filter))
