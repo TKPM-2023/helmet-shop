@@ -84,6 +84,19 @@ func (OrderDetailUpdate) TableName() string {
 
 func (res *OrderDetailUpdate) Validate() error {
 
+	validate := validator.New()
+
+	if err := validate.Var(res.Order_ID, "required"); err != nil {
+		return ErrOrderDetailOrderIdIsRequired
+	}
+
+	if err := validate.Var(res.Price, "required"); err != nil {
+		return ErrOrderDetailPriceIsRequired
+	}
+
+	if err := validate.Var(res.Quantity, "required"); err != nil {
+		return ErrOrderDetailQuantityIsRequired
+	}
 	// chờ implement, lười quá
 	return nil
 }

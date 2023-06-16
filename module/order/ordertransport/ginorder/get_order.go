@@ -23,7 +23,9 @@ func GetOrder(appCtx appctx.AppContext) gin.HandlerFunc {
 		if err != nil {
 			panic(err)
 		}
+
 		result.Mask()
+		result.GenUserUID()
 		products := result.Products
 		for i := range products {
 			products[i].Mask()

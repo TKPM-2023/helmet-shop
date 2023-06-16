@@ -26,6 +26,7 @@ func main() {
 	s3Domain := os.Getenv("S3Domain")
 	secretKey := os.Getenv("SYSTEM_SECRET")
 
+
 	db, err := gorm.Open(mysql.Open(dsn), &gorm.Config{})
 	if err != nil {
 		log.Fatal("Connect DB failed", err)
