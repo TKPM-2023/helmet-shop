@@ -14,14 +14,14 @@ func (s *sqlStore) FindUser(
 	db := s.db.Table(usermodel.User{}.TableName())
 
 	for i := range moreInfo {
-		db = db.Preload(moreInfo[i])
+		db = db.Preload(moreInfo[i], "status = ?", 1)
 	}
 
 	var user usermodel.User
 
 	if err := db.Where(conditions).First(&user).Error; err != nil {
 		if err == gorm.ErrRecordNotFound {
-			return nil, common.ErrRecordNotFound(err)
+			return nil, nil
 		}
 
 		return nil, common.ErrDB(err)

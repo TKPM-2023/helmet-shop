@@ -24,7 +24,7 @@ func (s *sqlStore) FindProductWithCondition(ctx context.Context,
 	}
 
 	for i := range moreKeys {
-		db.Preload(moreKeys[i])
+		db.Preload(moreKeys[i], "status = ?", 1)
 	}
 
 	if err := db.Where(conditions).First(&data).Error; err != nil {

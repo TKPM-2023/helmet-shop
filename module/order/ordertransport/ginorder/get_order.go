@@ -9,8 +9,7 @@ import (
 	"net/http"
 )
 
-func GetOrder(appCtx appctx.AppContext) gin.HandlerFunc {
-	return func(context *gin.Context) {
+func GetOrder(appCtx appctx.AppContext) gin.HandlerFunc {	return func(context *gin.Context) {
 		db := appCtx.GetMainDBConnection()
 		uid, err := common.FromBase58(context.Param("id"))
 		if err != nil {
@@ -23,7 +22,14 @@ func GetOrder(appCtx appctx.AppContext) gin.HandlerFunc {
 		if err != nil {
 			panic(err)
 		}
+
 		result.Mask()
+		result.GenUserUID()
+		products := result.Products
+		for i := range products {
+			products[i].Mask()
+			products[i].GenOrderUID()
+		}
 
 		context.JSON(http.StatusOK, common.SimpleSuccessResponse(result))
 	}

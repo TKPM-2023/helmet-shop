@@ -13,8 +13,8 @@ func DecreaseProductTotalAfterDeleteProduct(
 		Title: "Decrease total product after delete product",
 		Hld: func(ctx context.Context, message *pubsub.Message) error {
 			store := categorystorage.NewSQLStore(appCtx.GetMainDBConnection())
-			likeData := message.Data().(HasCategoryId)
-			return store.DecreaseTotalProduct(ctx, likeData.GetCategoryID())
+			productData := message.Data().(HasCategoryId)
+			return store.DecreaseTotalProduct(ctx, productData.GetCategoryID())
 		},
 	}
 }

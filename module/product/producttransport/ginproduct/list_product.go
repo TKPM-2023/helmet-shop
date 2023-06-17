@@ -38,6 +38,13 @@ func ListProduct(ctx appctx.AppContext) gin.HandlerFunc {
 		for i := range results {
 			results[i].Mask()
 			results[i].GenCategoryUID()
+			ratings := results[i].Ratings
+			for i := range ratings {
+				ratings[i].Mask()
+				ratings[i].GenUserUID()
+				ratings[i].GenProductUID()
+				ratings[i].User.Mask()
+			}
 		}
 
 		c.JSON(http.StatusOK, common.NewSuccessResponse(results, pagingData, filter))

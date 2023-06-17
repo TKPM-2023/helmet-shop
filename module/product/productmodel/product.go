@@ -2,6 +2,7 @@ package productmodel
 
 import (
 	"TKPM-Go/common"
+	"TKPM-Go/module/product_rating/ratingmodel"
 	"github.com/go-playground/validator/v10"
 )
 
@@ -9,14 +10,15 @@ const EntityName = "Products"
 
 type Product struct {
 	common.SQLModel `json:",inline"`
-	Name            string         `json:"name" gorm:"column:name;"`
-	Description     string         `json:"description" gorm:"column:description;"`
-	Price           int            `json:"price" gorm:"column:price;"`
-	Quantity        int            `json:"quantity" gorm:"column:quantity;"`
-	Images          *common.Images `json:"images" gorm:"column:images;"`
-	TotalRating     int            `json:"total_rating" gorm:"column:total_rating;"`
-	CategoryId      int            `json:"-" gorm:"column:category_id"`
-	CategoryUID     *common.UID    `json:"category_id" gorm:"-"`
+	Name            string               `json:"name" gorm:"column:name;"`
+	Description     string               `json:"description" gorm:"column:description;"`
+	Price           int                  `json:"price" gorm:"column:price;"`
+	Quantity        int                  `json:"quantity" gorm:"column:quantity;"`
+	Images          *common.Images       `json:"images" gorm:"column:images;"`
+	TotalRating     int                  `json:"total_rating" gorm:"column:total_rating;"`
+	CategoryId      int                  `json:"-" gorm:"column:category_id"`
+	CategoryUID     *common.UID          `json:"category_id" gorm:"-"`
+	Ratings         []ratingmodel.Rating `json:"ratings"`
 }
 
 func (p *Product) GenCategoryUID() {

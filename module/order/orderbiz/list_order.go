@@ -15,19 +15,19 @@ type ListOrderStore interface {
 	) ([]ordermodel.Order, error)
 }
 
-type listProdcutBusiness struct {
+type listOrderBusiness struct {
 	store ListOrderStore
 }
 
-func NewListOrderBusiness(store ListOrderStore) *listProdcutBusiness {
-	return &listProdcutBusiness{store: store}
+func NewListOrderBusiness(store ListOrderStore) *listOrderBusiness {
+	return &listOrderBusiness{store: store}
 }
 
-func (business *listProdcutBusiness) ListOrder(context context.Context,
+func (business *listOrderBusiness) ListOrder(context context.Context,
 	filter *ordermodel.Filter,
 	paging *common.Paging,
 ) ([]ordermodel.Order, error) {
-	result, err := business.store.ListDataWithCondition(context, filter, paging)
+	result, err := business.store.ListDataWithCondition(context, filter, paging, "Products")
 	if err != nil {
 		return nil, err
 	}
