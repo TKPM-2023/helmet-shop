@@ -8,6 +8,7 @@ import (
 	"TKPM-Go/module/order_detail/orderdetailtransport/ginorderdetail"
 	"TKPM-Go/module/product_rating/ratingtransport/ginrating"
 	"TKPM-Go/module/user/usertransport/ginuser"
+  "TKPM-Go/module/cart/carttransport/gincart"
 
 	"github.com/gin-gonic/gin"
 )
@@ -42,4 +43,12 @@ func ClientRoute(appContext appctx.AppContext, v1 *gin.RouterGroup) {
 	contact.PATCH("/:id",gincontact.UpdateContact(appContext))
 	contact.DELETE("/:id",gincontact.DeleteContact(appContext))
 	contact.GET("/",gincontact.ListContact(appContext))
+
+	//Cart
+	cart := clients.Group("/carts")
+	cart.GET("/:id", gincart.GetCart(appContext))
+	cart.PATCH("/:id", gincart.AddProducts(appContext))
+	cart.PATCH("/:id/quantity", gincart.UpdateQuantity(appContext))
+	cart.DELETE("/:id", gincart.RemoveProducts(appContext))
+  
 }

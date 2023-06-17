@@ -2,8 +2,11 @@ package userbusiness
 
 import (
 	"TKPM-Go/common"
+	"TKPM-Go/module/cart/cartmodel"
 	"TKPM-Go/module/user/usermodel"
+	"TKPM-Go/pubsub"
 	"context"
+	"fmt"
 )
 
 type RegisterStorage interface {
@@ -14,19 +17,27 @@ type RegisterStorage interface {
 	CreateUser(ctx context.Context, data *usermodel.UserCreate) error
 }
 
+type CreatCartStorage interface {
+	CreateCart(ctx context.Context, data *cartmodel.CartCreate) (int, error)
+}
+
 type Hasher interface {
 	Hash(data string) string
 }
 
 type registerBusiness struct {
-	registerStorage RegisterStorage
-	hasher          Hasher
+	registerStorage   RegisterStorage
+	createCartStorage CreatCartStorage
+	hasher            Hasher
+	pubsub            pubsub.Pubsub
 }
 
-func NewRegisterBusiness(registerStorage RegisterStorage, hasher Hasher) *registerBusiness {
+func NewRegisterBusiness(registerStorage RegisterStorage, createCartStorage CreatCartStorage, hasher Hasher, pubsub pubsub.Pubsub) *registerBusiness {
 	return &registerBusiness{
-		registerStorage: registerStorage,
-		hasher:          hasher,
+		registerStorage:   registerStorage,
+		createCartStorage: createCartStorage,
+		hasher:            hasher,
+		pubsub:            pubsub,
 	}
 }
 
@@ -46,6 +57,15 @@ func (biz *registerBusiness) Register(ctx context.Context, data *usermodel.UserC
 	data.Password = biz.hasher.Hash(data.Password + salt)
 	data.Salt = salt
 	data.Role = "user"
+
+	cartId, err := biz.createCartStorage.CreateCart(ctx, &cartmodel.CartCreate{TotalProduct: 0})
+	if err != nil {
+		return common.ErrCannotCreateEntity(cartmodel.EntityName, err)
+	}
+
+	fmt.Println(cartId)
+
+	data.CartId = cartId
 
 	if err := biz.registerStorage.CreateUser(ctx, data); err != nil {
 		return common.ErrCannotCreateEntity(usermodel.EntityName, err)
