@@ -2,7 +2,7 @@ package ordermodel
 
 import (
 	"TKPM-Go/common"
-
+	"TKPM-Go/module/contact/contactmodel"
 	"TKPM-Go/module/order_detail/orderdetailmodel"
 
 	"github.com/go-playground/validator/v10"
@@ -17,12 +17,21 @@ type Order struct {
 	Total_Price     float64                        `json:"total_price" gorm:"column:total_price"`
 	Order_Status    string                         `json:"order_status" gorm:"column:order_status;default:chưa xử lý"`
 	Products        []orderdetailmodel.OrderDetail `json:"products"`
+	Contact_UID     *common.UID                    `json:"contact_id" gorm:"-"`
+	Contact_ID      int                            `json:"-" gorm:"column:contact_id"`
+	Contact         *contactmodel.Contact          `json:"contact"`
 }
 
 func (c *Order) GenUserUID() {
 	uid := common.NewUID(uint32(c.User_ID), int(common.DbTypeUser), 1)
 	c.User_UID = &uid
 }
+
+func (c *Order) GenContactUID() {
+	uid := common.NewUID(uint32(c.Contact_ID), int(common.DbTypeContact), 1)
+	c.Contact_UID = &uid
+}
+
 func (Order) TableName() string {
 	return "orders"
 }
@@ -41,6 +50,8 @@ type OrderCreate struct {
 	User_UID        *common.UID `json:"user_id" gorm:"-"`
 	Total_Price     float64     `json:"total_price" validate:"required" gorm:"column:total_price"`
 	Order_Status    string      `json:"-" gorm:"column:order_status;default:chưa xử lý"`
+	Contact_UID     *common.UID `json:"contact_id" gorm:"-"`
+	Contact_ID      int         `json:"-" gorm:"column:contact_id"`
 }
 
 func (OrderCreate) TableName() string {
@@ -61,6 +72,10 @@ func (res *OrderCreate) Validate() error {
 	if err := validate.Var(res.Total_Price, "required"); err != nil {
 		return ErrOrderTotalPriceIsRequired
 	}
+
+	if err := validate.Var(res.Contact_ID, "required"); err != nil {
+		return ErrOrderContactIdIsRequired
+	}
 	return nil
 }
 
@@ -70,6 +85,8 @@ type OrderUpdate struct {
 	User_UID        *common.UID `json:"user_id" gorm:"-"`
 	Total_Price     float64     `json:"total_price" validate:"required" gorm:"column:total_price"`
 	Order_Status    string      `json:"order_status" gorm:"column:order_status;default:chưa xử lý"`
+	Contact_UID     *common.UID `json:"contact_id" gorm:"-"`
+	Contact_ID      int         `json:"-" gorm:"column:contact_id"`
 }
 
 func (res *OrderUpdate) Validate() error {
@@ -81,6 +98,9 @@ func (res *OrderUpdate) Validate() error {
 
 	if err := validate.Var(res.Total_Price, "required"); err != nil {
 		return ErrOrderTotalPriceIsRequired
+	}
+	if err := validate.Var(res.Contact_ID, "required"); err != nil {
+		return ErrOrderContactIdIsRequired
 	}
 	return nil
 }

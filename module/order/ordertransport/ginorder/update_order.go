@@ -14,6 +14,7 @@ func UpdateOrder(ctx appctx.AppContext) gin.HandlerFunc {
 	return func(context *gin.Context) {
 		db := ctx.GetMainDBConnection()
 		var data ordermodel.OrderUpdate
+		requester := context.MustGet(common.CurrentUser).(common.Requester)
 		uid, err := common.FromBase58(context.Param("id"))
 		if err != nil {
 			panic(common.ErrInvalidRequest(err))
@@ -22,13 +23,13 @@ func UpdateOrder(ctx appctx.AppContext) gin.HandlerFunc {
 		if err := context.ShouldBind(&data); err != nil {
 			panic(err)
 		}
-
+/*
 		if data.User_UID == nil {
 			panic(common.ErrInvalidRequest(nil))
-		}
+		}*/
 
-		data.User_ID = int(data.User_UID.GetLocalID())
-
+		data.User_ID = requester.GetUserId()//int(data.User_UID.GetLocalID())
+		data.Contact_ID=int(data.Contact_UID.GetLocalID())
 		store := orderstorage.NewSQLStore(db)
 		business := orderbiz.NewUpdateOrderBusiness(store)
 		if err := business.UpdateOrder(context.Request.Context(), int(uid.GetLocalID()), &data); err != nil {
