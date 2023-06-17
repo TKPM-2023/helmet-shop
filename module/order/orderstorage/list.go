@@ -21,6 +21,9 @@ func (s *sqlStore) ListDataWithCondition(
 		if f.Status > 0 {
 			db = db.Where("status = ?", f.Status)
 		}
+		if f.User_Id != nil {
+			db = db.Where("user_id = ?", f.User_Id.GetLocalID())
+		}
 	}
 
 	if err := db.Count(&paging.Total).Error; err != nil {
