@@ -41,4 +41,5 @@ func ClientRoute(appContext appctx.AppContext, v1 *gin.RouterGroup) {
 	contact.GET("/:id",gincontact.GetContact(appContext))
 	contact.PATCH("/:id",gincontact.UpdateContact(appContext))
 	contact.DELETE("/:id",gincontact.DeleteContact(appContext))
+	contact.GET("/",gincontact.ListContact(appContext))
 }
