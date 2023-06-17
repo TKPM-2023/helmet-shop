@@ -16,6 +16,8 @@ type User struct {
 	FirstName       string        `json:"first_name" gorm:"column:first_name;"`
 	Phone           string        `json:"phone" gorm:"column:phone;"`
 	Role            string        `json:"role" gorm:"column:role;"`
+	CartId          int           `json:"-" gorm:"column:cart_id;"`
+	CartUID         *common.UID   `json:"cart_id" gorm:"-"`
 	Avatar          *common.Image `json:"avatar,omitempty" gorm:"column:avatar;type:json"`
 }
 
@@ -25,6 +27,8 @@ func (User) TableName() string {
 
 func (u *User) Mask() {
 	u.GenUID(common.DbTypeUser)
+	uid := common.NewUID(uint32(u.CartId), int(common.DbTypeCart), 1)
+	u.CartUID = &uid
 }
 
 func (u *User) GetUserEmail() string {
@@ -48,6 +52,7 @@ type UserCreate struct {
 	Role            string        `json:"role" gorm:"column:role;"`
 	Salt            string        `json:"-" gorm:"column:salt;"`
 	Avatar          *common.Image `json:"avatar,omitempty" gorm:"column:avatar;type:json"`
+	CartId          int           `json:"-" gorm:"column:cart_id;"`
 }
 
 func (res *UserCreate) Validate() error {
@@ -98,6 +103,10 @@ func (UserCreate) TableName() string {
 
 func (u *UserCreate) Mask() {
 	u.GenUID(common.DbTypeUser)
+}
+
+func (u *UserCreate) GetUserId() int {
+	return u.Id
 }
 
 type UserLogin struct {
