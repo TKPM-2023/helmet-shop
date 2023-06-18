@@ -3,11 +3,14 @@ package ginorder
 import (
 	"TKPM-Go/common"
 	"TKPM-Go/component/appctx"
+	"TKPM-Go/module/contact/contactbiz"
+	"TKPM-Go/module/contact/contactstorage"
 	"TKPM-Go/module/order/orderbiz"
 	"TKPM-Go/module/order/ordermodel"
 	"TKPM-Go/module/order/orderstorage"
-	"github.com/gin-gonic/gin"
 	"net/http"
+
+	"github.com/gin-gonic/gin"
 )
 
 func ListOrder(ctx appctx.AppContext) gin.HandlerFunc {
@@ -35,10 +38,11 @@ func ListOrder(ctx appctx.AppContext) gin.HandlerFunc {
 			panic(err)
 		}
 
+
 		for i := range result {
 			result[i].Mask()
 			result[i].GenUserUID()
-			for j := range result[i].Products{
+			for j := range result[i].Products {
 				result[i].Products[j].GenOrderUID()
 				result[i].Products[j].GenUID(common.DbTypeOrder_Detail)
 			}
