@@ -38,10 +38,16 @@ func ListOrder(ctx appctx.AppContext) gin.HandlerFunc {
 			panic(err)
 		}
 
-
+		Contact_store := contactstorage.NewSQLStore(db)
+		Contact_business := contactbiz.NewGetContactBusiness(Contact_store)
 		for i := range result {
+			Contact_result, err:= Contact_business.GetContact(c.Request.Context(), result[i].Contact_ID)
+			if err ==nil {
+			Contact_result.GenUserUID()
+			result[i].Contact=Contact_result
 			result[i].Mask()
 			result[i].GenUserUID()
+			}
 			for j := range result[i].Products {
 				result[i].Products[j].GenOrderUID()
 				result[i].Products[j].GenUID(common.DbTypeOrder_Detail)
