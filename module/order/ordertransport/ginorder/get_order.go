@@ -35,6 +35,8 @@ func GetOrder(appCtx appctx.AppContext) gin.HandlerFunc {
 		result.Mask()
 		result.GenUserUID()
 		result.GenContactUID()
+		Contact_result.GenUID(common.DbTypeContact)
+		Contact_result.GenUserUID()
 		result.Contact=Contact_result
 		products := result.Products
 		for i := range products {

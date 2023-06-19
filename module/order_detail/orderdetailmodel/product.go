@@ -12,7 +12,6 @@ type Product_Origin struct {
 	UID 		*common.UID `json:"id"`
 	Name        string `json:"name"`
 	Description string `json:"description"`
-	Price       int    `json:"price"`
 }
 
 func (j *Product_Origin) Scan(value interface{}) error {
