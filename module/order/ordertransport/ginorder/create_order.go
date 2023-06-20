@@ -3,6 +3,8 @@ package ginorder
 import (
 	"TKPM-Go/common"
 	"TKPM-Go/component/appctx"
+	"TKPM-Go/module/contact/contactbiz"
+	"TKPM-Go/module/contact/contactstorage"
 	"TKPM-Go/module/order/orderbiz"
 	"TKPM-Go/module/order/ordermodel"
 	"TKPM-Go/module/order/orderstorage"
@@ -30,6 +32,12 @@ func CreateOrder(appCtx appctx.AppContext) gin.HandlerFunc {
 		store := orderstorage.NewSQLStore(db)
 		business := orderbiz.NewCreateOrderBusiness(store)
 
+		contact_store := contactstorage.NewSQLStore(db)
+		contact_business := contactbiz.NewGetContactBusiness(contact_store)
+		if _,err := contact_business.GetContact(context.Request.Context(), data.Contact_ID); err!=nil {
+			panic(err)
+		}
+
 		if err := business.CreateOrder(context.Request.Context(), &data); err != nil {
 			panic(err)
 		}
@@ -47,7 +55,7 @@ func CreateOrder(appCtx appctx.AppContext) gin.HandlerFunc {
 
 		//for each Products
 		for i := range data.Products {
-			data.Products[i].Order_UID=data.FakeId
+			data.Products[i].Order_UID = data.FakeId
 			data.Products[i].Order_ID = int(data.Products[i].Order_UID.GetLocalID())
 
 			//get product info from model products

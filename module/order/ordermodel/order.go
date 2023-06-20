@@ -48,7 +48,7 @@ type OrderCreate struct {
 	common.SQLModel `json:",inline"`
 	User_ID         int         `json:"-" validate:"required" gorm:"column:user_id"`
 	User_UID        *common.UID `json:"user_id" gorm:"-"`
-	Total_Price     float64     `json:"-" gorm:"column:total_price"`
+	Total_Price     float64     `json:"total_price" gorm:"column:total_price"`
 	Order_Status    string      `json:"-" gorm:"column:order_status;default:chưa xử lý"`
 	Contact_UID     *common.UID `json:"contact_id" gorm:"-"`
 	Contact_ID      int         `json:"-" gorm:"column:contact_id"`
