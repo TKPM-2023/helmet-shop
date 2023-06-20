@@ -99,6 +99,10 @@ func (res *OrderUpdate) Validate() error {
 	if err := validate.Var(res.Contact_ID, "required"); err != nil {
 		return ErrOrderContactIdIsRequired
 	}
+
+	if err:= validate.Var(res.Order_Status, "min=1,max=3");err!= nil {
+		return ErrOrderStatusInvalid
+	}
 	return nil
 }
 
