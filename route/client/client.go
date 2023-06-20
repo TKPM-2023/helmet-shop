@@ -3,9 +3,12 @@ package client
 import (
 	"TKPM-Go/component/appctx"
 	"TKPM-Go/middleware"
+	"TKPM-Go/module/cart/carttransport/gincart"
+	"TKPM-Go/module/category/categorytransport/gincategory"
 	"TKPM-Go/module/contact/contacttransport/gincontact"
 	"TKPM-Go/module/order/ordertransport/ginorder"
 	"TKPM-Go/module/order_detail/orderdetailtransport/ginorderdetail"
+	"TKPM-Go/module/product/producttransport/ginproduct"
 	"TKPM-Go/module/product_rating/ratingtransport/ginrating"
 	"TKPM-Go/module/user/usertransport/ginuser"
 
@@ -14,7 +17,6 @@ import (
 
 func ClientRoute(appContext appctx.AppContext, v1 *gin.RouterGroup) {
 	clients := v1.Group("client", middleware.RequireAuth(appContext))
-	clients.GET("/refresh", middleware.RequireAuth(appContext), ginuser.RefreshToken(appContext))
 
 	//Order
 	order := clients.Group("/orders")
@@ -25,21 +27,45 @@ func ClientRoute(appContext appctx.AppContext, v1 *gin.RouterGroup) {
 	order.GET("/", ginorder.ListOrder(appContext))
 
 	//OderDetail
-	orderdetail := clients.Group("/orderdetails")
-	orderdetail.POST("/", ginorderdetail.CreateOrderDetail(appContext))
-	orderdetail.GET("/:id", ginorderdetail.GetOrderDetail(appContext))
-	orderdetail.PATCH("/:id", ginorderdetail.UpdateOrderDetail(appContext))
-	orderdetail.DELETE("/:id",ginorderdetail.DeleteOrderDetail(appContext))
+	orderDetail := clients.Group("/orderdetails")
+	orderDetail.POST("/", ginorderdetail.CreateOrderDetail(appContext))
+	orderDetail.GET("/:id", ginorderdetail.GetOrderDetail(appContext))
+	orderDetail.PATCH("/:id", ginorderdetail.UpdateOrderDetail(appContext))
+	orderDetail.DELETE("/:id", ginorderdetail.DeleteOrderDetail(appContext))
+
+	//contact
+	contact := clients.Group("/contact")
+	contact.POST("/", gincontact.CreateContact(appContext))
+	contact.GET("/:id", gincontact.GetContact(appContext))
+	contact.PATCH("/:id", gincontact.UpdateContact(appContext))
+	contact.DELETE("/:id", gincontact.DeleteContact(appContext))
+	contact.GET("/", gincontact.ListContact(appContext))
+
+	//Cart
+	cart := clients.Group("/carts")
+	cart.GET("/:id", gincart.GetCart(appContext))
+	cart.PATCH("/:id", gincart.AddProducts(appContext))
+	cart.PATCH("/:id/quantity", gincart.UpdateQuantity(appContext))
+	cart.DELETE("/:id", gincart.RemoveProducts(appContext))
+
+	//User
+	user := clients.Group("/users")
+	user.PATCH("/:id", ginuser.UpdateUser(appContext))
+	user.PATCH("/:id/password", ginuser.UpdatePassword(appContext))
+	user.GET("/profile", ginuser.GetProfile(appContext))
+	user.GET("/refresh", ginuser.RefreshToken(appContext))
+
+	//Category
+	category := clients.Group("/categories")
+	category.GET("/:id", gincategory.GetCategory(appContext))
+	category.GET("/", gincategory.ListCategory(appContext))
+
+	//product
+	product := clients.Group("/products")
+	product.GET("/:id", ginproduct.GetProduct(appContext))
+	product.GET("/", ginproduct.ListProduct(appContext))
 
 	//ProductRating
 	clients.POST("/products/:id/rating", ginrating.CreateRating(appContext))
 	clients.PATCH("products/rating/:id", ginrating.UpdateRating(appContext))
-
-	//contact
-	contact:=clients.Group("/contact")
-	contact.POST("/", gincontact.CreateContact(appContext))
-	contact.GET("/:id",gincontact.GetContact(appContext))
-	contact.PATCH("/:id",gincontact.UpdateContact(appContext))
-	contact.DELETE("/:id",gincontact.DeleteContact(appContext))
-	contact.GET("/",gincontact.ListContact(appContext))
 }

@@ -31,6 +31,7 @@ func GetProduct(appCtx appctx.AppContext) gin.HandlerFunc {
 			ratings[i].Mask()
 			ratings[i].GenUserUID()
 			ratings[i].GenProductUID()
+			ratings[i].User.Mask()
 		}
 
 		context.JSON(http.StatusOK, common.SimpleSuccessResponse(result))

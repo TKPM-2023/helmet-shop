@@ -20,6 +20,7 @@ create table users
     role       enum ('user', 'admin') default 'user'                                        not null,
     salt       varchar(50)                                                                  null,
     avatar     json                                                                         null,
+    cart_id    int                                                                          null,
     status     int                    default 1                                             not null,
     created_at timestamp              default current_timestamp                             null,
     updated_at timestamp              default current_timestamp on update current_timestamp null,
@@ -73,6 +74,7 @@ create table orders
     user_id     int                                                             not null,
     contact_id int                                                              not null,
     total_price float                                                           not null,
+    comment     text                                                            null,
     status      int       default 1                                             not null,
     created_at  timestamp default current_timestamp                             null,
     updated_at  timestamp default current_timestamp on update current_timestamp null,
@@ -87,7 +89,6 @@ create table order_details
     product_origin json                                                            null,
     price       float                                                           not null,
     quantity    int                                                             not null,
-    comment     text                                                            null,
     discount    float     default 0                                             null,
     status      int       default 1                                             not null,
     created_at  timestamp default current_timestamp                             null,
@@ -109,7 +110,6 @@ create table contacts (
 create table carts
 (
     id          int auto_increment primary key,
-    user_id        int                                                             not null,
     status      int       default 1                                             not null,
     created_at  timestamp default current_timestamp                             null,
     updated_at  timestamp default current_timestamp on update current_timestamp null,
@@ -118,11 +118,12 @@ create table carts
 
 create table cart_products
 (
-    cart_id          int auto_increment primary key,
+    cart_id          int not null,
     product_id        int                                                             not null,
     quantity    int                                                             not null,
     created_at  timestamp default current_timestamp                             null,
-    updated_at  timestamp default current_timestamp on update current_timestamp null
+    updated_at  timestamp default current_timestamp on update current_timestamp null,
+    primary key (cart_id, product_id)
 );
 
 
