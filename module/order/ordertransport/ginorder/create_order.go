@@ -69,7 +69,7 @@ func CreateOrder(appCtx appctx.AppContext) gin.HandlerFunc {
 			data.Products[i].Product_Origin.Description = product.Description
 			data.Products[i].Product_Origin.Name = product.Name
 			data.Products[i].Price = (float64(product.Price) * float64(data.Products[i].Quantity)) - (float64(product.Price) * float64(data.Products[i].Discount))
-
+			data.Products[i].Product_Origin.Images=product.Images
 			if err := orderdetail_business.CreateOrderDetail(context.Request.Context(), &data.Products[i]); err != nil {
 				panic(err)
 			}
