@@ -78,7 +78,7 @@ create table orders
     status      int       default 1                                             not null,
     created_at  timestamp default current_timestamp                             null,
     updated_at  timestamp default current_timestamp on update current_timestamp null,
-    order_status enum ('chưa xử lý', 'đã thanh toán') default 'chưa xử lý'      
+    order_status int default 1    
 );
 
 

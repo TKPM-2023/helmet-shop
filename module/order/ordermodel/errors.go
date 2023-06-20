@@ -20,4 +20,9 @@ var (
 		errors.New("order contact is required"),
 		"order contact is required",
 		"ErrOrderContactIdIsRequired")
+
+	ErrOrderStatusInvalid = common.NewCustomError( 
+		errors.New("Order status invalid"),
+		"order status invalid",
+		"ErrOrderStatusInvalid")
 )
