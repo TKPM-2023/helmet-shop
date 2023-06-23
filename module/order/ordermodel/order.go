@@ -4,6 +4,7 @@ import (
 	"TKPM-Go/common"
 	"TKPM-Go/module/contact/contactmodel"
 	"TKPM-Go/module/order_detail/orderdetailmodel"
+	"TKPM-Go/module/user/usermodel"
 
 	"github.com/go-playground/validator/v10"
 )
@@ -14,6 +15,7 @@ type Order struct {
 	common.SQLModel `json:",inline"`
 	User_ID         int                            `json:"-" gorm:"column:user_id"`
 	User_UID        *common.UID                    `json:"user_id" gorm:"-"`
+	User            *usermodel.User                `json:"user"`
 	Total_Price     float64                        `json:"total_price" gorm:"column:total_price"`
 	Order_Status    int                            `json:"order_status" gorm:"column:order_status;default:1"`
 	Products        []orderdetailmodel.OrderDetail `json:"products"`
@@ -100,7 +102,7 @@ func (res *OrderUpdate) Validate() error {
 		return ErrOrderContactIdIsRequired
 	}
 
-	if err:= validate.Var(res.Order_Status, "min=0,max=2");err!= nil {
+	if err := validate.Var(res.Order_Status, "min=0,max=2"); err != nil {
 		return ErrOrderStatusInvalid
 	}
 	return nil
