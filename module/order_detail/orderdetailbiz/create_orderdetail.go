@@ -27,17 +27,6 @@ func (business *createOrderDetailBusiness) CreateOrderDetail(context context.Con
 		return err
 	}
 
-	/*
-	result, err := business.store.FindOrderDetailWithCondition(context, map[string]interface{}{"order_id": data.Order_ID})
-
-	
-	if err != nil {
-		return err
-	}
-
-	if result == nil {
-		return orderdetailmodel.ErrOrderDetailOrderIDNotFound //common.ErrEntityExisted(orderdetailmodel.EntityName, nil)
-	}*/
 
 	if err := business.store.CreateOrderDetail(context, data); err != nil {
 		return common.ErrCannotCreateEntity(orderdetailmodel.EntityName, err)

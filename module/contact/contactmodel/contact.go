@@ -37,7 +37,7 @@ func (c *Contact) GetUserID() int {
 type ContactCreate struct {
 	common.SQLModel `json:",inline"`
 	User_ID         int         `json:"-" gorm:"column:user_id"`
-	User_UID        *common.UID `json:"user_id" gorm:"-"`
+	//User_UID        *common.UID `json:"user_id" gorm:"-"`
 	Name            string      `json:"name" gorm:"column:name"`
 	Addr            string      `json:"addr" gorm:"column:addr"`
 	Phone           string      `json:"phone" gorm:"column:phone"`
@@ -79,7 +79,7 @@ func (res *ContactCreate) Validate() error {
 type ContactUpdate struct {
 	common.SQLModel `json:",inline"`
 	User_ID         int         `json:"-" gorm:"column:user_id"`
-	User_UID        *common.UID `json:"user_id" gorm:"-"`
+	//User_UID        *common.UID `json:"user_id" gorm:"-"`
 	Name            string      `json:"name" gorm:"column:name"`
 	Addr            string      `json:"addr" gorm:"column:addr"`
 	Phone           string      `json:"phone" gorm:"column:phone"`

@@ -15,4 +15,14 @@ var (
 		errors.New("order total price is required"),
 		"order total price is required",
 		"ErrOrderTotalPriceIsRequired")
+
+	ErrOrderContactIdIsRequired = common.NewCustomError(
+		errors.New("order contact is required"),
+		"order contact is required",
+		"ErrOrderContactIdIsRequired")
+
+	ErrOrderStatusInvalid = common.NewCustomError( 
+		errors.New("Order status invalid"),
+		"order status invalid",
+		"ErrOrderStatusInvalid")
 )

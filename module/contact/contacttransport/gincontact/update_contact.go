@@ -13,6 +13,7 @@ import (
 func UpdateContact(ctx appctx.AppContext) gin.HandlerFunc {
 	return func(context *gin.Context) {
 		db := ctx.GetMainDBConnection()
+		requester := context.MustGet(common.CurrentUser).(common.Requester)
 		var data contactmodel.ContactUpdate
 		uid, err := common.FromBase58(context.Param("id"))
 		if err != nil {
@@ -23,11 +24,12 @@ func UpdateContact(ctx appctx.AppContext) gin.HandlerFunc {
 			panic(err)
 		}
 
+		/*
 		if data.User_UID == nil {
 			panic(common.ErrInvalidRequest(nil))
-		}
+		}*/
 
-		data.User_ID = int(data.User_UID.GetLocalID())
+		data.User_ID = requester.GetUserId()//int(data.User_UID.GetLocalID())
 
 		store := contactstorage.NewSQLStore(db)
 		business := contactbiz.NewUpdateContactBusiness(store)
