@@ -49,7 +49,7 @@ type OrderCreate struct {
 	User_ID         int                                  `json:"-" validate:"required" gorm:"column:user_id"`
 	User_UID        *common.UID                          `json:"user_id" gorm:"-"`
 	Total_Price     float64                              `json:"total_price" gorm:"column:total_price"`
-	Order_Status    int                                  `json:"-" gorm:"column:order_status;default:1"`
+	Order_Status    int                                  `json:"-" gorm:"column:order_status;default:0"`
 	Contact_UID     *common.UID                          `json:"contact_id" gorm:"-"`
 	Contact_ID      int                                  `json:"-" gorm:"column:contact_id"`
 	Products        []orderdetailmodel.OrderDetailCreate `json:"products" gorm:"-"`
@@ -81,7 +81,7 @@ type OrderUpdate struct {
 	User_ID         int         `json:"-" validate:"required" gorm:"column:user_id"`
 	User_UID        *common.UID `json:"user_id" gorm:"-"`
 	Total_Price     float64     `json:"total_price" validate:"required" gorm:"column:total_price"`
-	Order_Status    int         `json:"order_status" gorm:"column:order_status;default:1"`
+	Order_Status    int         `json:"order_status" gorm:"column:order_status;default:0"`
 	Contact_UID     *common.UID `json:"contact_id" gorm:"-"`
 	Contact_ID      int         `json:"-" gorm:"column:contact_id"`
 }
@@ -100,7 +100,7 @@ func (res *OrderUpdate) Validate() error {
 		return ErrOrderContactIdIsRequired
 	}
 
-	if err:= validate.Var(res.Order_Status, "min=1,max=3");err!= nil {
+	if err:= validate.Var(res.Order_Status, "min=0,max=2");err!= nil {
 		return ErrOrderStatusInvalid
 	}
 	return nil
