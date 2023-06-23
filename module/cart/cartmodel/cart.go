@@ -64,3 +64,16 @@ func (c *CartProductDetail) GetProductID() int {
 }
 
 type CartProductDetails []CartProductDetail
+
+type ProductTotalUpdate struct {
+	CartId   int `gorm:"column:cart_id;"`
+	Quantity int `gorm:"column:quantity;"`
+}
+
+func (c *ProductTotalUpdate) GetCartID() int {
+	return c.CartId
+}
+
+func (c *ProductTotalUpdate) GetQuantity() int {
+	return c.Quantity
+}

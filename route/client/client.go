@@ -43,10 +43,10 @@ func ClientRoute(appContext appctx.AppContext, v1 *gin.RouterGroup) {
 
 	//Cart
 	cart := clients.Group("/carts")
-	cart.GET("/:id", gincart.GetCart(appContext))
-	cart.PATCH("/:id", gincart.AddProducts(appContext))
-	cart.PATCH("/:id/quantity", gincart.UpdateQuantity(appContext))
-	cart.DELETE("/:id", gincart.RemoveProducts(appContext))
+	cart.GET("", gincart.GetCart(appContext))
+	cart.PATCH("", gincart.AddProducts(appContext))
+	cart.PATCH("/quantity", gincart.UpdateQuantity(appContext))
+	cart.DELETE("", gincart.RemoveProducts(appContext))
 
 	//User
 	user := clients.Group("/users")

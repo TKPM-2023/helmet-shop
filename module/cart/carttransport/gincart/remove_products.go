@@ -13,19 +13,17 @@ import (
 func RemoveProducts(ctx appctx.AppContext) gin.HandlerFunc {
 	return func(context *gin.Context) {
 		db := ctx.GetMainDBConnection()
+		pubsub := ctx.GetPubSub()
 		var data cartmodel.RemoveCartProducts
-		uid, err := common.FromBase58(context.Param("id"))
-		if err != nil {
-			panic(common.ErrInvalidRequest(err))
-		}
+		requester := context.MustGet(common.CurrentUser).(common.Requester)
 
 		if err := context.ShouldBind(&data); err != nil {
 			panic(err)
 		}
 
 		store := cartstorage.NewSQLStore(db)
-		business := cartbiz.NewRemoveProductsBusiness(store)
-		if err := business.RemoveProducts(context.Request.Context(), int(uid.GetLocalID()), data); err != nil {
+		business := cartbiz.NewRemoveProductsBusiness(store, pubsub)
+		if err := business.RemoveProducts(context.Request.Context(), requester.GetCartId(), data); err != nil {
 			panic(err)
 		}
 		context.JSON(http.StatusOK, common.SimpleSuccessResponse(true))

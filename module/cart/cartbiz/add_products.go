@@ -1,7 +1,9 @@
 package cartbiz
 
 import (
+	"TKPM-Go/common"
 	"TKPM-Go/module/cart/cartmodel"
+	"TKPM-Go/pubsub"
 	"context"
 )
 
@@ -10,16 +12,20 @@ type AddProductsStorage interface {
 }
 
 type addProductsBusiness struct {
-	store AddProductsStorage
+	store  AddProductsStorage
+	pubsub pubsub.Pubsub
 }
 
-func NewAddProductsBusiness(store AddProductsStorage) *addProductsBusiness {
-	return &addProductsBusiness{store: store}
+func NewAddProductsBusiness(store AddProductsStorage, pubsub pubsub.Pubsub) *addProductsBusiness {
+	return &addProductsBusiness{store: store, pubsub: pubsub}
 }
 
 func (business *addProductsBusiness) AddProducts(context context.Context, id int, data cartmodel.CartProductDetails) error {
 	if err := business.store.AddProductsToCart(context, id, data); err != nil {
 		return err
 	}
+
+	business.pubsub.Publish(context, common.TopicAddProductsToCart, pubsub.NewMessage(&cartmodel.ProductTotalUpdate{CartId: id, Quantity: len(data)}))
+
 	return nil
 }

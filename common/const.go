@@ -21,6 +21,7 @@ type Requester interface {
 	GetUserId() int
 	GetUserEmail() string
 	GetUserRole() string
+	GetCartId() int
 }
 
 const (
@@ -28,4 +29,6 @@ const (
 	TopicUserDeleteProduct       pubsub.Topic = "TopicUserDeleteProduct"
 	TopicUserRatingProduct       pubsub.Topic = "TopicUserRatingProduct"
 	TopicUserDeleteRatingProduct pubsub.Topic = "TopicUserDeleteRatingProduct"
+	TopicAddProductsToCart       pubsub.Topic = "TopicAddProductsToCart"
+	TopicRemoveProductsFromCart  pubsub.Topic = "TopicRemoveProductsFromCart"
 )

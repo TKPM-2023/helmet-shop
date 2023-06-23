@@ -13,11 +13,8 @@ import (
 func UpdateQuantity(ctx appctx.AppContext) gin.HandlerFunc {
 	return func(context *gin.Context) {
 		db := ctx.GetMainDBConnection()
+		requester := context.MustGet(common.CurrentUser).(common.Requester)
 		var data cartmodel.CartProductDetail
-		uid, err := common.FromBase58(context.Param("id"))
-		if err != nil {
-			panic(common.ErrInvalidRequest(err))
-		}
 
 		if err := context.ShouldBind(&data); err != nil {
 			panic(err)
@@ -27,7 +24,7 @@ func UpdateQuantity(ctx appctx.AppContext) gin.HandlerFunc {
 
 		store := cartstorage.NewSQLStore(db)
 		business := cartbiz.NewUpdateQuantityBusiness(store)
-		if err := business.UpdateQuantity(context.Request.Context(), int(uid.GetLocalID()), &data); err != nil {
+		if err := business.UpdateQuantity(context.Request.Context(), requester.GetCartId(), &data); err != nil {
 			panic(err)
 		}
 		context.JSON(http.StatusOK, common.SimpleSuccessResponse(true))
