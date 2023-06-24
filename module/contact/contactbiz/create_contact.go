@@ -28,15 +28,15 @@ func (business *createContactBusiness) CreateContact(context context.Context, da
 	}
 
 	/*
-	_, err := business.store.FindContactWithCondition(context, map[string]interface{}{"user_id": data.User_ID})
+		_, err := business.store.FindContactWithCondition(context, map[string]interface{}{"user_id": data.UserId})
 
-	if err != nil {
-		return err
-	}
+		if err != nil {
+			return err
+		}
 
-	if result != nil {
-		return common.ErrEntityExisted(contactmodel.EntityName, nil)
-	}
+		if result != nil {
+			return common.ErrEntityExisted(contactmodel.EntityName, nil)
+		}
 	*/
 	if err := business.store.CreateContact(context, data); err != nil {
 		return common.ErrCannotCreateEntity(contactmodel.EntityName, err)

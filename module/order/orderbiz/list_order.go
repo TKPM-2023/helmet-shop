@@ -6,30 +6,29 @@ import (
 	"context"
 )
 
-type ListOrderStore interface {
-	ListDataWithCondition(
-		ctx context.Context,
+type ListOrderRepo interface {
+	ListOrder(
+		context context.Context,
 		filter *ordermodel.Filter,
 		paging *common.Paging,
-		moreKeys ...string,
 	) ([]ordermodel.Order, error)
 }
 
 type listOrderBusiness struct {
-	store ListOrderStore
+	repo ListOrderRepo
 }
 
-func NewListOrderBusiness(store ListOrderStore) *listOrderBusiness {
-	return &listOrderBusiness{store: store}
+func NewListOrderBusiness(repo ListOrderRepo) *listOrderBusiness {
+	return &listOrderBusiness{repo: repo}
 }
 
 func (business *listOrderBusiness) ListOrder(context context.Context,
 	filter *ordermodel.Filter,
 	paging *common.Paging,
 ) ([]ordermodel.Order, error) {
-	result, err := business.store.ListDataWithCondition(context, filter, paging, "Products","Contact","User")
+	result, err := business.repo.ListOrder(context, filter, paging)
 	if err != nil {
-		return nil, err
+		return nil, common.ErrCannotListEntity(ordermodel.EntityName, err)
 	}
 
 	return result, nil

@@ -36,11 +36,11 @@ func (c *Contact) GetUserID() int {
 
 type ContactCreate struct {
 	common.SQLModel `json:",inline"`
-	User_ID         int         `json:"-" gorm:"column:user_id"`
-	//User_UID        *common.UID `json:"user_id" gorm:"-"`
-	Name            string      `json:"name" gorm:"column:name"`
-	Addr            string      `json:"addr" gorm:"column:addr"`
-	Phone           string      `json:"phone" gorm:"column:phone"`
+	User_ID         int `json:"-" gorm:"column:user_id"`
+	//UserUID        *common.UID `json:"user_id" gorm:"-"`
+	Name  string `json:"name" gorm:"column:name"`
+	Addr  string `json:"addr" gorm:"column:addr"`
+	Phone string `json:"phone" gorm:"column:phone"`
 }
 
 func (ContactCreate) TableName() string {
@@ -58,19 +58,19 @@ func (c *ContactCreate) GetUserID() int {
 func (res *ContactCreate) Validate() error {
 	validate := validator.New()
 
-	if err:=validate.Var(res.User_ID, "required") ;err != nil {
+	if err := validate.Var(res.User_ID, "required"); err != nil {
 		return ErrContactUserIdIsRequired
 	}
 
-	if err:=validate.Var(res.Name, "required") ;err != nil {
+	if err := validate.Var(res.Name, "required"); err != nil {
 		return ErrContactNameIsRequired
 	}
-	
-	if err:=validate.Var(res.Addr, "required") ;err != nil {
+
+	if err := validate.Var(res.Addr, "required"); err != nil {
 		return ErrContactAddressIsRequired
 	}
 
-	if err:=validate.Var(res.Phone, "required") ;err != nil {
+	if err := validate.Var(res.Phone, "required"); err != nil {
 		return ErrContactPhoneIsRequired
 	}
 	return nil
@@ -78,16 +78,16 @@ func (res *ContactCreate) Validate() error {
 
 type ContactUpdate struct {
 	common.SQLModel `json:",inline"`
-	User_ID         int         `json:"-" gorm:"column:user_id"`
-	//User_UID        *common.UID `json:"user_id" gorm:"-"`
-	Name            string      `json:"name" gorm:"column:name"`
-	Addr            string      `json:"addr" gorm:"column:addr"`
-	Phone           string      `json:"phone" gorm:"column:phone"`
+	User_ID         int `json:"-" gorm:"column:user_id"`
+	//UserUID        *common.UID `json:"user_id" gorm:"-"`
+	Name  string `json:"name" gorm:"column:name"`
+	Addr  string `json:"addr" gorm:"column:addr"`
+	Phone string `json:"phone" gorm:"column:phone"`
 }
 
 func (res *ContactUpdate) Validate() error {
 	//validate := validator.New()
-	
+
 	return nil
 }
 

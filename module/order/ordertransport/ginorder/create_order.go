@@ -27,14 +27,14 @@ func CreateOrder(appCtx appctx.AppContext) gin.HandlerFunc {
 			panic(err)
 		}
 
-		data.User_ID = requester.GetUserId() //int(data.User_UID.GetLocalID())
-		data.Contact_ID = int(data.Contact_UID.GetLocalID())
+		data.UserId = requester.GetUserId()
+		data.ContactId = int(data.ContactUID.GetLocalID())
 		store := orderstorage.NewSQLStore(db)
 		business := orderbiz.NewCreateOrderBusiness(store)
 
 		contact_store := contactstorage.NewSQLStore(db)
 		contact_business := contactbiz.NewGetContactBusiness(contact_store)
-		if _,err := contact_business.GetContact(context.Request.Context(), data.Contact_ID); err!=nil {
+		if _, err := contact_business.GetContact(context.Request.Context(), data.ContactId); err != nil {
 			panic(err)
 		}
 
@@ -53,7 +53,8 @@ func CreateOrder(appCtx appctx.AppContext) gin.HandlerFunc {
 		orderdetail_store := orderdetailstorage.NewSQLStore(db)
 		orderdetail_business := orderdetailbiz.NewCreateOrderDetailBusiness(orderdetail_store)
 
-		//for each Products
+		//for each Product
+
 		for i := range data.Products {
 			data.Products[i].Order_UID = data.FakeId
 			data.Products[i].Order_ID = int(data.Products[i].Order_UID.GetLocalID())
@@ -65,11 +66,11 @@ func CreateOrder(appCtx appctx.AppContext) gin.HandlerFunc {
 				panic(err)
 			}
 
-			//assign to prodcut_origin
+			//assign to product_origin
 			data.Products[i].Product_Origin.Description = product.Description
 			data.Products[i].Product_Origin.Name = product.Name
 			data.Products[i].Price = (float64(product.Price) * float64(data.Products[i].Quantity)) - (float64(product.Price) * float64(data.Products[i].Discount))
-			data.Products[i].Product_Origin.Images=product.Images
+			data.Products[i].Product_Origin.Images = product.Images
 			if err := orderdetail_business.CreateOrderDetail(context.Request.Context(), &data.Products[i]); err != nil {
 				panic(err)
 			}

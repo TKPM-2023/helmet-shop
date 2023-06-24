@@ -24,7 +24,6 @@ func GetCart(appCtx appctx.AppContext) gin.HandlerFunc {
 		cartProducts := result.CartProducts
 		for i := range cartProducts {
 			cartProducts[i].Mask()
-			cartProducts[i].Product.GenCategoryUID()
 			cartProducts[i].Product.Mask()
 		}
 		context.JSON(http.StatusOK, common.SimpleSuccessResponse(result))

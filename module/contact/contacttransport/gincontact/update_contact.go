@@ -25,11 +25,11 @@ func UpdateContact(ctx appctx.AppContext) gin.HandlerFunc {
 		}
 
 		/*
-		if data.User_UID == nil {
-			panic(common.ErrInvalidRequest(nil))
-		}*/
+			if data.UserUID == nil {
+				panic(common.ErrInvalidRequest(nil))
+			}*/
 
-		data.User_ID = requester.GetUserId()//int(data.User_UID.GetLocalID())
+		data.User_ID = requester.GetUserId() //int(data.UserUID.GetLocalID())
 
 		store := contactstorage.NewSQLStore(db)
 		business := contactbiz.NewUpdateContactBusiness(store)

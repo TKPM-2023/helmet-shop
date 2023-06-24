@@ -23,13 +23,9 @@ func UpdateOrder(ctx appctx.AppContext) gin.HandlerFunc {
 		if err := context.ShouldBind(&data); err != nil {
 			panic(err)
 		}
-/*
-		if data.User_UID == nil {
-			panic(common.ErrInvalidRequest(nil))
-		}*/
 
-		data.User_ID = requester.GetUserId()//int(data.User_UID.GetLocalID())
-		data.Contact_ID=int(data.Contact_UID.GetLocalID())
+		data.UserId = requester.GetUserId()
+		data.ContactId = int(data.ContactUID.GetLocalID())
 		store := orderstorage.NewSQLStore(db)
 		business := orderbiz.NewUpdateOrderBusiness(store)
 		if err := business.UpdateOrder(context.Request.Context(), int(uid.GetLocalID()), &data); err != nil {

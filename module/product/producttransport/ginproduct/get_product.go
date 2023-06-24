@@ -24,7 +24,6 @@ func GetProduct(appCtx appctx.AppContext) gin.HandlerFunc {
 			panic(err)
 		}
 		result.Mask()
-		result.GenCategoryUID()
 
 		ratings := result.Ratings
 		for i := range ratings {
