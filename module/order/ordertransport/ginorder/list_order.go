@@ -8,6 +8,7 @@ import (
 	"TKPM-Go/module/order/orderbiz"
 	"TKPM-Go/module/order/ordermodel"
 	"TKPM-Go/module/order/orderstorage"
+	"TKPM-Go/module/user/userstorage"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -40,13 +41,23 @@ func ListOrder(ctx appctx.AppContext) gin.HandlerFunc {
 
 		Contact_store := contactstorage.NewSQLStore(db)
 		Contact_business := contactbiz.NewGetContactBusiness(Contact_store)
+
+		User_store := userstorage.NewSQLStore(db)
+
+		if err != nil {
+			panic(err)
+		}
 		for i := range result {
-			Contact_result, err:= Contact_business.GetContact(c.Request.Context(), result[i].Contact_ID)
-			if err ==nil {
-			Contact_result.GenUserUID()
-			result[i].Contact=Contact_result
-			result[i].Mask()
-			result[i].GenUserUID()
+			Contact_result, err := Contact_business.GetContact(c.Request.Context(), result[i].Contact_ID)
+			if err == nil {
+				Contact_result.GenUserUID()
+				result[i].Contact = Contact_result
+				result[i].Mask()
+				result[i].GenUserUID()
+			}
+			User, err := User_store.FindUser(c.Request.Context(), map[string]interface{}{"id": result[i].User_ID})
+			if err==nil {
+				result[i].User=User
 			}
 			for j := range result[i].Products {
 				result[i].Products[j].GenOrderUID()
