@@ -9,7 +9,7 @@ const (
 	DbTypeUser          DbType = 2
 	DbTypeProduct       DbType = 3
 	DbTypeOrder         DbType = 4
-	DbTypeOrder_Detail  DbType = 5
+	DbTypeOrderDetail   DbType = 5
 	DbTypeProductRating DbType = 6
 	DbTypeContact       DbType = 7
 	DbTypeCart          DbType = 8

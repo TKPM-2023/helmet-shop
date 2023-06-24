@@ -27,7 +27,6 @@ func (business *createOrderDetailBusiness) CreateOrderDetail(context context.Con
 		return err
 	}
 
-
 	if err := business.store.CreateOrderDetail(context, data); err != nil {
 		return common.ErrCannotCreateEntity(orderdetailmodel.EntityName, err)
 	}

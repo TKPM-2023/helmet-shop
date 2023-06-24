@@ -42,6 +42,10 @@ func ListOrder(ctx appctx.AppContext) gin.HandlerFunc {
 			if err == nil {
 				result[i].Mask()
 				result[i].Contact.Mask()
+				products := result[i].Products
+				for i := range products {
+					products[i].Mask()
+				}
 			}
 		}
 

@@ -56,21 +56,21 @@ func CreateOrder(appCtx appctx.AppContext) gin.HandlerFunc {
 		//for each Product
 
 		for i := range data.Products {
-			data.Products[i].Order_UID = data.FakeId
-			data.Products[i].Order_ID = int(data.Products[i].Order_UID.GetLocalID())
+			data.Products[i].OrderUID = data.FakeId
+			data.Products[i].OrderId = int(data.Products[i].OrderUID.GetLocalID())
 
 			//get product info from model products
-			product, err := product_business.GetProduct(context.Request.Context(), int(data.Products[i].Product_Origin.UID.GetLocalID()))
+			product, err := product_business.GetProduct(context.Request.Context(), int(data.Products[i].ProductOrigin.UID.GetLocalID()))
 
 			if err != nil {
 				panic(err)
 			}
 
 			//assign to product_origin
-			data.Products[i].Product_Origin.Description = product.Description
-			data.Products[i].Product_Origin.Name = product.Name
+			data.Products[i].ProductOrigin.Description = product.Description
+			data.Products[i].ProductOrigin.Name = product.Name
 			data.Products[i].Price = (float64(product.Price) * float64(data.Products[i].Quantity)) - (float64(product.Price) * float64(data.Products[i].Discount))
-			data.Products[i].Product_Origin.Images = product.Images
+			data.Products[i].ProductOrigin.Images = product.Images
 			if err := orderdetail_business.CreateOrderDetail(context.Request.Context(), &data.Products[i]); err != nil {
 				panic(err)
 			}

@@ -22,23 +22,23 @@ func CreateOrderDetail(appCtx appctx.AppContext) gin.HandlerFunc {
 			panic(err)
 		}
 
-		if data.Order_UID == nil {
+		if data.OrderUID == nil {
 			panic(common.ErrInvalidRequest(nil))
 		}
 
-		data.Order_ID = int(data.Order_UID.GetLocalID())
+		data.OrderId = int(data.OrderUID.GetLocalID())
 
-		product_store := productstorage.NewSQLStore(db)
-		product_business := productbiz.NewGetProductBusiness(product_store)
-		product, err :=product_business.GetProduct(context.Request.Context(), int(data.Product_Origin.UID.GetLocalID()))
+		productStore := productstorage.NewSQLStore(db)
+		productBusiness := productbiz.NewGetProductBusiness(productStore)
+		product, err := productBusiness.GetProduct(context.Request.Context(), int(data.ProductOrigin.UID.GetLocalID()))
 
 		if err != nil {
 			panic(err)
 		}
 
-		data.Product_Origin.Description=product.Description
-		data.Product_Origin.Name=product.Name
-		data.Price=(float64(product.Price)*float64(data.Quantity))-(float64(product.Price)*float64(data.Discount))
+		data.ProductOrigin.Description = product.Description
+		data.ProductOrigin.Name = product.Name
+		data.Price = (float64(product.Price) * float64(data.Quantity)) - (float64(product.Price) * float64(data.Discount))
 		store := orderdetailstorage.NewSQLStore(db)
 		business := orderdetailbiz.NewCreateOrderDetailBusiness(store)
 

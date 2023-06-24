@@ -24,7 +24,6 @@ func GetOrderDetail(appCtx appctx.AppContext) gin.HandlerFunc {
 			panic(err)
 		}
 		result.Mask()
-		result.GenOrderUID()
 
 		context.JSON(http.StatusOK, common.SimpleSuccessResponse(result))
 	}

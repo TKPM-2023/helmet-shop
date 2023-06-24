@@ -2,7 +2,6 @@ package orderdetailmodel
 
 import (
 	"TKPM-Go/common"
-
 	"github.com/go-playground/validator/v10"
 )
 
@@ -10,45 +9,43 @@ const EntityName = "Order Details"
 
 type OrderDetail struct {
 	common.SQLModel `json:",inline"`
-	Order_UID       *common.UID     `json:"order_id" gorm:"-"`
-	Order_ID        int             `json:"-" gorm:"column:order_id"`
-	Product_Origin  *Product_Origin `json:"product_origin" gorm:"product_origin"`
-	Price           float64         `json:"price" gorm:"column:price"`
-	Quantity        int             `json:"quantiy" gorm:"column:quantity"`
-	Discount        float32         `json:"discount" gorm:"column:discount"`
-}
-
-func (p *OrderDetail) GenOrderUID() {
-	uid:= common.NewUID(uint32(p.Order_ID), int(common.DbTypeCategory), 1)
-	p.Order_UID= &uid
+	OrderUID        *common.UID    `json:"order_id" gorm:"-"`
+	OrderId         int            `json:"-" gorm:"column:order_id"`
+	ProductOrigin   *ProductOrigin `json:"product_origin" gorm:"product_origin"`
+	Price           float64        `json:"price" gorm:"column:price"`
+	Quantity        int            `json:"quantity" gorm:"column:quantity"`
+	Discount        float32        `json:"discount" gorm:"column:discount"`
 }
 
 func (OrderDetail) TableName() string {
 	return "order_details"
 }
 
-func (c *OrderDetail) Mask() {
-	c.GenUID(common.DbTypeOrder_Detail)
+func (d *OrderDetail) Mask() {
+	d.GenUID(common.DbTypeOrderDetail)
+
+	uid := common.NewUID(uint32(d.OrderId), int(common.DbTypeOrder), 1)
+	d.OrderUID = &uid
 }
 
-func (c *OrderDetail) GetOrderDetailID() int {
-	return c.Id
+func (d *OrderDetail) GetOrderDetailID() int {
+	return d.Id
 }
 
 type OrderDetailCreate struct {
 	common.SQLModel `json:",inline"`
-	Order_ID        int             `json:"-" validate:"required" gorm:"column:order_id"`
-	Order_UID       *common.UID     `json:"order_id" gorm:"-"`
-	Product_Origin  *Product_Origin `json:"product_origin" gorm:"product_origin"`
-	Price           float64         `json:"price" validate:"required" gorm:"column:price"`
-	Quantity        int             `json:"quantity" validate:"required" gorm:"column:quantity"`
-	Discount        float32         `json:"discount" gorm:"column:discount"`
+	OrderId         int            `json:"-" validate:"required" gorm:"column:order_id"`
+	OrderUID        *common.UID    `json:"order_id" gorm:"-"`
+	ProductOrigin   *ProductOrigin `json:"product_origin" gorm:"product_origin"`
+	Price           float64        `json:"price" validate:"required" gorm:"column:price"`
+	Quantity        int            `json:"quantity" validate:"required" gorm:"column:quantity"`
+	Discount        float32        `json:"discount" gorm:"column:discount"`
 }
 
 func (res *OrderDetailCreate) Validate() error {
 	validate := validator.New()
 
-	if err := validate.Var(res.Order_ID, "required"); err != nil {
+	if err := validate.Var(res.OrderId, "required"); err != nil {
 		return ErrOrderDetailOrderIdIsRequired
 	}
 
@@ -66,17 +63,17 @@ func (OrderDetailCreate) TableName() string {
 	return OrderDetail{}.TableName()
 }
 
-func (c *OrderDetailCreate) Mask() {
-	c.GenUID(common.DbTypeUser)
+func (d *OrderDetailCreate) Mask() {
+	d.GenUID(common.DbTypeUser)
 }
 
 type OrderDetailUpdate struct {
-	Order_ID       int             `json:"-" gorm:"column:order_id"`
-	Order_UID      *common.UID     `json:"order_id" gorm:"-"`
-	Product_Origin *Product_Origin `json:"product_origin" gorm:"product_origin"`
-	Price          float64         `json:"price" gorm:"column:price"`
-	Quantity       int             `json:"quantity" gorm:"column:quantity"`
-	Discount       float32         `json:"discount" gorm:"column:discount"`
+	OrderId       int            `json:"-" gorm:"column:order_id"`
+	OrderUID      *common.UID    `json:"order_id" gorm:"-"`
+	ProductOrigin *ProductOrigin `json:"product_origin" gorm:"product_origin"`
+	Price         float64        `json:"price" gorm:"column:price"`
+	Quantity      int            `json:"quantity" gorm:"column:quantity"`
+	Discount      float32        `json:"discount" gorm:"column:discount"`
 }
 
 func (OrderDetailUpdate) TableName() string {
@@ -87,7 +84,7 @@ func (res *OrderDetailUpdate) Validate() error {
 
 	validate := validator.New()
 
-	if err := validate.Var(res.Order_ID, "required"); err != nil {
+	if err := validate.Var(res.OrderId, "required"); err != nil {
 		return ErrOrderDetailOrderIdIsRequired
 	}
 
@@ -98,6 +95,5 @@ func (res *OrderDetailUpdate) Validate() error {
 	if err := validate.Var(res.Quantity, "required"); err != nil {
 		return ErrOrderDetailQuantityIsRequired
 	}
-	// chờ implement, lười quá
 	return nil
 }

@@ -23,11 +23,11 @@ func UpdateOrderDetail(ctx appctx.AppContext) gin.HandlerFunc {
 			panic(err)
 		}
 
-		if data.Order_UID == nil {
+		if data.OrderUID == nil {
 			panic(common.ErrInvalidRequest(nil))
 		}
 
-		data.Order_ID = int(data.Order_UID.GetLocalID())
+		data.OrderId = int(data.OrderUID.GetLocalID())
 
 		store := orderdetailstorage.NewSQLStore(db)
 		business := orderdetailbiz.NewUpdateOrderDetailBusiness(store)
