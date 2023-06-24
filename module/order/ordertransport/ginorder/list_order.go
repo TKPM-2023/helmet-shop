@@ -41,7 +41,7 @@ func ListOrder(ctx appctx.AppContext) gin.HandlerFunc {
 		for i := range result {
 			if err == nil {
 				result[i].Mask()
-				result[i].Contact.GenUserUID()
+				result[i].Contact.Mask()
 			}
 		}
 

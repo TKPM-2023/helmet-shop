@@ -31,6 +31,6 @@ func UpdateOrder(ctx appctx.AppContext) gin.HandlerFunc {
 		if err := business.UpdateOrder(context.Request.Context(), int(uid.GetLocalID()), &data); err != nil {
 			panic(err)
 		}
-		context.JSON(http.StatusOK, gin.H{"ok": 1})
+		context.JSON(http.StatusOK, common.SimpleSuccessResponse(true))
 	}
 }

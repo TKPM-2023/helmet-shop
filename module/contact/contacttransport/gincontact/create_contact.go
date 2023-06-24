@@ -21,12 +21,7 @@ func CreateContact(appCtx appctx.AppContext) gin.HandlerFunc {
 			panic(err)
 		}
 
-		/*
-			if data.UserUID == nil {
-				panic(common.ErrInvalidRequest(nil))
-			}*/
-
-		data.User_ID = requester.GetUserId() //int(data.UserUID.GetLocalID())
+		data.UserId = requester.GetUserId()
 
 		store := contactstorage.NewSQLStore(db)
 		business := contactbiz.NewCreateContactBusiness(store)

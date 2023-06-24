@@ -21,8 +21,8 @@ func (s *sqlStore) ListDataWithCondition(
 		if f.Status > 0 {
 			db = db.Where("status = ?", f.Status)
 		}
-		if f.User_Id !=nil {
-			db = db.Where("user_id = ?", f.User_Id.GetLocalID())
+		if f.UserId != nil {
+			db = db.Where("user_id = ?", f.UserId.GetLocalID())
 		}
 	}
 
@@ -43,11 +43,11 @@ func (s *sqlStore) ListDataWithCondition(
 
 	} else {
 		offset := (paging.Page - 1) * paging.Limit
-		db = db.Offset(int(offset))
+		db = db.Offset(offset)
 	}
 
 	if err := db.
-		Limit(int(paging.Limit)).
+		Limit(paging.Limit).
 		Order("id desc").
 		Find(&result).Error; err != nil {
 		return nil, common.ErrDB(err)
