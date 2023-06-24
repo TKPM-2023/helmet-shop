@@ -3,11 +3,8 @@ package ginorder
 import (
 	"TKPM-Go/common"
 	"TKPM-Go/component/appctx"
-	"TKPM-Go/module/contact/contactbiz"
-	"TKPM-Go/module/contact/contactstorage"
 	"TKPM-Go/module/order/orderbiz"
 	"TKPM-Go/module/order/orderstorage"
-	"TKPM-Go/module/user/userstorage"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -28,25 +25,10 @@ func GetOrder(appCtx appctx.AppContext) gin.HandlerFunc {
 			panic(err)
 		}
 
-		Contact_store := contactstorage.NewSQLStore(db)
-		Contact_business := contactbiz.NewGetContactBusiness(Contact_store)
-		Contact_result, err := Contact_business.GetContact(context.Request.Context(), result.Contact_ID)
-
-		
-		User_store := userstorage.NewSQLStore(db)
-		User, err := User_store.FindUser(context.Request.Context(), map[string]interface{}{"id": result.User_ID})
-
-		if err != nil {
-			panic(err)
-		}
-
 		result.Mask()
 		result.GenUserUID()
 		result.GenContactUID()
-		Contact_result.GenUID(common.DbTypeContact)
-		Contact_result.GenUserUID()
-		result.User=User
-		result.Contact = Contact_result
+		result.Contact.GenUserUID()
 		products := result.Products
 		for i := range products {
 			products[i].Mask()

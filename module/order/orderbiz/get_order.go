@@ -23,7 +23,7 @@ func NewGetOrderBusiness(store GetOrderStore) *getOrderBusiness {
 
 func (business *getOrderBusiness) GetOrder(
 	ctx context.Context, id int) (*ordermodel.Order, error) {
-	result, err := business.store.FindOrderWithCondition(ctx, map[string]interface{}{"id": id}, "Products")
+	result, err := business.store.FindOrderWithCondition(ctx, map[string]interface{}{"id": id}, "Products","Contact","User")
 
 	if err != nil {
 		if err != common.RecordNotFound {
