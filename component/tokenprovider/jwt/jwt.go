@@ -43,21 +43,36 @@ func (j *jwtProvider) Generate(data tokenprovider.TokenPayload, expiry int) (*to
 }
 
 func (j *jwtProvider) Validate(myToken string) (*tokenprovider.TokenPayload, error) {
-	res, err := jwt.ParseWithClaims(myToken, &myClaims{}, func(token *jwt.Token) (interface{}, error) {
+	token, err := jwt.ParseWithClaims(myToken, &myClaims{}, func(token *jwt.Token) (interface{}, error) {
 		return []byte(j.secret), nil
 	})
 
 	if err != nil {
+		if ve, ok := err.(*jwt.ValidationError); ok {
+			if ve.Errors&jwt.ValidationErrorSignatureInvalid != 0 {
+				return nil, tokenprovider.ErrInvalidToken
+			}
+			if ve.Errors&jwt.ValidationErrorExpired != 0 {
+				return nil, tokenprovider.ErrTokenExpired
+			}
+		}
 		return nil, tokenprovider.ErrInvalidToken
 	}
+
+	claims, ok := token.Claims.(*myClaims)
 
 	// validate the token
-	if !res.Valid {
-		return nil, tokenprovider.ErrInvalidToken
-	}
+	if !token.Valid {
+		//Check token expire
+		currentTimestamp := time.Now().Unix()
+		if claims.StandardClaims.ExpiresAt <= currentTimestamp {
+			return nil, tokenprovider.ErrTokenExpired
+		}
 
-	claims, ok := res.Claims.(*myClaims)
-	if !ok {
+		if !ok {
+			return nil, tokenprovider.ErrInvalidToken
+		}
+
 		return nil, tokenprovider.ErrInvalidToken
 	}
 
