@@ -18,7 +18,7 @@ func (s *sqlStore) ListDataWithCondition(
 	db = db.Table(usermodel.User{}.TableName())
 
 	if f := filter; f != nil {
-		if f.Status > 0 {
+		if f.Status >= 0 {
 			db = db.Where("status = ?", f.Status)
 		}
 		if f.Role == "user" || f.Role == "admin" {

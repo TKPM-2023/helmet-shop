@@ -27,7 +27,7 @@ func ClientRoute(appContext appctx.AppContext, v1 *gin.RouterGroup) {
 	order.GET("/", ginorder.ListOrder(appContext))
 
 	//OderDetail
-	orderDetail := clients.Group("/orderdetails")
+	orderDetail := clients.Group("/order-details")
 	orderDetail.POST("/", ginorderdetail.CreateOrderDetail(appContext))
 	orderDetail.GET("/:id", ginorderdetail.GetOrderDetail(appContext))
 	orderDetail.PATCH("/:id", ginorderdetail.UpdateOrderDetail(appContext))
@@ -53,7 +53,6 @@ func ClientRoute(appContext appctx.AppContext, v1 *gin.RouterGroup) {
 	user.PATCH("/:id", ginuser.UpdateUser(appContext))
 	user.PATCH("/:id/password", ginuser.UpdatePassword(appContext))
 	user.GET("/profile", ginuser.GetProfile(appContext))
-	user.GET("/refresh", ginuser.RefreshToken(appContext))
 
 	//Category
 	category := clients.Group("/categories")

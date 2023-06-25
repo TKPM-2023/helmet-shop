@@ -18,6 +18,10 @@ type AccessTokenResponse struct {
 	AccessToken *tokenprovider.Token `json:"access_token"`
 }
 
+type RefreshToken struct {
+	RefreshToken string `json:"refresh_token"`
+}
+
 func NewRefreshTokenResponse(at *tokenprovider.Token) *AccessTokenResponse {
 	return &AccessTokenResponse{
 		AccessToken: at,

@@ -11,10 +11,12 @@ import (
 )
 
 func UserRoute(appContext appctx.AppContext, v1 *gin.RouterGroup) {
+	//User
 	v1.POST("/register", ginuser.Register(appContext))
 	v1.POST("/authenticate", ginuser.Login(appContext))
+	v1.POST("/refresh", ginuser.RefreshToken(appContext))
 
-	//upload service
+	//upload
 	v1.POST("/upload", ginupload.Upload(appContext))
 
 	//Category
@@ -22,7 +24,7 @@ func UserRoute(appContext appctx.AppContext, v1 *gin.RouterGroup) {
 	category.GET("/:id", gincategory.GetCategory(appContext))
 	category.GET("/", gincategory.ListCategory(appContext))
 
-	//product
+	//Product
 	product := v1.Group("/products")
 	product.GET("/:id", ginproduct.GetProduct(appContext))
 	product.GET("/", ginproduct.ListProduct(appContext))
