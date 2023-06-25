@@ -35,4 +35,9 @@ var (
 		errors.New("ProductId is required"),
 		"ProductId is required",
 		"ErrProductIdIsRequired")
+
+	ErrCannotCreateRating = common.NewCustomError(
+		errors.New("cannot create rating"),
+		"cannot create rating",
+		"ErrCannotCreateRating")
 )

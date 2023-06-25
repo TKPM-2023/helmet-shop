@@ -15,6 +15,7 @@ type OrderDetail struct {
 	Price           float64        `json:"price" gorm:"column:price"`
 	Quantity        int            `json:"quantity" gorm:"column:quantity"`
 	Discount        float32        `json:"discount" gorm:"column:discount"`
+	Order           *Order         `json:"order" gorm:"foreignKey:OrderId"`
 }
 
 func (OrderDetail) TableName() string {

@@ -4,6 +4,7 @@ import (
 	"TKPM-Go/common"
 	"TKPM-Go/module/cart/cartmodel"
 	"context"
+	"fmt"
 )
 
 type GetCartStorage interface {
@@ -22,6 +23,7 @@ func NewGetCartBusiness(store GetCartStorage) *getCartBusiness {
 }
 
 func (business *getCartBusiness) GetCart(context context.Context, id int) (*cartmodel.Cart, error) {
+	fmt.Println(id)
 	result, err := business.store.FindCartWithCondition(context, map[string]interface{}{"id": id}, "CartProducts.Product", "CartProducts")
 
 	if err != nil {
@@ -31,6 +33,8 @@ func (business *getCartBusiness) GetCart(context context.Context, id int) (*cart
 		}
 		return nil, common.ErrCannotGetEntity(cartmodel.EntityName, err)
 	}
+
+	fmt.Println(result)
 
 	if result.Status == 0 {
 		return nil, common.ErrEntityDeleted(cartmodel.EntityName, err)

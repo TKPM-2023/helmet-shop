@@ -28,8 +28,6 @@ func GetProduct(appCtx appctx.AppContext) gin.HandlerFunc {
 		ratings := result.Ratings
 		for i := range ratings {
 			ratings[i].Mask()
-			ratings[i].GenUserUID()
-			ratings[i].GenProductUID()
 			ratings[i].User.Mask()
 		}
 

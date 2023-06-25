@@ -60,7 +60,8 @@ create table product_ratings
 (
     id         int auto_increment primary key,
     user_id    int                                                             not null,
-    product_id    int                                                             not null,
+    product_id int                                                             not null,
+    detail_id  int                                                             not null,
     point      float     default 0                                             null,
     comment    text                                                            null,
     status     int       default 1                                             not null,

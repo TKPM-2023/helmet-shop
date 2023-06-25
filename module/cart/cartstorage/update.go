@@ -12,8 +12,8 @@ func (s *sqlStore) AddProductsToCart(context context.Context, cartID int, data c
 
 	for _, product := range data {
 		cartProduct := &cartmodel.CartProduct{
-			CartID:    cartID,
-			ProductID: int(product.ProductUID.GetLocalID()),
+			CartId:    cartID,
+			ProductId: int(product.ProductUID.GetLocalID()),
 			Quantity:  product.Quantity,
 		}
 

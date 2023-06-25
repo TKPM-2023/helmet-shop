@@ -10,7 +10,7 @@ const EntityName = "Carts"
 type Cart struct {
 	common.SQLModel `json:",inline"`
 	TotalProduct    int           `json:"total_product" gorm:"column:total_product"`
-	CartProducts    []CartProduct `json:"cart_products" gorm:"ForeignKey:CartID;AssociationForeignKey:ID"`
+	CartProducts    []CartProduct `json:"cart_products" gorm:"ForeignKey:CartId;AssociationForeignKey:Id"`
 }
 
 func (Cart) TableName() string {
@@ -22,12 +22,12 @@ func (c *Cart) Mask() {
 }
 
 type CartProduct struct {
-	CartID     int                  `json:"-" gorm:"column:cart_id; primary_key"`
-	CartUID    *common.UID          `json:"cart_id" gorm:"-"`
-	ProductID  int                  `json:"-" gorm:"column:product_id; primary_key"`
-	ProductUID *common.UID          `json:"product_id" gorm:"-"`
-	Quantity   int                  `json:"quantity" gorm:"column:quantity; not null"`
-	Product    productmodel.Product `gorm:"ForeignKey:ProductID"`
+	CartId     int                   `json:"-" gorm:"column:cart_id; primary_key"`
+	CartUID    *common.UID           `json:"cart_id" gorm:"-"`
+	ProductId  int                   `json:"-" gorm:"column:product_id; primary_key"`
+	ProductUID *common.UID           `json:"product_id" gorm:"-"`
+	Quantity   int                   `json:"quantity" gorm:"column:quantity; not null"`
+	Product    *productmodel.Product `gorm:"ForeignKey:ProductId"`
 }
 
 func (CartProduct) TableName() string {
@@ -35,10 +35,10 @@ func (CartProduct) TableName() string {
 }
 
 func (c *CartProduct) Mask() {
-	cartUID := common.NewUID(uint32(c.CartID), int(common.DbTypeCart), 1)
+	cartUID := common.NewUID(uint32(c.CartId), int(common.DbTypeCart), 1)
 	c.CartUID = &cartUID
 
-	productUID := common.NewUID(uint32(c.ProductID), int(common.DbTypeProduct), 1)
+	productUID := common.NewUID(uint32(c.ProductId), int(common.DbTypeProduct), 1)
 	c.ProductUID = &productUID
 }
 

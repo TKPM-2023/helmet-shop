@@ -6,27 +6,18 @@ import (
 	"github.com/go-playground/validator/v10"
 )
 
-const EntityName = "ProductRatings"
+const EntityName = "Product Ratings"
 
 type Rating struct {
 	common.SQLModel `json:",inline"`
 	Point           float32         `json:"point" gorm:"column:point"`
 	Comment         string          `json:"comment" gorm:"column:comment;"`
-	UserID          int             `json:"-" gorm:"column:user_id"`
+	UserId          int             `json:"-" gorm:"column:user_id"`
 	UserUID         *common.UID     `json:"user_id" gorm:"-"`
-	ProductID       int             `json:"-" gorm:"column:product_id"`
+	ProductId       int             `json:"-" gorm:"column:product_id"`
 	ProductUID      *common.UID     `json:"product_id" gorm:"-"`
-	User            *usermodel.User `gorm:"foreignKey:UserID"`
-}
-
-func (r *Rating) GenUserUID() {
-	uid := common.NewUID(uint32(r.UserID), int(common.DbTypeUser), 1)
-	r.UserUID = &uid
-}
-
-func (r *Rating) GenProductUID() {
-	uid := common.NewUID(uint32(r.ProductID), int(common.DbTypeProduct), 1)
-	r.ProductUID = &uid
+	User            *usermodel.User `gorm:"foreignKey:UserId"`
+	OrderDetailId   int             `json:"-" gorm:"column:order_id"`
 }
 
 func (Rating) TableName() string {
@@ -35,19 +26,27 @@ func (Rating) TableName() string {
 
 func (r *Rating) Mask() {
 	r.GenUID(common.DbTypeProductRating)
+
+	userUID := common.NewUID(uint32(r.UserId), int(common.DbTypeUser), 1)
+	r.UserUID = &userUID
+
+	productUID := common.NewUID(uint32(r.ProductId), int(common.DbTypeProduct), 1)
+	r.ProductUID = &productUID
 }
 
 func (r *Rating) GetProductID() int {
-	return r.ProductID
+	return r.ProductId
 }
 
 type RatingCreate struct {
 	common.SQLModel `json:",inline"`
 	Point           float32            `json:"point" gorm:"column:point"`
 	Comment         string             `json:"comment" gorm:"column:comment;"`
-	UserID          int                `json:"-" gorm:"column:user_id"`
+	UserId          int                `json:"-" gorm:"column:user_id"`
 	User            *common.SimpleUser `json:"user"`
-	ProductID       int                `json:"-" gorm:"column:product_id"`
+	ProductId       int                `json:"-" gorm:"column:product_id"`
+	OrderDetailId   int                `json:"-" gorm:"column:detail_id"`
+	OrderDetailUID  *common.UID        `json:"detail_id" gorm:"-"`
 }
 
 func (RatingCreate) TableName() string {
@@ -58,12 +57,12 @@ func (r *RatingCreate) Mask() {
 	r.GenUID(common.DbTypeProductRating)
 }
 
-func (c *RatingCreate) GetUserID() int {
-	return c.UserID
+func (r *RatingCreate) GetUserID() int {
+	return r.UserId
 }
 
-func (c *RatingCreate) GetProductID() int {
-	return c.ProductID
+func (r *RatingCreate) GetProductID() int {
+	return r.ProductId
 }
 
 func (res *RatingCreate) Validate() error {
@@ -81,11 +80,11 @@ func (res *RatingCreate) Validate() error {
 		return ErrCommentIsRequired
 	}
 
-	if err := validate.Var(res.UserID, "required"); err != nil {
+	if err := validate.Var(res.UserId, "required"); err != nil {
 		return ErrUserIdIsRequired
 	}
 
-	if err := validate.Var(res.ProductID, "required"); err != nil {
+	if err := validate.Var(res.ProductId, "required"); err != nil {
 		return ErrProductIdIsRequired
 	}
 
