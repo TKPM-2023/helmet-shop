@@ -31,12 +31,19 @@ func (business *updateOrderBusiness) UpdateOrder(context context.Context, id int
 	result, err := business.store.FindOrderWithCondition(context, map[string]interface{}{
 		"id": id,
 	})
+
 	if err != nil {
 		return err
 	}
 
-	if (data.OrderStatus-result.OrderStatus > 1 || data.OrderStatus-result.OrderStatus < 0) || data.OrderStatus == 0 {
-		return common.ErrCannotUpdateEntity(ordermodel.EntityName, nil)
+	if data.OrderStatus != 0 && data.OrderStatus >= result.OrderStatus {
+		if data.OrderStatus == 4 && (result.OrderStatus == 2 || result.OrderStatus == 3) {
+			return common.ErrCannotUpdateEntity(ordermodel.EntityName, nil)
+		}
+
+		if data.OrderStatus == 3 && result.OrderStatus == 1 {
+			return common.ErrCannotUpdateEntity(ordermodel.EntityName, nil)
+		}
 	}
 
 	if result.Status == 0 {
