@@ -35,6 +35,10 @@ func (business *updateOrderBusiness) UpdateOrder(context context.Context, id int
 		return err
 	}
 
+	if (data.OrderStatus-result.OrderStatus > 1 || data.OrderStatus-result.OrderStatus < 0) || data.OrderStatus == 0 {
+		return common.ErrCannotUpdateEntity(ordermodel.EntityName, nil)
+	}
+
 	if result.Status == 0 {
 		return common.ErrEntityDeleted(ordermodel.EntityName, err)
 	}

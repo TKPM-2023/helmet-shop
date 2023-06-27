@@ -76,7 +76,7 @@ create table orders
     contact_id int                                                              not null,
     total_price float                                                           not null,
     comment     text                                                            null,
-    status      int       default 1                                             not null,
+    status      int       default 0                                             not null,
     created_at  timestamp default current_timestamp                             null,
     updated_at  timestamp default current_timestamp on update current_timestamp null,
     order_status int default 1    

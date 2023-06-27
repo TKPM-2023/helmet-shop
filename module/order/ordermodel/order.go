@@ -78,26 +78,14 @@ type OrderUpdate struct {
 	UserId          int         `json:"-" validate:"required" gorm:"column:user_id"`
 	UserUID         *common.UID `json:"user_id" gorm:"-"`
 	TotalPrice      float64     `json:"total_price" validate:"required" gorm:"column:total_price"`
-	OrderStatus     int         `json:"order_status" gorm:"column:order_status;default:0"`
+	OrderStatus     int         `json:"order_status" gorm:"column:order_status;default:1"`
 	ContactUID      *common.UID `json:"contact_id" gorm:"-"`
 	ContactId       int         `json:"-" gorm:"column:contact_id"`
 }
 
 func (res *OrderUpdate) Validate() error {
 	validate := validator.New()
-
-	if err := validate.Var(res.UserId, "required"); err != nil {
-		return ErrOrderUserIdIsRequired
-	}
-
-	if err := validate.Var(res.TotalPrice, "required"); err != nil {
-		return ErrOrderTotalPriceIsRequired
-	}
-	if err := validate.Var(res.ContactId, "required"); err != nil {
-		return ErrOrderContactIdIsRequired
-	}
-
-	if err := validate.Var(res.OrderStatus, "min=0,max=2"); err != nil {
+	if err := validate.Var(res.OrderStatus, "omitempty,min=1,max=4"); err != nil {
 		return ErrOrderStatusInvalid
 	}
 	return nil

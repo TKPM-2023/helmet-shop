@@ -24,8 +24,11 @@ func UpdateOrder(ctx appctx.AppContext) gin.HandlerFunc {
 			panic(err)
 		}
 
+		if data.ContactUID != nil {
+			data.ContactId = int(data.ContactUID.GetLocalID())
+		}
 		data.UserId = requester.GetUserId()
-		data.ContactId = int(data.ContactUID.GetLocalID())
+
 		store := orderstorage.NewSQLStore(db)
 		business := orderbiz.NewUpdateOrderBusiness(store)
 		if err := business.UpdateOrder(context.Request.Context(), int(uid.GetLocalID()), &data); err != nil {
