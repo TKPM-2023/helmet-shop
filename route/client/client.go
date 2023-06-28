@@ -63,6 +63,7 @@ func ClientRoute(appContext appctx.AppContext, v1 *gin.RouterGroup) {
 	product := clients.Group("/products")
 	product.GET("/:id", ginproduct.GetProduct(appContext))
 	product.GET("/", ginproduct.ListProduct(appContext))
+	product.GET("search", ginproduct.FindProductsByName(appContext))
 
 	//ProductRating
 	clients.POST("/products/:id/rating", ginrating.CreateRating(appContext))
