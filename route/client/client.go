@@ -68,4 +68,5 @@ func ClientRoute(appContext appctx.AppContext, v1 *gin.RouterGroup) {
 	//ProductRating
 	clients.POST("/products/:id/rating", ginrating.CreateRating(appContext))
 	clients.PATCH("products/rating/:id", ginrating.UpdateRating(appContext))
+	clients.GET("products/rating/", ginrating.ListRating(appContext))
 }
