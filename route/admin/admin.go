@@ -6,8 +6,10 @@ import (
 	"TKPM-Go/module/category/categorytransport/gincategory"
 	"TKPM-Go/module/product/producttransport/ginproduct"
 	"TKPM-Go/module/product_rating/ratingtransport/ginrating"
+	"TKPM-Go/module/statistic/statistictransport/ginstatistic"
 	"TKPM-Go/module/upload/uploadtransport/ginupload"
 	"TKPM-Go/module/user/usertransport/ginuser"
+
 	"github.com/gin-gonic/gin"
 )
 
@@ -45,4 +47,8 @@ func AdminRoute(appContext appctx.AppContext, v1 *gin.RouterGroup) {
 
 	//Product Rating
 	product.DELETE("/rating/:id", ginrating.DeleteRating(appContext))
+
+	//Statistic
+	statistic := admin.Group("/statistic")
+	statistic.GET("/", ginstatistic.GetStatistic(appContext))
 }
