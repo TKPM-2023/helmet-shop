@@ -18,6 +18,7 @@ type Rating struct {
 	ProductUID      *common.UID     `json:"product_id" gorm:"-"`
 	User            *usermodel.User `gorm:"foreignKey:UserId"`
 	OrderDetailId   int             `json:"-" gorm:"column:order_id"`
+	Product 		*Product		`json:"product" gorm:"foreignKey:ProductId"`
 }
 
 func (Rating) TableName() string {

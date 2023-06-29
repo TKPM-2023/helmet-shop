@@ -50,7 +50,7 @@ func (business *createRatingBusiness) CreateRating(context context.Context, data
 		return common.ErrEntityDeleted(ordermodel.EntityName, err)
 	}
 
-	if detail.Order.OrderStatus != 2 {
+	if detail.Order.OrderStatus != 3 {
 		return ratingmodel.ErrCannotCreateRating
 	}
 

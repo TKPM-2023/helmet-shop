@@ -43,7 +43,7 @@ func (business *createOrderBusiness) CreateOrder(context context.Context, data *
 		data.Products[i].OrderId = data.Id
 		//get product info from model products
 		//product, err := business.product_store.GetProduct(context.Request.Context(), int(data.Products[i].Product_Origin.UID.GetLocalID()))
-		product, err := business.product_store.FindProductWithCondition(context, map[string]interface{}{"id": data.Products[i].Product_Origin.UID.GetLocalID()})
+		product, err := business.product_store.FindProductWithCondition(context, map[string]interface{}{"id": data.Products[i].ProductOrigin.UID.GetLocalID()})
 
 
 		if err != nil {
