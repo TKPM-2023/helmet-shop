@@ -27,7 +27,7 @@ func (business *listRatingBusiness) ListRating(context context.Context,
 	filter *ratingmodel.Filter,
 	paging *common.Paging,
 ) ([]ratingmodel.Rating, error) {
-	result, err := business.store.ListRatingWithCondition(context, filter, paging)
+	result, err := business.store.ListRatingWithCondition(context, filter, paging,"User","Product")
 	if err != nil {
 		return nil, common.ErrCannotListEntity(ratingmodel.EntityName, err)
 	}
