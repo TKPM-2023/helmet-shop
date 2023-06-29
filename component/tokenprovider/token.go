@@ -29,8 +29,13 @@ var (
 		"ErrEncodingToken",
 	)
 
-	ErrInvalidToken = common.NewCustomError(errors.New("invalid token provided"),
+	ErrInvalidToken = common.NewUnauthorized(errors.New("invalid token provided"),
 		"invalid token provided",
 		"ErrInvalidToken",
+	)
+
+	ErrTokenExpired = common.NewUnauthorized(errors.New("token expired"),
+		"token expired",
+		"ErrTokenExpired",
 	)
 )

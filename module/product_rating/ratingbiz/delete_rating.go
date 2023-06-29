@@ -40,7 +40,7 @@ func (business *deleteRatingBusiness) DeleteRating(context context.Context, id i
 		return common.ErrCannotDeleteEntity(ratingmodel.EntityName, err)
 	}
 
-	business.pubsub.Publish(context, common.TopicUserDeleteRatingProduct, pubsub.NewMessage(&ratingmodel.Rating{ProductID: oldData.ProductID}))
+	business.pubsub.Publish(context, common.TopicUserDeleteRatingProduct, pubsub.NewMessage(&ratingmodel.Rating{ProductId: oldData.ProductId}))
 
 	return nil
 }

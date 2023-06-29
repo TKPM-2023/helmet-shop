@@ -1,9 +1,9 @@
 package orderbiz
 
 import (
+	"TKPM-Go/common"
 	"TKPM-Go/module/order/ordermodel"
 	"context"
-	"errors"
 )
 
 type UpdateOrderStore interface {
@@ -18,7 +18,6 @@ type updateOrderBusiness struct {
 	store UpdateOrderStore
 }
 
-
 func NewUpdateOrderBusiness(store UpdateOrderStore) *updateOrderBusiness {
 	return &updateOrderBusiness{store: store}
 }
@@ -32,17 +31,27 @@ func (business *updateOrderBusiness) UpdateOrder(context context.Context, id int
 	result, err := business.store.FindOrderWithCondition(context, map[string]interface{}{
 		"id": id,
 	})
+
 	if err != nil {
 		return err
 	}
 
-	if result.Status == 0 {
-		return errors.New("data deleted")
+	if data.OrderStatus != 0 && data.OrderStatus >= result.OrderStatus {
+		if data.OrderStatus == 4 && (result.OrderStatus == 2 || result.OrderStatus == 3) {
+			return common.ErrCannotUpdateEntity(ordermodel.EntityName, nil)
+		}
+
+		if data.OrderStatus == 3 && result.OrderStatus == 1 {
+			return common.ErrCannotUpdateEntity(ordermodel.EntityName, nil)
+		}
 	}
 
+	if result.Status == 0 {
+		return common.ErrEntityDeleted(ordermodel.EntityName, err)
+	}
 
 	if err := business.store.UpdateOrder(context, id, data); err != nil {
-		return err
+		return common.ErrCannotUpdateEntity(ordermodel.EntityName, err)
 	}
 	return nil
 

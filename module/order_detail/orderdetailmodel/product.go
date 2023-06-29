@@ -8,19 +8,20 @@ import (
 	"fmt"
 )
 
-type Product_Origin struct {
-	UID 		*common.UID `json:"id"`
-	Name        string `json:"name"`
-	Description string `json:"description"`
+type ProductOrigin struct {
+	UID         *common.UID    `json:"id"`
+	Name        string         `json:"name"`
+	Description string         `json:"description"`
+	Images      *common.Images `json:"images"`
 }
 
-func (j *Product_Origin) Scan(value interface{}) error {
+func (j *ProductOrigin) Scan(value interface{}) error {
 	bytes, ok := value.([]byte)
 	if !ok {
 		errors.New(fmt.Sprint("Failed to unmarshal JSONB value:", value))
 	}
 
-	var img Product_Origin
+	var img ProductOrigin
 	if err := json.Unmarshal(bytes, &img); err != nil {
 		return err
 	}
@@ -28,22 +29,22 @@ func (j *Product_Origin) Scan(value interface{}) error {
 	return nil
 }
 
-func (j *Product_Origin) Value() (driver.Value, error) {
+func (j *ProductOrigin) Value() (driver.Value, error) {
 	if j == nil {
 		return nil, nil
 	}
 	return json.Marshal(j)
 }
 
-type Product_Origins []Product_Origin
+type ProductOrigins []ProductOrigin
 
-func (j *Product_Origins) Scan(value interface{}) error {
+func (j *ProductOrigins) Scan(value interface{}) error {
 	bytes, ok := value.([]byte)
 	if !ok {
 		errors.New(fmt.Sprint("Failed to unmarshal JSONB value:", value))
 	}
 
-	var img []Product_Origin
+	var img []ProductOrigin
 	if err := json.Unmarshal(bytes, &img); err != nil {
 		return err
 	}
@@ -51,7 +52,7 @@ func (j *Product_Origins) Scan(value interface{}) error {
 	return nil
 }
 
-func (j *Product_Origins) Value() (driver.Value, error) {
+func (j *ProductOrigins) Value() (driver.Value, error) {
 	if j == nil {
 		return nil, nil
 	}

@@ -26,13 +26,11 @@ func GetOrder(appCtx appctx.AppContext) gin.HandlerFunc {
 		}
 
 		result.Mask()
-		result.GenUserUID()
-		result.GenContactUID()
-		result.Contact.GenUserUID()
+		result.Contact.Mask()
+		result.User.Mask()
 		products := result.Products
 		for i := range products {
 			products[i].Mask()
-			products[i].GenOrderUID()
 		}
 
 		context.JSON(http.StatusOK, common.SimpleSuccessResponse(result))

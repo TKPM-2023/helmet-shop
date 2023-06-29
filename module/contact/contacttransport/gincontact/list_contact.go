@@ -37,7 +37,6 @@ func ListContact(ctx appctx.AppContext) gin.HandlerFunc {
 
 		for i := range result {
 			result[i].Mask()
-			result[i].GenUserUID()
 		}
 
 		c.JSON(http.StatusOK, common.NewSuccessResponse(result, pagingData, filter))

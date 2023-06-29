@@ -21,21 +21,19 @@ type Product struct {
 	Ratings         []ratingmodel.Rating `json:"ratings"`
 }
 
-func (p *Product) GenCategoryUID() {
-	uid := common.NewUID(uint32(p.CategoryId), int(common.DbTypeCategory), 1)
-	p.CategoryUID = &uid
-}
-
 func (Product) TableName() string {
 	return "products"
 }
 
-func (c *Product) Mask() {
-	c.GenUID(common.DbTypeProduct)
+func (p *Product) Mask() {
+	p.GenUID(common.DbTypeProduct)
+
+	uid := common.NewUID(uint32(p.CategoryId), int(common.DbTypeCategory), 1)
+	p.CategoryUID = &uid
 }
 
-func (c *Product) GetProductID() int {
-	return c.Id
+func (p *Product) GetProductID() int {
+	return p.Id
 }
 
 type ProductCreate struct {
@@ -53,58 +51,58 @@ func (ProductCreate) TableName() string {
 	return Product{}.TableName()
 }
 
-func (c *ProductCreate) Mask() {
-	c.GenUID(common.DbTypeProduct)
+func (p *ProductCreate) Mask() {
+	p.GenUID(common.DbTypeProduct)
 }
 
-func (c *ProductCreate) GetCategoryID() int {
-	return c.CategoryId
+func (p *ProductCreate) GetCategoryID() int {
+	return p.CategoryId
 }
 
-func (res *ProductCreate) Validate() error {
+func (p *ProductCreate) Validate() error {
 	validate := validator.New()
 
-	if err := validate.Var(res.Name, "required"); err != nil {
+	if err := validate.Var(p.Name, "required"); err != nil {
 		return ErrProductNameIsRequired
 	}
 
-	if err := validate.Var(res.Name, "min=5,max=100"); err != nil {
+	if err := validate.Var(p.Name, "min=5,max=100"); err != nil {
 		return ErrProductNameLengthIsInvalid
 	}
 
-	if err := validate.Var(res.Description, "required"); err != nil {
+	if err := validate.Var(p.Description, "required"); err != nil {
 		return ErrProductDescriptionIsRequired
 	}
 
-	if err := validate.Var(res.Description, "min=5,max=100"); err != nil {
+	if err := validate.Var(p.Description, "min=5,max=100"); err != nil {
 		return ErrProductDescriptionLengthIsInvalid
 	}
 
-	if err := validate.Var(res.Price, "required,gt=0"); err != nil {
+	if err := validate.Var(p.Price, "required,gt=0"); err != nil {
 		return ErrProductPriceIsRequired
 	}
 
-	if err := validate.Var(res.Price, "gt=0"); err != nil {
+	if err := validate.Var(p.Price, "gt=0"); err != nil {
 		return ErrProductPriceMustBeGreaterThanZero
 	}
 
-	if err := validate.Var(res.Quantity, "required"); err != nil {
+	if err := validate.Var(p.Quantity, "required"); err != nil {
 		return ErrProductQuantityIsRequired
 	}
 
-	if err := validate.Var(res.Quantity, "min=1"); err != nil {
+	if err := validate.Var(p.Quantity, "min=1"); err != nil {
 		return ErrProductQuantityMustBeAtLeastOne
 	}
 
-	if err := validate.Var(res.Images, "required"); err != nil {
+	if err := validate.Var(p.Images, "required"); err != nil {
 		return ErrProductImagesIsRequired
 	}
 
-	if err := validate.Var(res.CategoryId, "required"); err != nil {
+	if err := validate.Var(p.CategoryId, "required"); err != nil {
 		return ErrProductCategoryIdIsRequired
 	}
 
-	if err := validate.Var(res.CategoryId, "min=1"); err != nil {
+	if err := validate.Var(p.CategoryId, "min=1"); err != nil {
 		return ErrProductCategoryIdMustBeAtLeastOne
 	}
 

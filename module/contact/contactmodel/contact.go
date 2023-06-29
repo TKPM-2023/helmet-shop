@@ -2,24 +2,18 @@ package contactmodel
 
 import (
 	"TKPM-Go/common"
-
 	"github.com/go-playground/validator/v10"
 )
 
-const EntityName = "contacts"
+const EntityName = "Contacts"
 
 type Contact struct {
 	common.SQLModel `json:",inline"`
-	User_ID         int         `json:"-" gorm:"column:user_id"`
-	User_UID        *common.UID `json:"user_id" gorm:"-"`
+	UserId          int         `json:"-" gorm:"column:user_id"`
+	UserUID         *common.UID `json:"user_id" gorm:"-"`
 	Name            string      `json:"name" gorm:"column:name"`
 	Addr            string      `json:"addr" gorm:"column:addr"`
 	Phone           string      `json:"phone" gorm:"column:phone"`
-}
-
-func (c *Contact) GenUserUID() {
-	uid := common.NewUID(uint32(c.User_ID), int(common.DbTypeUser), 1)
-	c.User_UID = &uid
 }
 
 func (Contact) TableName() string {
@@ -28,19 +22,21 @@ func (Contact) TableName() string {
 
 func (c *Contact) Mask() {
 	c.GenUID(common.DbTypeContact)
+
+	uid := common.NewUID(uint32(c.UserId), int(common.DbTypeUser), 1)
+	c.UserUID = &uid
 }
 
 func (c *Contact) GetUserID() int {
-	return c.User_ID
+	return c.UserId
 }
 
 type ContactCreate struct {
 	common.SQLModel `json:",inline"`
-	User_ID         int         `json:"-" gorm:"column:user_id"`
-	//User_UID        *common.UID `json:"user_id" gorm:"-"`
-	Name            string      `json:"name" gorm:"column:name"`
-	Addr            string      `json:"addr" gorm:"column:addr"`
-	Phone           string      `json:"phone" gorm:"column:phone"`
+	UserId          int    `json:"-" gorm:"column:user_id"`
+	Name            string `json:"name" gorm:"column:name"`
+	Addr            string `json:"addr" gorm:"column:addr"`
+	Phone           string `json:"phone" gorm:"column:phone"`
 }
 
 func (ContactCreate) TableName() string {
@@ -52,25 +48,25 @@ func (c *ContactCreate) Mask() {
 }
 
 func (c *ContactCreate) GetUserID() int {
-	return c.User_ID
+	return c.UserId
 }
 
 func (res *ContactCreate) Validate() error {
 	validate := validator.New()
 
-	if err:=validate.Var(res.User_ID, "required") ;err != nil {
+	if err := validate.Var(res.UserId, "required"); err != nil {
 		return ErrContactUserIdIsRequired
 	}
 
-	if err:=validate.Var(res.Name, "required") ;err != nil {
+	if err := validate.Var(res.Name, "required"); err != nil {
 		return ErrContactNameIsRequired
 	}
-	
-	if err:=validate.Var(res.Addr, "required") ;err != nil {
+
+	if err := validate.Var(res.Addr, "required"); err != nil {
 		return ErrContactAddressIsRequired
 	}
 
-	if err:=validate.Var(res.Phone, "required") ;err != nil {
+	if err := validate.Var(res.Phone, "required"); err != nil {
 		return ErrContactPhoneIsRequired
 	}
 	return nil
@@ -78,16 +74,15 @@ func (res *ContactCreate) Validate() error {
 
 type ContactUpdate struct {
 	common.SQLModel `json:",inline"`
-	User_ID         int         `json:"-" gorm:"column:user_id"`
-	//User_UID        *common.UID `json:"user_id" gorm:"-"`
-	Name            string      `json:"name" gorm:"column:name"`
-	Addr            string      `json:"addr" gorm:"column:addr"`
-	Phone           string      `json:"phone" gorm:"column:phone"`
+	UserId          int    `json:"-" gorm:"column:user_id"`
+	Name            string `json:"name" gorm:"column:name"`
+	Addr            string `json:"addr" gorm:"column:addr"`
+	Phone           string `json:"phone" gorm:"column:phone"`
 }
 
 func (res *ContactUpdate) Validate() error {
 	//validate := validator.New()
-	
+
 	return nil
 }
 

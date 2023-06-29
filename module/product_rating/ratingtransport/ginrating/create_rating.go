@@ -3,6 +3,7 @@ package ginrating
 import (
 	"TKPM-Go/common"
 	"TKPM-Go/component/appctx"
+	"TKPM-Go/module/order_detail/orderdetailstorage"
 	"TKPM-Go/module/product_rating/ratingbiz"
 	"TKPM-Go/module/product_rating/ratingmodel"
 	"TKPM-Go/module/product_rating/ratingstorage"
@@ -27,12 +28,19 @@ func CreateRating(appCtx appctx.AppContext) gin.HandlerFunc {
 			panic(err)
 		}
 
-		data.UserID = requester.GetUserId()
+		data.UserId = requester.GetUserId()
 		id := int(uid.GetLocalID())
-		data.ProductID = id
+		data.ProductId = id
+
+		if data.OrderDetailUID == nil {
+			panic(common.ErrInvalidRequest(nil))
+		}
+
+		data.OrderDetailId = int(data.OrderDetailUID.GetLocalID())
 
 		store := ratingstorage.NewSQLStore(db)
-		business := ratingbiz.NewCreateRatingBusiness(store, pubsub)
+		detailStore := orderdetailstorage.NewSQLStore(db)
+		business := ratingbiz.NewCreateRatingBusiness(store, detailStore, pubsub)
 
 		if err := business.CreateRating(context.Request.Context(), &data); err != nil {
 			panic(err)

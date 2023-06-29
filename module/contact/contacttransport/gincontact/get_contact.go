@@ -25,8 +25,6 @@ func GetContact(appCtx appctx.AppContext) gin.HandlerFunc {
 		}
 
 		result.Mask()
-		result.GenUserUID()
-	
 
 		context.JSON(http.StatusOK, common.SimpleSuccessResponse(result))
 	}

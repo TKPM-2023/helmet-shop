@@ -1,9 +1,9 @@
 package orderdetailbiz
 
 import (
+	"TKPM-Go/common"
 	"TKPM-Go/module/order_detail/orderdetailmodel"
 	"context"
-	"errors"
 )
 
 type UpdateOrderDetailStore interface {
@@ -17,7 +17,6 @@ type UpdateOrderDetailStore interface {
 type updateOrderDetailBusiness struct {
 	store UpdateOrderDetailStore
 }
-
 
 func NewUpdateOrderDetailBusiness(store UpdateOrderDetailStore) *updateOrderDetailBusiness {
 	return &updateOrderDetailBusiness{store: store}
@@ -37,11 +36,11 @@ func (business *updateOrderDetailBusiness) UpdateOrderDetail(context context.Con
 	}
 
 	if result.Status == 0 {
-		return errors.New("data deleted")
+		return common.ErrEntityDeleted(orderdetailmodel.EntityName, err)
 	}
 
 	if err := business.store.UpdateOrderDetail(context, id, data); err != nil {
-		return err
+		return common.ErrCannotUpdateEntity(orderdetailmodel.EntityName, err)
 	}
 	return nil
 

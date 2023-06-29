@@ -4,6 +4,7 @@ import (
 	"TKPM-Go/common"
 	"TKPM-Go/module/product/productmodel"
 	"context"
+	"fmt"
 )
 
 func (s *sqlStore) ListDataWithCondition(
@@ -18,11 +19,15 @@ func (s *sqlStore) ListDataWithCondition(
 	db = db.Table(productmodel.EntityName)
 
 	if f := filter; f != nil {
+		fmt.Println(f.Name)
 		if f.Status >= 0 {
 			db = db.Where("status = ?", f.Status)
 		}
-		if f.CategoryId > 0 {
-			db = db.Where("category_id = ?", f.CategoryId)
+		if f.Name != "" {
+			db = db.Where("name LIKE ?", "%"+f.Name+"%")
+		}
+		if f.Description != "" {
+			db = db.Where("description LIKE ?", "%"+f.Description+"%")
 		}
 	}
 
@@ -43,11 +48,11 @@ func (s *sqlStore) ListDataWithCondition(
 
 	} else {
 		offset := (paging.Page - 1) * paging.Limit
-		db = db.Offset(int(offset))
+		db = db.Offset(offset)
 	}
 
 	if err := db.
-		Limit(int(paging.Limit)).
+		Limit(paging.Limit).
 		Order("id desc").
 		Find(&result).Error; err != nil {
 		return nil, common.ErrDB(err)

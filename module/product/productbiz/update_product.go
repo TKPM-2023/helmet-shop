@@ -33,7 +33,6 @@ func (business *updateProductBusiness) UpdateProduct(context context.Context, id
 	})
 
 	if err != nil {
-		println(err)
 		return err
 	}
 

@@ -12,13 +12,10 @@ import (
 func GetCart(appCtx appctx.AppContext) gin.HandlerFunc {
 	return func(context *gin.Context) {
 		db := appCtx.GetMainDBConnection()
-		uid, err := common.FromBase58(context.Param("id"))
-		if err != nil {
-			panic(common.ErrInvalidRequest(err))
-		}
+		requester := context.MustGet(common.CurrentUser).(common.Requester)
 		store := cartstorage.NewSQLStore(db)
 		business := cartbiz.NewGetCartBusiness(store)
-		result, err := business.GetCart(context.Request.Context(), int(uid.GetLocalID()))
+		result, err := business.GetCart(context.Request.Context(), requester.GetCartId())
 
 		if err != nil {
 			panic(err)
@@ -27,7 +24,6 @@ func GetCart(appCtx appctx.AppContext) gin.HandlerFunc {
 		cartProducts := result.CartProducts
 		for i := range cartProducts {
 			cartProducts[i].Mask()
-			cartProducts[i].Product.GenCategoryUID()
 			cartProducts[i].Product.Mask()
 		}
 		context.JSON(http.StatusOK, common.SimpleSuccessResponse(result))

@@ -23,18 +23,17 @@ func UpdateOrder(ctx appctx.AppContext) gin.HandlerFunc {
 		if err := context.ShouldBind(&data); err != nil {
 			panic(err)
 		}
-/*
-		if data.User_UID == nil {
-			panic(common.ErrInvalidRequest(nil))
-		}*/
 
-		data.User_ID = requester.GetUserId()//int(data.User_UID.GetLocalID())
-		data.Contact_ID=int(data.Contact_UID.GetLocalID())
+		if data.ContactUID != nil {
+			data.ContactId = int(data.ContactUID.GetLocalID())
+		}
+		data.UserId = requester.GetUserId()
+
 		store := orderstorage.NewSQLStore(db)
 		business := orderbiz.NewUpdateOrderBusiness(store)
 		if err := business.UpdateOrder(context.Request.Context(), int(uid.GetLocalID()), &data); err != nil {
 			panic(err)
 		}
-		context.JSON(http.StatusOK, gin.H{"ok": 1})
+		context.JSON(http.StatusOK, common.SimpleSuccessResponse(true))
 	}
 }

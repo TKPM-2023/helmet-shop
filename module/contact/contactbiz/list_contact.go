@@ -29,7 +29,7 @@ func (business *listContactBusiness) ListContact(context context.Context,
 ) ([]contactmodel.Contact, error) {
 	result, err := business.store.ListDataWithCondition(context, filter, paging)
 	if err != nil {
-		return nil, err
+		return nil, common.ErrCannotListEntity(contactmodel.EntityName, err)
 	}
 
 	return result, nil

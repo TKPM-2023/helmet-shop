@@ -35,7 +35,7 @@ func (business *updateRatingBusiness) UpdateRating(context context.Context, user
 		return err
 	}
 
-	if result.UserID != userId {
+	if result.UserId != userId {
 		return common.ErrNoPermission(nil)
 	}
 
@@ -48,7 +48,7 @@ func (business *updateRatingBusiness) UpdateRating(context context.Context, user
 	}
 
 	if err := business.store.UpdateRating(context, id, data); err != nil {
-		return err
+		return common.ErrCannotUpdateEntity(ratingmodel.EntityName, nil)
 	}
 	return nil
 }

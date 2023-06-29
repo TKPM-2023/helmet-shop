@@ -27,7 +27,7 @@ func ClientRoute(appContext appctx.AppContext, v1 *gin.RouterGroup) {
 	order.GET("/", ginorder.ListOrder(appContext))
 
 	//OderDetail
-	orderDetail := clients.Group("/orderdetails")
+	orderDetail := clients.Group("/order-details")
 	orderDetail.POST("/", ginorderdetail.CreateOrderDetail(appContext))
 	orderDetail.GET("/:id", ginorderdetail.GetOrderDetail(appContext))
 	orderDetail.PATCH("/:id", ginorderdetail.UpdateOrderDetail(appContext))
@@ -43,17 +43,16 @@ func ClientRoute(appContext appctx.AppContext, v1 *gin.RouterGroup) {
 
 	//Cart
 	cart := clients.Group("/carts")
-	cart.GET("/:id", gincart.GetCart(appContext))
-	cart.PATCH("/:id", gincart.AddProducts(appContext))
-	cart.PATCH("/:id/quantity", gincart.UpdateQuantity(appContext))
-	cart.DELETE("/:id", gincart.RemoveProducts(appContext))
+	cart.GET("", gincart.GetCart(appContext))
+	cart.PATCH("", gincart.AddProducts(appContext))
+	cart.PATCH("/quantity", gincart.UpdateQuantity(appContext))
+	cart.DELETE("", gincart.RemoveProducts(appContext))
 
 	//User
 	user := clients.Group("/users")
 	user.PATCH("/:id", ginuser.UpdateUser(appContext))
 	user.PATCH("/:id/password", ginuser.UpdatePassword(appContext))
 	user.GET("/profile", ginuser.GetProfile(appContext))
-	user.GET("/refresh", ginuser.RefreshToken(appContext))
 
 	//Category
 	category := clients.Group("/categories")
@@ -64,8 +63,10 @@ func ClientRoute(appContext appctx.AppContext, v1 *gin.RouterGroup) {
 	product := clients.Group("/products")
 	product.GET("/:id", ginproduct.GetProduct(appContext))
 	product.GET("/", ginproduct.ListProduct(appContext))
+	product.GET("search", ginproduct.FindProductsByName(appContext))
 
 	//ProductRating
 	clients.POST("/products/:id/rating", ginrating.CreateRating(appContext))
 	clients.PATCH("products/rating/:id", ginrating.UpdateRating(appContext))
+	clients.GET("products/rating/", ginrating.ListRating(appContext))
 }

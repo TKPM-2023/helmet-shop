@@ -9,7 +9,7 @@ const (
 	DbTypeUser          DbType = 2
 	DbTypeProduct       DbType = 3
 	DbTypeOrder         DbType = 4
-	DbTypeOrder_Detail  DbType = 5
+	DbTypeOrderDetail   DbType = 5
 	DbTypeProductRating DbType = 6
 	DbTypeContact       DbType = 7
 	DbTypeCart          DbType = 8
@@ -21,6 +21,7 @@ type Requester interface {
 	GetUserId() int
 	GetUserEmail() string
 	GetUserRole() string
+	GetCartId() int
 }
 
 const (
@@ -28,4 +29,6 @@ const (
 	TopicUserDeleteProduct       pubsub.Topic = "TopicUserDeleteProduct"
 	TopicUserRatingProduct       pubsub.Topic = "TopicUserRatingProduct"
 	TopicUserDeleteRatingProduct pubsub.Topic = "TopicUserDeleteRatingProduct"
+	TopicAddProductsToCart       pubsub.Topic = "TopicAddProductsToCart"
+	TopicRemoveProductsFromCart  pubsub.Topic = "TopicRemoveProductsFromCart"
 )

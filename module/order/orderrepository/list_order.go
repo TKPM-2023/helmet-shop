@@ -28,9 +28,9 @@ func (repo *listOrderRepo) ListOrder(
 	filter *ordermodel.Filter,
 	paging *common.Paging,
 ) ([]ordermodel.Order, error) {
-	result, err := repo.store.ListDataWithCondition(context, filter, paging, "Products")
+	result, err := repo.store.ListDataWithCondition(context, filter, paging, "Products", "Contact", "User")
 	if err != nil {
-		return nil, err
+		return nil, common.ErrCannotListEntity(ordermodel.EntityName, err)
 	}
 
 	return result, nil

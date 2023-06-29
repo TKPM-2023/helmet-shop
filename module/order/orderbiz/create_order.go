@@ -40,7 +40,7 @@ func (business *createOrderBusiness) CreateOrder(context context.Context, data *
 	}
 
 	for i := range data.Products {
-		data.Products[i].Order_ID = data.Id
+		data.Products[i].OrderId = data.Id
 		//get product info from model products
 		//product, err := business.product_store.GetProduct(context.Request.Context(), int(data.Products[i].Product_Origin.UID.GetLocalID()))
 		product, err := business.product_store.FindProductWithCondition(context, map[string]interface{}{"id": data.Products[i].Product_Origin.UID.GetLocalID()})
@@ -51,8 +51,8 @@ func (business *createOrderBusiness) CreateOrder(context context.Context, data *
 		}
 
 		//assign to prodcut_origin
-		data.Products[i].Product_Origin.Description = product.Description
-		data.Products[i].Product_Origin.Name = product.Name
+		data.Products[i].ProductOrigin.Description = product.Description
+		data.Products[i].ProductOrigin.Name = product.Name
 		data.Products[i].Price = (float64(product.Price) * float64(data.Products[i].Quantity)) - (float64(product.Price) * float64(data.Products[i].Discount))
 
 		if err := business.orderdetail_store.CreateOrderDetail(context, &data.Products[i]); err != nil {

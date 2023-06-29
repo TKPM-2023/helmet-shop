@@ -28,7 +28,7 @@ func (business *listCategoryBusiness) ListCategory(context context.Context,
 ) ([]categorymodel.Category, error) {
 	result, err := business.repo.ListCategory(context, filter, paging)
 	if err != nil {
-		return nil, err
+		return nil, common.ErrCannotListEntity(categorymodel.EntityName, err)
 	}
 
 	return result, nil

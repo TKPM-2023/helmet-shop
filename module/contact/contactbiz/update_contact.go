@@ -1,9 +1,9 @@
 package contactbiz
 
 import (
+	"TKPM-Go/common"
 	"TKPM-Go/module/contact/contactmodel"
 	"context"
-	"errors"
 )
 
 type UpdateContactStore interface {
@@ -17,7 +17,6 @@ type UpdateContactStore interface {
 type updateContactBusiness struct {
 	store UpdateContactStore
 }
-
 
 func NewUpdateContactBusiness(store UpdateContactStore) *updateContactBusiness {
 	return &updateContactBusiness{store: store}
@@ -37,11 +36,11 @@ func (business *updateContactBusiness) UpdateContact(context context.Context, id
 	}
 
 	if result.Status == 0 {
-		return errors.New("data deleted")
+		return common.ErrEntityDeleted(contactmodel.EntityName, err)
 	}
 
 	if err := business.store.UpdateContact(context, id, data); err != nil {
-		return err
+		return common.ErrCannotUpdateEntity(contactmodel.EntityName, err)
 	}
 	return nil
 

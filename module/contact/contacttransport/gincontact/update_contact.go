@@ -24,18 +24,13 @@ func UpdateContact(ctx appctx.AppContext) gin.HandlerFunc {
 			panic(err)
 		}
 
-		/*
-		if data.User_UID == nil {
-			panic(common.ErrInvalidRequest(nil))
-		}*/
-
-		data.User_ID = requester.GetUserId()//int(data.User_UID.GetLocalID())
+		data.UserId = requester.GetUserId()
 
 		store := contactstorage.NewSQLStore(db)
 		business := contactbiz.NewUpdateContactBusiness(store)
 		if err := business.UpdateContact(context.Request.Context(), int(uid.GetLocalID()), &data); err != nil {
 			panic(err)
 		}
-		context.JSON(http.StatusOK, gin.H{"ok": 1})
+		context.JSON(http.StatusOK, common.SimpleSuccessResponse(true))
 	}
 }

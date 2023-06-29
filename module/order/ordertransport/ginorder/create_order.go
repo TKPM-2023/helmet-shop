@@ -25,8 +25,8 @@ func CreateOrder(appCtx appctx.AppContext) gin.HandlerFunc {
 			panic(err)
 		}
 
-		data.User_ID = requester.GetUserId() //int(data.User_UID.GetLocalID())
-		data.Contact_ID = int(data.Contact_UID.GetLocalID())
+		data.UserId = requester.GetUserId() //int(data.User_UID.GetLocalID())
+		data.ContactId = int(data.ContactUID.GetLocalID())
 
 		store := orderstorage.NewSQLStore(db)
 		product_store := productstorage.NewSQLStore(db)

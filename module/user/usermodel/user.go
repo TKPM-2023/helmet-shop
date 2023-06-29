@@ -42,6 +42,10 @@ func (u *User) GetUserId() int {
 	return u.Id
 }
 
+func (u *User) GetCartId() int {
+	return u.CartId
+}
+
 type UserCreate struct {
 	common.SQLModel `json:",inline"`
 	Email           string        `json:"email" form:"email" gorm:"column:email;"`

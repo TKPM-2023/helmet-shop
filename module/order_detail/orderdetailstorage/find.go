@@ -12,10 +12,10 @@ func (s *sqlStore) FindOrderDetailWithCondition(ctx context.Context,
 	moreKeys ...string,
 ) (*orderdetailmodel.OrderDetail, error) {
 	var data orderdetailmodel.OrderDetail
-	db := s.db
+	db := s.db.Table(orderdetailmodel.OrderDetail{}.TableName())
 
 	var length int64
-	if err := db.Table(orderdetailmodel.OrderDetail{}.TableName()).Count(&length).Error; err != nil {
+	if err := db.Count(&length).Error; err != nil {
 		return nil, common.ErrDB(err)
 	}
 
@@ -27,7 +27,7 @@ func (s *sqlStore) FindOrderDetailWithCondition(ctx context.Context,
 		db.Preload(moreKeys[i])
 	}
 
-	if err := s.db.Where(conditions).First(&data).Error; err != nil {
+	if err := db.Where(conditions).First(&data).Error; err != nil {
 		// case: error from DB
 		if err == gorm.ErrRecordNotFound {
 			return nil, nil

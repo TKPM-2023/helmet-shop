@@ -16,17 +16,12 @@ func CreateContact(appCtx appctx.AppContext) gin.HandlerFunc {
 		db := appCtx.GetMainDBConnection()
 		requester := context.MustGet(common.CurrentUser).(common.Requester)
 		var data contactmodel.ContactCreate
-		
+
 		if err := context.ShouldBind(&data); err != nil {
 			panic(err)
 		}
 
-		/*
-		if data.User_UID == nil {
-			panic(common.ErrInvalidRequest(nil))
-		}*/
-
-		data.User_ID = requester.GetUserId()//int(data.User_UID.GetLocalID())
+		data.UserId = requester.GetUserId()
 
 		store := contactstorage.NewSQLStore(db)
 		business := contactbiz.NewCreateContactBusiness(store)
@@ -34,7 +29,6 @@ func CreateContact(appCtx appctx.AppContext) gin.HandlerFunc {
 		if err := business.CreateContact(context.Request.Context(), &data); err != nil {
 			panic(err)
 		}
-
 
 		data.Mask()
 

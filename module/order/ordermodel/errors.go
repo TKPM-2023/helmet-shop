@@ -7,7 +7,7 @@ import (
 
 var (
 	ErrOrderUserIdIsRequired = common.NewCustomError(
-		errors.New("order UderId is required"),
+		errors.New("order UserId is required"),
 		"order UserId is required",
 		"ErrOrderUserIdIsRequired")
 
@@ -21,8 +21,8 @@ var (
 		"order contact is required",
 		"ErrOrderContactIdIsRequired")
 
-	ErrOrderStatusInvalid = common.NewCustomError( 
-		errors.New("Order status invalid"),
+	ErrOrderStatusInvalid = common.NewCustomError(
+		errors.New("order status invalid"),
 		"order status invalid",
 		"ErrOrderStatusInvalid")
 )

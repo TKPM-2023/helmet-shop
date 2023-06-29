@@ -24,13 +24,10 @@ func GetProduct(appCtx appctx.AppContext) gin.HandlerFunc {
 			panic(err)
 		}
 		result.Mask()
-		result.GenCategoryUID()
 
 		ratings := result.Ratings
 		for i := range ratings {
 			ratings[i].Mask()
-			ratings[i].GenUserUID()
-			ratings[i].GenProductUID()
 			ratings[i].User.Mask()
 		}
 

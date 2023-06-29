@@ -1,6 +1,7 @@
 package productmodel
 
 type Filter struct {
-	Status     int `json:"status,omitempty" form:"status"`
-	CategoryId int `json:"category_id" form:"category_id""`
+	Status      int    `json:"status,omitempty" form:"status"`
+	Name        string `json:"name,omitempty" form:"name"`
+	Description string `json:"description,omitempty" form:"description"`
 }

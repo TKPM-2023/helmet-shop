@@ -41,6 +41,7 @@ func AdminRoute(appContext appctx.AppContext, v1 *gin.RouterGroup) {
 	product.GET("/", ginproduct.ListProduct(appContext))
 	product.PATCH("/:id", ginproduct.UpdateProduct(appContext))
 	product.DELETE("/:id", ginproduct.DeleteProduct(appContext))
+	product.GET("search", ginproduct.FindProductsByName(appContext))
 
 	//Product Rating
 	product.DELETE("/rating/:id", ginrating.DeleteRating(appContext))

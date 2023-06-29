@@ -7,23 +7,22 @@ import (
 
 var (
 	ErrContactUserIdIsRequired = common.NewCustomError(
-		errors.New("User id is required"),
+		errors.New("user id is required"),
 		"User id is required",
 		"ErrContactUserIdIsRequired")
 
 	ErrContactNameIsRequired = common.NewCustomError(
-		errors.New("Name is required"),
+		errors.New("name is required"),
 		"Name is required",
 		"ErrContactNameIsRequired")
 
 	ErrContactAddressIsRequired = common.NewCustomError(
-		errors.New("Address is required"),
+		errors.New("address is required"),
 		"Address is required",
-		"ErrContacAddressIsRequired")
+		"ErrContactAddressIsRequired")
 
 	ErrContactPhoneIsRequired = common.NewCustomError(
-		errors.New("Phone is required"),
+		errors.New("phone is required"),
 		"Phone is required",
 		"ErrContactPhoneIsRequired")
-
 )

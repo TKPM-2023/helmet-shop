@@ -21,11 +21,11 @@ func (s *sqlStore) ListDataWithCondition(
 		if f.Status > 0 {
 			db = db.Where("status = ?", f.Status)
 		}
-		if f.User_Id != nil {
-			db = db.Where("user_id = ?", f.User_Id.GetLocalID())
+		if f.UserId != nil {
+			db = db.Where("user_id = ?", f.UserId.GetLocalID())
 		}
-		if f.Order_Status >=0 {
-			db = db.Where("order_status = ?", f.Order_Status)
+		if f.OrderStatus >= 0 {
+			db = db.Where("order_status = ?", f.OrderStatus)
 		}
 	}
 

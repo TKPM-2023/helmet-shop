@@ -5,6 +5,7 @@ import (
 	"TKPM-Go/component/appctx"
 	"TKPM-Go/module/order/orderbiz"
 	"TKPM-Go/module/order/ordermodel"
+	"TKPM-Go/module/order/orderrepository"
 	"TKPM-Go/module/order/orderstorage"
 	"net/http"
 
@@ -29,7 +30,8 @@ func ListOrder(ctx appctx.AppContext) gin.HandlerFunc {
 
 		var result []ordermodel.Order
 		store := orderstorage.NewSQLStore(db)
-		business := orderbiz.NewListOrderBusiness(store)
+		repo := orderrepository.NewListOrderRepo(store)
+		business := orderbiz.NewListOrderBusiness(repo)
 		result, err := business.ListOrder(c.Request.Context(), &filter, &pagingData)
 
 		if err != nil {
@@ -37,12 +39,14 @@ func ListOrder(ctx appctx.AppContext) gin.HandlerFunc {
 		}
 
 		for i := range result {
-
 			if err == nil {
 				result[i].Mask()
-				result[i].GenUserUID()
-				result[i].GenContactUID()
-				result[i].Contact.GenUserUID()
+				result[i].Contact.Mask()
+				result[i].User.Mask()
+				products := result[i].Products
+				for i := range products {
+					products[i].Mask()
+				}
 			}
 		}
 

@@ -28,7 +28,6 @@ func GetCategory(appCtx appctx.AppContext) gin.HandlerFunc {
 		products := result.Products
 		for i := range products {
 			products[i].Mask()
-			products[i].GenCategoryUID()
 		}
 
 		context.JSON(http.StatusOK, common.SimpleSuccessResponse(result))
