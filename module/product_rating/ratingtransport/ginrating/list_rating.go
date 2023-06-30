@@ -37,6 +37,7 @@ func ListRating(ctx appctx.AppContext) gin.HandlerFunc {
 
 		for i := range result {
 			result[i].Mask()
+			result[i].User.Mask()
 			result[i].OrderDetail.Mask()
 		}
 
