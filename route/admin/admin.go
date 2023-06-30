@@ -50,5 +50,5 @@ func AdminRoute(appContext appctx.AppContext, v1 *gin.RouterGroup) {
 
 	//Statistic
 	statistic := admin.Group("/statistic")
-	statistic.GET("/", ginstatistic.GetStatistic(appContext))
+	statistic.GET("/:year", ginstatistic.GetStatistic(appContext))
 }
