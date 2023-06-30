@@ -18,6 +18,7 @@ type Rating struct {
 	ProductUID      *common.UID     `json:"product_id" gorm:"-"`
 	User            *usermodel.User `gorm:"foreignKey:UserId"`
 	OrderDetailId   int             `json:"-" gorm:"column:order_id"`
+	OrderDetailUID	*common.UID     `json:"detail_id"`
 	Product 		*Product		`json:"product" gorm:"foreignKey:ProductId"`
 }
 
@@ -33,6 +34,9 @@ func (r *Rating) Mask() {
 
 	productUID := common.NewUID(uint32(r.ProductId), int(common.DbTypeProduct), 1)
 	r.ProductUID = &productUID
+
+	detailUID:= common.NewUID(uint32(r.OrderDetailId), int(common.DbTypeOrderDetail),1)
+	r.OrderDetailUID= &detailUID
 }
 
 func (r *Rating) GetProductID() int {
