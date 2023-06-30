@@ -2,6 +2,7 @@ package ratingmodel
 
 import (
 	"TKPM-Go/common"
+	"TKPM-Go/module/order_detail/orderdetailmodel"
 	"TKPM-Go/module/user/usermodel"
 	"github.com/go-playground/validator/v10"
 )
@@ -10,16 +11,17 @@ const EntityName = "Product Ratings"
 
 type Rating struct {
 	common.SQLModel `json:",inline"`
-	Point           float32         `json:"point" gorm:"column:point"`
-	Comment         string          `json:"comment" gorm:"column:comment;"`
-	UserId          int             `json:"-" gorm:"column:user_id"`
-	UserUID         *common.UID     `json:"user_id" gorm:"-"`
-	ProductId       int             `json:"-" gorm:"column:product_id"`
-	ProductUID      *common.UID     `json:"product_id" gorm:"-"`
-	User            *usermodel.User `gorm:"foreignKey:UserId"`
-	OrderDetailId   int             `json:"-" gorm:"column:order_id"`
-	OrderDetailUID	*common.UID     `json:"detail_id"`
-	Product 		*Product		`json:"product" gorm:"foreignKey:ProductId"`
+	Point           float32                       `json:"point" gorm:"column:point"`
+	Comment         string                        `json:"comment" gorm:"column:comment;"`
+	UserId          int                           `json:"-" gorm:"column:user_id"`
+	UserUID         *common.UID                   `json:"user_id" gorm:"-"`
+	ProductId       int                           `json:"-" gorm:"column:product_id"`
+	ProductUID      *common.UID                   `json:"product_id" gorm:"-"`
+	User            *usermodel.User               `gorm:"foreignKey:UserId"`
+	OrderDetailId   int                           `json:"-" gorm:"column:order_id"`
+	OrderDetailUID  *common.UID                   `json:"detail_id"`
+	Product         *Product                      `json:"product" gorm:"foreignKey:ProductId"`
+	OrderDetail     *orderdetailmodel.OrderDetail `json:"order-detail" gorm:"foreignKey:OrderDetailId"`
 }
 
 func (Rating) TableName() string {
@@ -35,8 +37,8 @@ func (r *Rating) Mask() {
 	productUID := common.NewUID(uint32(r.ProductId), int(common.DbTypeProduct), 1)
 	r.ProductUID = &productUID
 
-	detailUID:= common.NewUID(uint32(r.OrderDetailId), int(common.DbTypeOrderDetail),1)
-	r.OrderDetailUID= &detailUID
+	detailUID := common.NewUID(uint32(r.OrderDetailId), int(common.DbTypeOrderDetail), 1)
+	r.OrderDetailUID = &detailUID
 }
 
 func (r *Rating) GetProductID() int {
