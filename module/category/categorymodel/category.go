@@ -43,7 +43,7 @@ func (res *CategoryCreate) Validate() error {
 		return ErrCategoryNameIsRequired
 	}
 
-	if err := validate.Var(res.Name, "min=5,max=100"); err != nil {
+	if err := validate.Var(res.Name, "min=5,max=200"); err != nil {
 		return ErrCategoryNameLengthIsInvalid
 	}
 
@@ -51,7 +51,7 @@ func (res *CategoryCreate) Validate() error {
 		return ErrCategoryDescriptionIsRequired
 	}
 
-	if err := validate.Var(res.Description, "min=5,max=100"); err != nil {
+	if err := validate.Var(res.Description, "min=5,max=2000"); err != nil {
 		return ErrCategoryDescriptionLengthIsInvalid
 	}
 

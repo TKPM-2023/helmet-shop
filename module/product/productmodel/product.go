@@ -66,7 +66,7 @@ func (p *ProductCreate) Validate() error {
 		return ErrProductNameIsRequired
 	}
 
-	if err := validate.Var(p.Name, "min=5,max=100"); err != nil {
+	if err := validate.Var(p.Name, "min=5,max=200"); err != nil {
 		return ErrProductNameLengthIsInvalid
 	}
 
@@ -74,7 +74,7 @@ func (p *ProductCreate) Validate() error {
 		return ErrProductDescriptionIsRequired
 	}
 
-	if err := validate.Var(p.Description, "min=5,max=100"); err != nil {
+	if err := validate.Var(p.Description, "min=5,max=2000"); err != nil {
 		return ErrProductDescriptionLengthIsInvalid
 	}
 
