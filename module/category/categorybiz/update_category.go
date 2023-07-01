@@ -36,7 +36,7 @@ func (business *updateCategoryBusiness) UpdateCategory(context context.Context, 
 	}
 
 	if result != nil {
-		return common.ErrEntityNotFound(categorymodel.EntityName, nil)
+		return common.ErrCannotUpdateEntity(categorymodel.EntityName, nil)
 	}
 
 	if result.Status == 0 {
@@ -47,6 +47,7 @@ func (business *updateCategoryBusiness) UpdateCategory(context context.Context, 
 		result, err := business.store.FindCategoryWithCondition(context, map[string]interface{}{
 			"name": data.Name,
 		})
+
 		if err != nil {
 			return err
 		}

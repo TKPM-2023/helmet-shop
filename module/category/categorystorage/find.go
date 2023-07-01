@@ -22,7 +22,7 @@ func (s *sqlStore) FindCategoryWithCondition(ctx context.Context,
 
 	if err := db.Where(conditions).First(&data).Error; err != nil {
 		if err == gorm.ErrRecordNotFound {
-			return nil, common.RecordNotFound
+			return nil, nil
 		}
 		return nil, common.ErrDB(err)
 	}
