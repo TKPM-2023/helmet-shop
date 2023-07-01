@@ -37,8 +37,12 @@ func ListRating(ctx appctx.AppContext) gin.HandlerFunc {
 
 		for i := range result {
 			result[i].Mask()
-			result[i].User.Mask()
-			result[i].OrderDetail.Mask()
+			if result[i].User != nil {
+				result[i].User.Mask()
+			}
+			if result[i].OrderDetail != nil {
+				result[i].OrderDetail.Mask()
+			}
 		}
 
 		c.JSON(http.StatusOK, common.NewSuccessResponse(result, pagingData, filter))
