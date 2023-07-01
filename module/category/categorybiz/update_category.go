@@ -35,8 +35,8 @@ func (business *updateCategoryBusiness) UpdateCategory(context context.Context, 
 		return err
 	}
 
-	if result != nil {
-		return common.ErrCannotUpdateEntity(categorymodel.EntityName, nil)
+	if result == nil {
+		return common.ErrEntityNotFound(categorymodel.EntityName, nil)
 	}
 
 	if result.Status == 0 {
