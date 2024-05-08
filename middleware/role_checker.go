@@ -1,10 +1,10 @@
 package middleware
 
 import (
-	"TKPM-Go/common"
-	"TKPM-Go/component/appctx"
 	"errors"
 	"github.com/gin-gonic/gin"
+	"github.com/orgball2608/helmet-shop-be/common"
+	"github.com/orgball2608/helmet-shop-be/component/appctx"
 )
 
 func RoleChecker(appCtx appctx.AppContext, role ...string) func(c *gin.Context) {

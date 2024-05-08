@@ -1,11 +1,11 @@
 package userbusiness
 
 import (
-	"TKPM-Go/common"
-	"TKPM-Go/component/appctx"
-	"TKPM-Go/component/tokenprovider"
-	"TKPM-Go/module/user/usermodel"
 	"context"
+	"github.com/orgball2608/helmet-shop-be/common"
+	"github.com/orgball2608/helmet-shop-be/component/appctx"
+	"github.com/orgball2608/helmet-shop-be/component/tokenprovider"
+	"github.com/orgball2608/helmet-shop-be/module/user/usermodel"
 )
 
 type LoginStorage interface {

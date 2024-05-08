@@ -1,6 +1,6 @@
 package usermodel
 
-import "TKPM-Go/component/tokenprovider"
+import "github.com/orgball2608/helmet-shop-be/component/tokenprovider"
 
 type Token struct {
 	AccessToken  *tokenprovider.Token `json:"access_token"`

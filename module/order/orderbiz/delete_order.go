@@ -1,9 +1,9 @@
 package orderbiz
 
 import (
-	"TKPM-Go/common"
-	"TKPM-Go/module/order/ordermodel"
 	"context"
+	"github.com/orgball2608/helmet-shop-be/common"
+	"github.com/orgball2608/helmet-shop-be/module/order/ordermodel"
 )
 
 type DeleteOrderStore interface {

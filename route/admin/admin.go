@@ -1,14 +1,14 @@
 package admin
 
 import (
-	"TKPM-Go/component/appctx"
-	"TKPM-Go/middleware"
-	"TKPM-Go/module/category/categorytransport/gincategory"
-	"TKPM-Go/module/product/producttransport/ginproduct"
-	"TKPM-Go/module/product_rating/ratingtransport/ginrating"
-	"TKPM-Go/module/statistic/statistictransport/ginstatistic"
-	"TKPM-Go/module/upload/uploadtransport/ginupload"
-	"TKPM-Go/module/user/usertransport/ginuser"
+	"github.com/orgball2608/helmet-shop-be/component/appctx"
+	"github.com/orgball2608/helmet-shop-be/middleware"
+	"github.com/orgball2608/helmet-shop-be/module/category/categorytransport/gincategory"
+	"github.com/orgball2608/helmet-shop-be/module/product/producttransport/ginproduct"
+	"github.com/orgball2608/helmet-shop-be/module/product_rating/ratingtransport/ginrating"
+	"github.com/orgball2608/helmet-shop-be/module/statistic/statistictransport/ginstatistic"
+	"github.com/orgball2608/helmet-shop-be/module/upload/uploadtransport/ginupload"
+	"github.com/orgball2608/helmet-shop-be/module/user/usertransport/ginuser"
 
 	"github.com/gin-gonic/gin"
 )

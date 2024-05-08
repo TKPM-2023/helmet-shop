@@ -1,8 +1,8 @@
 package categorystorage
 
 import (
-	"TKPM-Go/module/category/categorymodel"
 	"context"
+	"github.com/orgball2608/helmet-shop-be/module/category/categorymodel"
 )
 
 func (s *sqlStore) DeleteCategory(context context.Context, id int) error {

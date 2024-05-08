@@ -1,13 +1,13 @@
 package ratingbiz
 
 import (
-	"TKPM-Go/common"
-	"TKPM-Go/module/order/ordermodel"
-	"TKPM-Go/module/order_detail/orderdetailmodel"
-	"TKPM-Go/module/product_rating/ratingmodel"
-	"TKPM-Go/pubsub"
 	"context"
 	"fmt"
+	"github.com/orgball2608/helmet-shop-be/common"
+	"github.com/orgball2608/helmet-shop-be/module/order/ordermodel"
+	"github.com/orgball2608/helmet-shop-be/module/order_detail/orderdetailmodel"
+	"github.com/orgball2608/helmet-shop-be/module/product_rating/ratingmodel"
+	"github.com/orgball2608/helmet-shop-be/pubsub"
 )
 
 type CreateRatingStore interface {

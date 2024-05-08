@@ -1,8 +1,8 @@
 package orderdetailmodel
 
 import (
-	"TKPM-Go/common"
 	"errors"
+	"github.com/orgball2608/helmet-shop-be/common"
 )
 
 var (
@@ -25,5 +25,4 @@ var (
 		errors.New("order id not found"),
 		"order id not found",
 		"ErrOrderDetailOrderIDNotFound")
-
 )

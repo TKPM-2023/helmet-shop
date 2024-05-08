@@ -1,9 +1,9 @@
 package productmodel
 
 import (
-	"TKPM-Go/common"
-	"TKPM-Go/module/product_rating/ratingmodel"
 	"github.com/go-playground/validator/v10"
+	"github.com/orgball2608/helmet-shop-be/common"
+	"github.com/orgball2608/helmet-shop-be/module/product_rating/ratingmodel"
 )
 
 const EntityName = "Products"

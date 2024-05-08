@@ -1,10 +1,10 @@
 package cartbiz
 
 import (
-	"TKPM-Go/common"
-	"TKPM-Go/module/cart/cartmodel"
-	"TKPM-Go/pubsub"
 	"context"
+	"github.com/orgball2608/helmet-shop-be/common"
+	"github.com/orgball2608/helmet-shop-be/module/cart/cartmodel"
+	"github.com/orgball2608/helmet-shop-be/pubsub"
 )
 
 type RemoveProductsStorage interface {

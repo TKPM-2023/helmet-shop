@@ -1,11 +1,11 @@
 package ginrating
 
 import (
-	"TKPM-Go/common"
-	"TKPM-Go/component/appctx"
-	"TKPM-Go/module/product_rating/ratingbiz"
-	"TKPM-Go/module/product_rating/ratingstorage"
 	"github.com/gin-gonic/gin"
+	"github.com/orgball2608/helmet-shop-be/common"
+	"github.com/orgball2608/helmet-shop-be/component/appctx"
+	"github.com/orgball2608/helmet-shop-be/module/product_rating/ratingbiz"
+	"github.com/orgball2608/helmet-shop-be/module/product_rating/ratingstorage"
 	"net/http"
 )
 

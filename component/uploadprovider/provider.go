@@ -1,8 +1,8 @@
 package uploadprovider
 
 import (
-	"TKPM-Go/common"
 	"context"
+	"github.com/orgball2608/helmet-shop-be/common"
 )
 
 type UploadProvider interface {

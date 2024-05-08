@@ -1,11 +1,11 @@
 package ginuser
 
 import (
-	"TKPM-Go/common"
-	"TKPM-Go/component/appctx"
-	"TKPM-Go/module/user/userbusiness"
-	"TKPM-Go/module/user/userstorage"
 	"github.com/gin-gonic/gin"
+	"github.com/orgball2608/helmet-shop-be/common"
+	"github.com/orgball2608/helmet-shop-be/component/appctx"
+	"github.com/orgball2608/helmet-shop-be/module/user/userbusiness"
+	"github.com/orgball2608/helmet-shop-be/module/user/userstorage"
 	"net/http"
 )
 

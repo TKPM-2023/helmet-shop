@@ -1,8 +1,8 @@
 package contactmodel
 
 import (
-	"TKPM-Go/common"
 	"github.com/go-playground/validator/v10"
+	"github.com/orgball2608/helmet-shop-be/common"
 )
 
 const EntityName = "Contacts"

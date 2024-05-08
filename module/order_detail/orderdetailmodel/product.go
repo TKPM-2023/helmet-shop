@@ -1,11 +1,11 @@
 package orderdetailmodel
 
 import (
-	"TKPM-Go/common"
 	"database/sql/driver"
 	"encoding/json"
 	"errors"
 	"fmt"
+	"github.com/orgball2608/helmet-shop-be/common"
 )
 
 type ProductOrigin struct {

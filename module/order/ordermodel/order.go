@@ -1,11 +1,11 @@
 package ordermodel
 
 import (
-	"TKPM-Go/common"
-	"TKPM-Go/module/contact/contactmodel"
-	"TKPM-Go/module/order_detail/orderdetailmodel"
-	"TKPM-Go/module/user/usermodel"
 	"github.com/go-playground/validator/v10"
+	"github.com/orgball2608/helmet-shop-be/common"
+	"github.com/orgball2608/helmet-shop-be/module/contact/contactmodel"
+	"github.com/orgball2608/helmet-shop-be/module/order_detail/orderdetailmodel"
+	"github.com/orgball2608/helmet-shop-be/module/user/usermodel"
 )
 
 const EntityName = "Orders"

@@ -1,8 +1,8 @@
 package appctx
 
 import (
-	"TKPM-Go/component/uploadprovider"
-	"TKPM-Go/pubsub"
+	"github.com/orgball2608/helmet-shop-be/component/uploadprovider"
+	"github.com/orgball2608/helmet-shop-be/pubsub"
 	"gorm.io/gorm"
 )
 

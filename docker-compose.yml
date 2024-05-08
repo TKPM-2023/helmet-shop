@@ -13,7 +13,8 @@ services:
     volumes:
       - mysql-data:/var/lib/mysql
 
-  image: waang07/helmet-shop:latest
+  helmet-shop:
+    image: waang07/helmet-shop:latest
     restart: always
     networks:
       - shop

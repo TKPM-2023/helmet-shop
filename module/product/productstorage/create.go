@@ -1,9 +1,9 @@
 package productstorage
 
 import (
-	"TKPM-Go/common"
-	"TKPM-Go/module/product/productmodel"
 	"context"
+	"github.com/orgball2608/helmet-shop-be/common"
+	"github.com/orgball2608/helmet-shop-be/module/product/productmodel"
 )
 
 func (s *sqlStore) CreateCategory(ctx context.Context, data *productmodel.ProductCreate) error {

@@ -1,6 +1,6 @@
 package contactmodel
 
-import "TKPM-Go/common"
+import "github.com/orgball2608/helmet-shop-be/common"
 
 type Filter struct {
 	Status int         `json:"status,omitempty" form:"status"`

@@ -1,13 +1,13 @@
 package middleware
 
 import (
-	"TKPM-Go/common"
-	"TKPM-Go/component/appctx"
-	"TKPM-Go/component/tokenprovider/jwt"
-	"TKPM-Go/module/user/userstorage"
 	"errors"
 	"fmt"
 	"github.com/gin-gonic/gin"
+	"github.com/orgball2608/helmet-shop-be/common"
+	"github.com/orgball2608/helmet-shop-be/component/appctx"
+	"github.com/orgball2608/helmet-shop-be/component/tokenprovider/jwt"
+	"github.com/orgball2608/helmet-shop-be/module/user/userstorage"
 	"strings"
 )
 

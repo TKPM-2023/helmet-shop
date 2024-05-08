@@ -1,12 +1,12 @@
 package uploadbusiness
 
 import (
-	"TKPM-Go/common"
-	"TKPM-Go/component/uploadprovider"
-	"TKPM-Go/module/upload/uploadmodel"
 	"bytes"
 	"context"
 	"fmt"
+	"github.com/orgball2608/helmet-shop-be/common"
+	"github.com/orgball2608/helmet-shop-be/component/uploadprovider"
+	"github.com/orgball2608/helmet-shop-be/module/upload/uploadmodel"
 	"image"
 	_ "image/gif"
 	_ "image/jpeg"

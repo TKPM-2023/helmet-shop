@@ -1,8 +1,8 @@
 package tokenprovider
 
 import (
-	"TKPM-Go/common"
 	"errors"
+	"github.com/orgball2608/helmet-shop-be/common"
 	"time"
 )
 

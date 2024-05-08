@@ -1,8 +1,8 @@
 package contactstorage
 
 import (
-	"TKPM-Go/module/contact/contactmodel"
 	"context"
+	"github.com/orgball2608/helmet-shop-be/module/contact/contactmodel"
 )
 
 func (s *sqlStore) DeleteContact(context context.Context, id int) error {

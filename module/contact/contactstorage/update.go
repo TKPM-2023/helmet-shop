@@ -1,8 +1,8 @@
 package contactstorage
 
 import (
-	"TKPM-Go/module/contact/contactmodel"
 	"context"
+	"github.com/orgball2608/helmet-shop-be/module/contact/contactmodel"
 )
 
 func (s *sqlStore) UpdateContact(context context.Context, id int, data *contactmodel.ContactUpdate) error {

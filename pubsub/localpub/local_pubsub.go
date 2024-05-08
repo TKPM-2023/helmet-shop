@@ -1,9 +1,9 @@
 package localPb
 
 import (
-	"TKPM-Go/common"
-	"TKPM-Go/pubsub"
 	"context"
+	"github.com/orgball2608/helmet-shop-be/common"
+	"github.com/orgball2608/helmet-shop-be/pubsub"
 	"log"
 	"sync"
 )

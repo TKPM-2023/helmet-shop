@@ -1,13 +1,13 @@
 package ginstatistic
 
 import (
-	"TKPM-Go/common"
-	"TKPM-Go/component/appctx"
-	"TKPM-Go/module/category/categorystorage"
-	"TKPM-Go/module/order/orderstorage"
-	"TKPM-Go/module/product/productstorage"
-	"TKPM-Go/module/statistic/statisticmodel"
-	"TKPM-Go/module/user/userstorage"
+	"github.com/orgball2608/helmet-shop-be/common"
+	"github.com/orgball2608/helmet-shop-be/component/appctx"
+	"github.com/orgball2608/helmet-shop-be/module/category/categorystorage"
+	"github.com/orgball2608/helmet-shop-be/module/order/orderstorage"
+	"github.com/orgball2608/helmet-shop-be/module/product/productstorage"
+	"github.com/orgball2608/helmet-shop-be/module/statistic/statisticmodel"
+	"github.com/orgball2608/helmet-shop-be/module/user/userstorage"
 	"net/http"
 
 	"strconv"

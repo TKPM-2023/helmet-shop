@@ -1,11 +1,11 @@
 package ginorder
 
 import (
-	"TKPM-Go/common"
-	"TKPM-Go/component/appctx"
-	"TKPM-Go/module/order/orderbiz"
-	"TKPM-Go/module/order/orderstorage"
 	"github.com/gin-gonic/gin"
+	"github.com/orgball2608/helmet-shop-be/common"
+	"github.com/orgball2608/helmet-shop-be/component/appctx"
+	"github.com/orgball2608/helmet-shop-be/module/order/orderbiz"
+	"github.com/orgball2608/helmet-shop-be/module/order/orderstorage"
 	"net/http"
 )
 

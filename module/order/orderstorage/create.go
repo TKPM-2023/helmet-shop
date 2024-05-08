@@ -1,9 +1,9 @@
 package orderstorage
 
 import (
-	"TKPM-Go/common"
-	"TKPM-Go/module/order/ordermodel"
 	"context"
+	"github.com/orgball2608/helmet-shop-be/common"
+	"github.com/orgball2608/helmet-shop-be/module/order/ordermodel"
 )
 
 func (s *sqlStore) CreateOrder(ctx context.Context, data *ordermodel.OrderCreate) error {

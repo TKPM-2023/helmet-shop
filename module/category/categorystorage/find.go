@@ -1,9 +1,9 @@
 package categorystorage
 
 import (
-	"TKPM-Go/common"
-	"TKPM-Go/module/category/categorymodel"
 	"context"
+	"github.com/orgball2608/helmet-shop-be/common"
+	"github.com/orgball2608/helmet-shop-be/module/category/categorymodel"
 	"gorm.io/gorm"
 )
 

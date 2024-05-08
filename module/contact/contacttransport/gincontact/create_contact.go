@@ -1,11 +1,11 @@
 package gincontact
 
 import (
-	"TKPM-Go/common"
-	"TKPM-Go/component/appctx"
-	"TKPM-Go/module/contact/contactbiz"
-	"TKPM-Go/module/contact/contactmodel"
-	"TKPM-Go/module/contact/contactstorage"
+	"github.com/orgball2608/helmet-shop-be/common"
+	"github.com/orgball2608/helmet-shop-be/component/appctx"
+	"github.com/orgball2608/helmet-shop-be/module/contact/contactbiz"
+	"github.com/orgball2608/helmet-shop-be/module/contact/contactmodel"
+	"github.com/orgball2608/helmet-shop-be/module/contact/contactstorage"
 	"net/http"
 
 	"github.com/gin-gonic/gin"

@@ -1,8 +1,8 @@
 package ratingstorage
 
 import (
-	"TKPM-Go/module/product_rating/ratingmodel"
 	"context"
+	"github.com/orgball2608/helmet-shop-be/module/product_rating/ratingmodel"
 )
 
 func (s *sqlStore) UpdateRating(context context.Context, id int, data *ratingmodel.RatingUpdate) error {

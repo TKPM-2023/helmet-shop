@@ -1,11 +1,11 @@
 package gincategory
 
 import (
-	"TKPM-Go/common"
-	"TKPM-Go/component/appctx"
-	"TKPM-Go/module/category/categorybiz"
-	"TKPM-Go/module/category/categorystorage"
 	"github.com/gin-gonic/gin"
+	"github.com/orgball2608/helmet-shop-be/common"
+	"github.com/orgball2608/helmet-shop-be/component/appctx"
+	"github.com/orgball2608/helmet-shop-be/module/category/categorybiz"
+	"github.com/orgball2608/helmet-shop-be/module/category/categorystorage"
 	"net/http"
 )
 

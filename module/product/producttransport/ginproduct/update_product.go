@@ -1,12 +1,12 @@
 package ginproduct
 
 import (
-	"TKPM-Go/common"
-	"TKPM-Go/component/appctx"
-	"TKPM-Go/module/product/productbiz"
-	"TKPM-Go/module/product/productmodel"
-	"TKPM-Go/module/product/productstorage"
 	"github.com/gin-gonic/gin"
+	"github.com/orgball2608/helmet-shop-be/common"
+	"github.com/orgball2608/helmet-shop-be/component/appctx"
+	"github.com/orgball2608/helmet-shop-be/module/product/productbiz"
+	"github.com/orgball2608/helmet-shop-be/module/product/productmodel"
+	"github.com/orgball2608/helmet-shop-be/module/product/productstorage"
 	"net/http"
 )
 

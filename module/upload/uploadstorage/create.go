@@ -1,8 +1,8 @@
 package uploadstorage
 
 import (
-	"TKPM-Go/common"
 	"context"
+	"github.com/orgball2608/helmet-shop-be/common"
 )
 
 func (s *sqlStore) CreateImage(ctx context.Context, data *common.Image) error {

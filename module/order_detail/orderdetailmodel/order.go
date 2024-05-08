@@ -1,9 +1,9 @@
 package orderdetailmodel
 
 import (
-	"TKPM-Go/common"
-	"TKPM-Go/module/contact/contactmodel"
-	"TKPM-Go/module/user/usermodel"
+	"github.com/orgball2608/helmet-shop-be/common"
+	"github.com/orgball2608/helmet-shop-be/module/contact/contactmodel"
+	"github.com/orgball2608/helmet-shop-be/module/user/usermodel"
 )
 
 type Order struct {

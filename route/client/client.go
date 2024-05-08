@@ -1,16 +1,16 @@
 package client
 
 import (
-	"TKPM-Go/component/appctx"
-	"TKPM-Go/middleware"
-	"TKPM-Go/module/cart/carttransport/gincart"
-	"TKPM-Go/module/category/categorytransport/gincategory"
-	"TKPM-Go/module/contact/contacttransport/gincontact"
-	"TKPM-Go/module/order/ordertransport/ginorder"
-	"TKPM-Go/module/order_detail/orderdetailtransport/ginorderdetail"
-	"TKPM-Go/module/product/producttransport/ginproduct"
-	"TKPM-Go/module/product_rating/ratingtransport/ginrating"
-	"TKPM-Go/module/user/usertransport/ginuser"
+	"github.com/orgball2608/helmet-shop-be/component/appctx"
+	"github.com/orgball2608/helmet-shop-be/middleware"
+	"github.com/orgball2608/helmet-shop-be/module/cart/carttransport/gincart"
+	"github.com/orgball2608/helmet-shop-be/module/category/categorytransport/gincategory"
+	"github.com/orgball2608/helmet-shop-be/module/contact/contacttransport/gincontact"
+	"github.com/orgball2608/helmet-shop-be/module/order/ordertransport/ginorder"
+	"github.com/orgball2608/helmet-shop-be/module/order_detail/orderdetailtransport/ginorderdetail"
+	"github.com/orgball2608/helmet-shop-be/module/product/producttransport/ginproduct"
+	"github.com/orgball2608/helmet-shop-be/module/product_rating/ratingtransport/ginrating"
+	"github.com/orgball2608/helmet-shop-be/module/user/usertransport/ginuser"
 
 	"github.com/gin-gonic/gin"
 )

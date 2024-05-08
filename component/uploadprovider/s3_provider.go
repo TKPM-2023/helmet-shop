@@ -1,7 +1,6 @@
 package uploadprovider
 
 import (
-	"TKPM-Go/common"
 	"bytes"
 	"context"
 	"fmt"
@@ -9,6 +8,7 @@ import (
 	"github.com/aws/aws-sdk-go/aws/credentials"
 	"github.com/aws/aws-sdk-go/aws/session"
 	"github.com/aws/aws-sdk-go/service/s3"
+	"github.com/orgball2608/helmet-shop-be/common"
 	"log"
 	"net/http"
 )

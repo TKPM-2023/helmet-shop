@@ -1,9 +1,9 @@
 package contactbiz
 
 import (
-	"TKPM-Go/common"
-	"TKPM-Go/module/contact/contactmodel"
 	"context"
+	"github.com/orgball2608/helmet-shop-be/common"
+	"github.com/orgball2608/helmet-shop-be/module/contact/contactmodel"
 )
 
 type DeleteContactStore interface {

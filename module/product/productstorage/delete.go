@@ -1,8 +1,8 @@
 package productstorage
 
 import (
-	"TKPM-Go/module/product/productmodel"
 	"context"
+	"github.com/orgball2608/helmet-shop-be/module/product/productmodel"
 )
 
 func (s *sqlStore) DeleteProduct(context context.Context, id int) error {

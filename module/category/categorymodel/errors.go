@@ -1,8 +1,8 @@
 package categorymodel
 
 import (
-	"TKPM-Go/common"
 	"errors"
+	"github.com/orgball2608/helmet-shop-be/common"
 )
 
 var (

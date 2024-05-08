@@ -1,12 +1,12 @@
 package userbusiness
 
 import (
-	"TKPM-Go/common"
-	"TKPM-Go/module/cart/cartmodel"
-	"TKPM-Go/module/user/usermodel"
-	"TKPM-Go/pubsub"
 	"context"
 	"fmt"
+	"github.com/orgball2608/helmet-shop-be/common"
+	"github.com/orgball2608/helmet-shop-be/module/cart/cartmodel"
+	"github.com/orgball2608/helmet-shop-be/module/user/usermodel"
+	"github.com/orgball2608/helmet-shop-be/pubsub"
 )
 
 type RegisterStorage interface {

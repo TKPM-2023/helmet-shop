@@ -1,8 +1,8 @@
 package cartmodel
 
 import (
-	"TKPM-Go/common"
-	"TKPM-Go/module/product/productmodel"
+	"github.com/orgball2608/helmet-shop-be/common"
+	"github.com/orgball2608/helmet-shop-be/module/product/productmodel"
 )
 
 const EntityName = "Carts"

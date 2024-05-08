@@ -1,13 +1,13 @@
 package ginorderdetail
 
 import (
-	"TKPM-Go/common"
-	"TKPM-Go/component/appctx"
-	"TKPM-Go/module/order_detail/orderdetailbiz"
-	"TKPM-Go/module/order_detail/orderdetailmodel"
-	"TKPM-Go/module/order_detail/orderdetailstorage"
-	"TKPM-Go/module/product/productbiz"
-	"TKPM-Go/module/product/productstorage"
+	"github.com/orgball2608/helmet-shop-be/common"
+	"github.com/orgball2608/helmet-shop-be/component/appctx"
+	"github.com/orgball2608/helmet-shop-be/module/order_detail/orderdetailbiz"
+	"github.com/orgball2608/helmet-shop-be/module/order_detail/orderdetailmodel"
+	"github.com/orgball2608/helmet-shop-be/module/order_detail/orderdetailstorage"
+	"github.com/orgball2608/helmet-shop-be/module/product/productbiz"
+	"github.com/orgball2608/helmet-shop-be/module/product/productstorage"
 	"net/http"
 
 	"github.com/gin-gonic/gin"

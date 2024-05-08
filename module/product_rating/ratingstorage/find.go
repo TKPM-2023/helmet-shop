@@ -1,9 +1,9 @@
 package ratingstorage
 
 import (
-	"TKPM-Go/common"
-	"TKPM-Go/module/product_rating/ratingmodel"
 	"context"
+	"github.com/orgball2608/helmet-shop-be/common"
+	"github.com/orgball2608/helmet-shop-be/module/product_rating/ratingmodel"
 	"gorm.io/gorm"
 )
 

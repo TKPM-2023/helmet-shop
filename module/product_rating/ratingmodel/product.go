@@ -1,6 +1,6 @@
 package ratingmodel
 
-import "TKPM-Go/common"
+import "github.com/orgball2608/helmet-shop-be/common"
 
 type Product struct {
 	common.SQLModel `json:",inline"`

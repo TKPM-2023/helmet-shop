@@ -1,6 +1,6 @@
 package common
 
-import "TKPM-Go/pubsub"
+import "github.com/orgball2608/helmet-shop-be/pubsub"
 
 type DbType int
 

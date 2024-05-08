@@ -1,11 +1,11 @@
 package gincart
 
 import (
-	"TKPM-Go/common"
-	"TKPM-Go/component/appctx"
-	"TKPM-Go/module/cart/cartbiz"
-	"TKPM-Go/module/cart/cartstorage"
 	"github.com/gin-gonic/gin"
+	"github.com/orgball2608/helmet-shop-be/common"
+	"github.com/orgball2608/helmet-shop-be/component/appctx"
+	"github.com/orgball2608/helmet-shop-be/module/cart/cartbiz"
+	"github.com/orgball2608/helmet-shop-be/module/cart/cartstorage"
 	"net/http"
 )
 

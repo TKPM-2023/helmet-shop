@@ -1,9 +1,9 @@
 package userbusiness
 
 import (
-	"TKPM-Go/common"
-	"TKPM-Go/module/user/usermodel"
 	"context"
+	"github.com/orgball2608/helmet-shop-be/common"
+	"github.com/orgball2608/helmet-shop-be/module/user/usermodel"
 )
 
 type UpdateUserInfoStore interface {

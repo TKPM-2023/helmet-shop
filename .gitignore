@@ -2,4 +2,5 @@ main.exe
 .idea
 run.sh
 build-out
+.env
 __debug_bin

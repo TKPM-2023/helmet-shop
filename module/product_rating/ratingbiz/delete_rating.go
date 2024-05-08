@@ -1,10 +1,10 @@
 package ratingbiz
 
 import (
-	"TKPM-Go/common"
-	"TKPM-Go/module/product_rating/ratingmodel"
-	"TKPM-Go/pubsub"
 	"context"
+	"github.com/orgball2608/helmet-shop-be/common"
+	"github.com/orgball2608/helmet-shop-be/module/product_rating/ratingmodel"
+	"github.com/orgball2608/helmet-shop-be/pubsub"
 )
 
 type DeleteRatingStore interface {

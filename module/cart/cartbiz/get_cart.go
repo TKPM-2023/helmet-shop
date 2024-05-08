@@ -1,10 +1,10 @@
 package cartbiz
 
 import (
-	"TKPM-Go/common"
-	"TKPM-Go/module/cart/cartmodel"
 	"context"
 	"fmt"
+	"github.com/orgball2608/helmet-shop-be/common"
+	"github.com/orgball2608/helmet-shop-be/module/cart/cartmodel"
 )
 
 type GetCartStorage interface {

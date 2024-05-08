@@ -1,10 +1,10 @@
 package productstorage
 
 import (
-	"TKPM-Go/common"
-	"TKPM-Go/module/product/productmodel"
 	"context"
 	"fmt"
+	"github.com/orgball2608/helmet-shop-be/common"
+	"github.com/orgball2608/helmet-shop-be/module/product/productmodel"
 )
 
 func (s *sqlStore) ListDataWithCondition(

@@ -1,9 +1,9 @@
 package categorymodel
 
 import (
-	"TKPM-Go/common"
-	"TKPM-Go/module/product/productmodel"
 	"github.com/go-playground/validator/v10"
+	"github.com/orgball2608/helmet-shop-be/common"
+	"github.com/orgball2608/helmet-shop-be/module/product/productmodel"
 )
 
 const EntityName = "Categories"

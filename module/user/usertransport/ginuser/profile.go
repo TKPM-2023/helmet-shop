@@ -1,9 +1,9 @@
 package ginuser
 
 import (
-	"TKPM-Go/common"
-	"TKPM-Go/component/appctx"
 	"github.com/gin-gonic/gin"
+	"github.com/orgball2608/helmet-shop-be/common"
+	"github.com/orgball2608/helmet-shop-be/component/appctx"
 	"net/http"
 )
 

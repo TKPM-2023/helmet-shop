@@ -1,9 +1,9 @@
 package orderdetailbiz
 
 import (
-	"TKPM-Go/common"
-	"TKPM-Go/module/order_detail/orderdetailmodel"
 	"context"
+	"github.com/orgball2608/helmet-shop-be/common"
+	"github.com/orgball2608/helmet-shop-be/module/order_detail/orderdetailmodel"
 )
 
 type CreateOrderDetailStore interface {

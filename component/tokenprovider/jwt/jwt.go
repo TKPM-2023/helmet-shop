@@ -1,8 +1,8 @@
 package jwt
 
 import (
-	"TKPM-Go/component/tokenprovider"
 	"github.com/golang-jwt/jwt"
+	"github.com/orgball2608/helmet-shop-be/component/tokenprovider"
 	"time"
 )
 

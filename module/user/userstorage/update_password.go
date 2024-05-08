@@ -1,8 +1,8 @@
 package userstorage
 
 import (
-	"TKPM-Go/module/user/usermodel"
 	"context"
+	"github.com/orgball2608/helmet-shop-be/module/user/usermodel"
 )
 
 func (s *sqlStore) UpdatePassword(context context.Context, id int, data *usermodel.PasswordUpdate) error {

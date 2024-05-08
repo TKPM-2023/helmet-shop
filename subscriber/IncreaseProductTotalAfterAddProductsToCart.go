@@ -1,10 +1,10 @@
 package subscriber
 
 import (
-	"TKPM-Go/component/appctx"
-	"TKPM-Go/module/cart/cartstorage"
-	"TKPM-Go/pubsub"
 	"context"
+	"github.com/orgball2608/helmet-shop-be/component/appctx"
+	"github.com/orgball2608/helmet-shop-be/module/cart/cartstorage"
+	"github.com/orgball2608/helmet-shop-be/pubsub"
 )
 
 type UpdateProductTotal interface {

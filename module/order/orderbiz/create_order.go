@@ -1,11 +1,11 @@
 package orderbiz
 
 import (
-	"TKPM-Go/common"
-	"TKPM-Go/module/order/ordermodel"
-	"TKPM-Go/module/order_detail/orderdetailbiz"
-	"TKPM-Go/module/product/productbiz"
 	"context"
+	"github.com/orgball2608/helmet-shop-be/common"
+	"github.com/orgball2608/helmet-shop-be/module/order/ordermodel"
+	"github.com/orgball2608/helmet-shop-be/module/order_detail/orderdetailbiz"
+	"github.com/orgball2608/helmet-shop-be/module/product/productbiz"
 )
 
 type CreateOrderStore interface {
@@ -18,16 +18,16 @@ type CreateOrderStore interface {
 
 type createOrderBusiness struct {
 	createorder_store CreateOrderStore
-	product_store	productbiz.GetProductStore
+	product_store     productbiz.GetProductStore
 	orderdetail_store orderdetailbiz.CreateOrderDetailStore
 }
 
 func NewCreateOrderBusiness(createorder_store CreateOrderStore,
-							product_store	productbiz.GetProductStore,
-							orderdetail_store orderdetailbiz.CreateOrderDetailStore) *createOrderBusiness {
+	product_store productbiz.GetProductStore,
+	orderdetail_store orderdetailbiz.CreateOrderDetailStore) *createOrderBusiness {
 	return &createOrderBusiness{createorder_store: createorder_store,
-								product_store: product_store,
-								orderdetail_store: orderdetail_store,
+		product_store:     product_store,
+		orderdetail_store: orderdetail_store,
 	}
 }
 
@@ -44,7 +44,6 @@ func (business *createOrderBusiness) CreateOrder(context context.Context, data *
 		//get product info from model products
 		//product, err := business.product_store.GetProduct(context.Request.Context(), int(data.Products[i].Product_Origin.UID.GetLocalID()))
 		product, err := business.product_store.FindProductWithCondition(context, map[string]interface{}{"id": data.Products[i].ProductOrigin.UID.GetLocalID()})
-
 
 		if err != nil {
 			panic(err)

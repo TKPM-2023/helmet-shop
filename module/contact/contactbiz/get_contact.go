@@ -1,9 +1,9 @@
 package contactbiz
 
 import (
-	"TKPM-Go/common"
-	"TKPM-Go/module/contact/contactmodel"
 	"context"
+	"github.com/orgball2608/helmet-shop-be/common"
+	"github.com/orgball2608/helmet-shop-be/module/contact/contactmodel"
 )
 
 type GetContactStore interface {
@@ -23,7 +23,7 @@ func NewGetContactBusiness(store GetContactStore) *getContactBusiness {
 
 func (business *getContactBusiness) GetContact(
 	ctx context.Context, id int) (*contactmodel.Contact, error) {
-	result, err := business.store.FindContactWithCondition(ctx, map[string]interface{}{"id": id}, )
+	result, err := business.store.FindContactWithCondition(ctx, map[string]interface{}{"id": id})
 
 	if err != nil {
 		if err != common.RecordNotFound {

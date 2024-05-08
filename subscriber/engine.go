@@ -1,11 +1,11 @@
 package subscriber
 
 import (
-	"TKPM-Go/common"
-	"TKPM-Go/component/appctx"
-	"TKPM-Go/component/asyncjob"
-	"TKPM-Go/pubsub"
 	"context"
+	"github.com/orgball2608/helmet-shop-be/common"
+	"github.com/orgball2608/helmet-shop-be/component/appctx"
+	"github.com/orgball2608/helmet-shop-be/component/asyncjob"
+	"github.com/orgball2608/helmet-shop-be/pubsub"
 	"log"
 )
 

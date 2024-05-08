@@ -1,20 +1,21 @@
 package main
 
 import (
-	"TKPM-Go/component/appctx"
-	"TKPM-Go/component/uploadprovider"
-	"TKPM-Go/middleware"
-	localPb "TKPM-Go/pubsub/localpub"
-	"TKPM-Go/route/admin"
-	"TKPM-Go/route/client"
-	"TKPM-Go/route/user"
-	"TKPM-Go/subscriber"
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
+	"github.com/orgball2608/helmet-shop-be/component/appctx"
+	"github.com/orgball2608/helmet-shop-be/component/uploadprovider"
+	"github.com/orgball2608/helmet-shop-be/middleware"
+	localPb "github.com/orgball2608/helmet-shop-be/pubsub/localpub"
+	"github.com/orgball2608/helmet-shop-be/route/admin"
+	"github.com/orgball2608/helmet-shop-be/route/client"
+	"github.com/orgball2608/helmet-shop-be/route/user"
+	"github.com/orgball2608/helmet-shop-be/subscriber"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 	"log"
 	"os"
+	"time"
 )
 
 func main() {
@@ -26,7 +27,6 @@ func main() {
 	s3Domain := os.Getenv("S3_DOMAIN")
 	secretKey := os.Getenv("SYSTEM_SECRET")
 
-
 	db, err := gorm.Open(mysql.Open(dsn), &gorm.Config{})
 	if err != nil {
 		log.Fatal("Connect DB failed", err)
@@ -34,8 +34,8 @@ func main() {
 	log.Println("Connect DB success", db)
 
 	s3Provider := uploadprovider.NewS3Provider(s3BucketName, s3Region, s3APIKey, s3SecretKey, s3Domain)
-	pubsub := localPb.NewPubSub()
-	appContext := appctx.NewAppContext(db, s3Provider, secretKey, pubsub)
+	pubSub := localPb.NewPubSub()
+	appContext := appctx.NewAppContext(db, s3Provider, secretKey, pubSub)
 	db = db.Debug()
 
 	if err := subscriber.NewEngine(appContext).Start(); err != nil {
@@ -43,9 +43,10 @@ func main() {
 	}
 
 	r := gin.Default()
+	gin.SetMode(gin.DebugMode)
 	r.Use(middleware.Recover(appContext))
 
-	router.Use(cors.New(cors.Config{
+	r.Use(cors.New(cors.Config{
 		AllowOrigins: []string{"*"},
 		AllowMethods: []string{"GET", "POST", "PUT", "PATCH", "DELETE", "HEAD"},
 		AllowHeaders: []string{
@@ -65,14 +66,13 @@ func main() {
 		MaxAge:           12 * time.Hour,
 	}))
 
-	r.Use(cors.New(config))
-
 	// route
 	v1 := r.Group("v1")
 	admin.AdminRoute(appContext, v1)
 	client.ClientRoute(appContext, v1)
 	user.UserRoute(appContext, v1)
 
-	r.Run()
-
+	if err := r.Run(); err != nil {
+		log.Fatal("Server failed", err)
+	}
 }

@@ -1,6 +1,6 @@
 package uploadmodel
 
-import "TKPM-Go/common"
+import "github.com/orgball2608/helmet-shop-be/common"
 
 func ErrCannotSaveFile(err error) *common.AppError {
 	return common.NewErrorResponse(err, "can not save file", err.Error(), "ERROR_CANNOT_SAVE_FILE")

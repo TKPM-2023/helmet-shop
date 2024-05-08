@@ -1,11 +1,11 @@
 package ginupload
 
 import (
-	"TKPM-Go/common"
-	"TKPM-Go/component/appctx"
-	"TKPM-Go/module/upload/uploadbusiness"
-	"TKPM-Go/module/upload/uploadstorage"
 	"github.com/gin-gonic/gin"
+	"github.com/orgball2608/helmet-shop-be/common"
+	"github.com/orgball2608/helmet-shop-be/component/appctx"
+	"github.com/orgball2608/helmet-shop-be/module/upload/uploadbusiness"
+	"github.com/orgball2608/helmet-shop-be/module/upload/uploadstorage"
 	"net/http"
 	"strconv"
 )

@@ -1,8 +1,8 @@
 package uploadbusiness
 
 import (
-	"TKPM-Go/common"
 	"context"
+	"github.com/orgball2608/helmet-shop-be/common"
 )
 
 type RemoveImageStore interface {
