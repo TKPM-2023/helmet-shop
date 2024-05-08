@@ -18,12 +18,12 @@ import (
 )
 
 func main() {
-	dsn := os.Getenv("MYSQL_STR")
-	s3BucketName := os.Getenv("S3BucketName")
-	s3Region := os.Getenv("S3Region")
-	s3APIKey := os.Getenv("S3APIKey")
-	s3SecretKey := os.Getenv("S3SecretKey")
-	s3Domain := os.Getenv("S3Domain")
+	dsn := os.Getenv("MYSQL_URI")
+	s3BucketName := os.Getenv("S3_BUCKET_NAME")
+	s3Region := os.Getenv("S3_REGION")
+	s3APIKey := os.Getenv("S3_API_KEY")
+	s3SecretKey := os.Getenv("S3_SECRET_KEY")
+	s3Domain := os.Getenv("S3_DOMAIN")
 	secretKey := os.Getenv("SYSTEM_SECRET")
 
 
@@ -45,11 +45,25 @@ func main() {
 	r := gin.Default()
 	r.Use(middleware.Recover(appContext))
 
-	config := cors.DefaultConfig()
-	config.AllowOrigins = []string{"*"}
-	config.AllowMethods = []string{"*"}
-	config.AllowHeaders = []string{"*"}
-	config.AllowCredentials = true
+	router.Use(cors.New(cors.Config{
+		AllowOrigins: []string{"*"},
+		AllowMethods: []string{"GET", "POST", "PUT", "PATCH", "DELETE", "HEAD"},
+		AllowHeaders: []string{
+			"Origin",
+			"Content-Length",
+			"Content-Type",
+			"Access-Control-Allow-Headers",
+			"Authorization",
+			"X-XSRF-TOKEN",
+			"screenId",
+			"apiOrder",
+		},
+		ExposeHeaders: []string{
+			"Content-Disposition",
+		},
+		AllowCredentials: true,
+		MaxAge:           12 * time.Hour,
+	}))
 
 	r.Use(cors.New(config))
 
@@ -59,6 +73,6 @@ func main() {
 	client.ClientRoute(appContext, v1)
 	user.UserRoute(appContext, v1)
 
-	r.Run() // listen and serve on 0.0.0.0:8080 (for windows "localhost:8080")
+	r.Run()
 
 }

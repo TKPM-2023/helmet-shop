@@ -1,4 +1,4 @@
-version: '3.8'
+version: '3.9'
 
 services:
   mysql:
@@ -8,8 +8,21 @@ services:
       MYSQL_ROOT_PASSWORD: password
     ports:
       - 3306:3306
+    networks:
+      - shop
     volumes:
       - mysql-data:/var/lib/mysql
 
+  image: waang07/helmet-shop:latest
+    restart: always
+    networks:
+      - shop
+    env_file:
+      - ./.env
+
 volumes:
   mysql-data:
+
+networks:
+  shop:
+    driver: bridge
