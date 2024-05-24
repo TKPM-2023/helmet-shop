@@ -30,6 +30,9 @@ $ docker run --name mysql --privileged=true \
     -e MYSQL_PASSWORD="1234" \
     -e MYSQL_DATABASE="helmet_shop" \
     -p 3306:3306 bitnami/mysql:5.7
+    
+#docker build
+$ docker build -t helmet-shop-image
 
 # create a network
 $ docker network create helmet-shop
@@ -39,7 +42,7 @@ $ docker network connect helmet-shop mysql
 
 # run 
 $ docker run -d --name helmet-shop \ 
-    -e DBConnectionStr="helmet_shop:1234@tcp(mysql:3306)/helmet_shop?charset=utf8mb4&parseTime=True&loc=Local" \ 
+    -e MYSQL_URI="helmet_shop:1234@tcp(mysql:3306)/helmet_shop?charset=utf8mb4&parseTime=True&loc=Local" \ 
     --network=fd-delivery \ 
     -p 3001:8080 \
     helmet-shop-image
