@@ -1,10 +1,14 @@
 package main
 
 import (
+	"context"
+	"errors"
+	"fmt"
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	"github.com/orgball2608/helmet-shop-be/component/appctx"
 	"github.com/orgball2608/helmet-shop-be/component/uploadprovider"
+	"github.com/orgball2608/helmet-shop-be/config"
 	"github.com/orgball2608/helmet-shop-be/middleware"
 	localPb "github.com/orgball2608/helmet-shop-be/pubsub/localpub"
 	"github.com/orgball2608/helmet-shop-be/route/admin"
@@ -14,28 +18,29 @@ import (
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 	"log"
+	"net/http"
 	"os"
+	"os/signal"
+	"syscall"
 	"time"
 )
 
 func main() {
-	dsn := os.Getenv("MYSQL_URI")
-	s3BucketName := os.Getenv("S3_BUCKET_NAME")
-	s3Region := os.Getenv("S3_REGION")
-	s3APIKey := os.Getenv("S3_API_KEY")
-	s3SecretKey := os.Getenv("S3_SECRET_KEY")
-	s3Domain := os.Getenv("S3_DOMAIN")
-	secretKey := os.Getenv("SYSTEM_SECRET")
+	cfg, err := config.NewConfig()
 
-	db, err := gorm.Open(mysql.Open(dsn), &gorm.Config{})
+	if err != nil {
+		log.Fatal("Load config fail", err)
+	}
+
+	db, err := gorm.Open(mysql.Open(cfg.MysqlUri), &gorm.Config{})
 	if err != nil {
 		log.Fatal("Connect DB failed", err)
 	}
 	log.Println("Connect DB success", db)
 
-	s3Provider := uploadprovider.NewS3Provider(s3BucketName, s3Region, s3APIKey, s3SecretKey, s3Domain)
+	s3Provider := uploadprovider.NewS3Provider(cfg)
 	pubSub := localPb.NewPubSub()
-	appContext := appctx.NewAppContext(db, s3Provider, secretKey, pubSub)
+	appContext := appctx.NewAppContext(db, s3Provider, cfg, pubSub)
 	db = db.Debug()
 
 	if err := subscriber.NewEngine(appContext).Start(); err != nil {
@@ -72,7 +77,36 @@ func main() {
 	client.ClientRoute(appContext, v1)
 	user.UserRoute(appContext, v1)
 
-	if err := r.Run(); err != nil {
-		log.Fatal("Server failed", err)
+	server := &http.Server{
+		Addr:    fmt.Sprintf(":%d", 8080),
+		Handler: r,
 	}
+
+	done := make(chan bool)
+	go func() {
+		if err := GracefulShutDown(cfg, done, server); err != nil {
+			fmt.Printf("Stop server shutdown error: %v\n", err.Error())
+			return
+		}
+		fmt.Println("Stopped serving on Services")
+	}()
+	fmt.Println("Start HTTP Server Successfully")
+	if err := server.ListenAndServe(); err != nil && !errors.Is(err, http.ErrServerClosed) {
+		fmt.Printf("Start HTTP Server Failed. Error: %s\n", err.Error())
+	}
+	<-done
+	fmt.Println("Stopped backend application.")
+}
+
+func GracefulShutDown(config *config.Config, quit chan bool, server *http.Server) error {
+	signals := make(chan os.Signal)
+	signal.Notify(signals, os.Interrupt, syscall.SIGTERM, syscall.SIGQUIT)
+	<-signals
+	ctx, cancel := context.WithTimeout(context.Background(), time.Duration(config.SystemTimeOutSecond)*time.Second)
+	defer cancel()
+	if err := server.Shutdown(ctx); err != nil {
+		return err
+	}
+	close(quit)
+	return nil
 }

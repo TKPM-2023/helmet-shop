@@ -9,11 +9,12 @@ import (
 	"github.com/aws/aws-sdk-go/aws/session"
 	"github.com/aws/aws-sdk-go/service/s3"
 	"github.com/orgball2608/helmet-shop-be/common"
+	"github.com/orgball2608/helmet-shop-be/config"
 	"log"
 	"net/http"
 )
 
-type s3Provider struct {
+type S3Provider struct {
 	bucketName string
 	region     string
 	apiKey     string
@@ -22,18 +23,15 @@ type s3Provider struct {
 	session    *session.Session
 }
 
-func NewS3Provider(bucketName string,
-	region string,
-	apiKey string,
-	secret string,
-	domain string,
-) *s3Provider {
-	provider := &s3Provider{
-		bucketName: bucketName,
-		region:     region,
-		apiKey:     apiKey,
-		secret:     secret,
-		domain:     domain,
+func NewS3Provider(
+	config *config.Config,
+) *S3Provider {
+	provider := &S3Provider{
+		bucketName: config.S3BucketName,
+		region:     config.S3Region,
+		apiKey:     config.S3ApiKey,
+		secret:     config.S3SecretKey,
+		domain:     config.S3Domain,
 	}
 
 	s3Session, err := session.NewSession(&aws.Config{
@@ -50,7 +48,7 @@ func NewS3Provider(bucketName string,
 	return provider
 }
 
-func (provider *s3Provider) SaveFileUploaded(ctx context.Context, data []byte, dst string) (*common.Image, error) {
+func (provider *S3Provider) SaveFileUploaded(ctx context.Context, data []byte, dst string) (*common.Image, error) {
 	fileBytes := bytes.NewReader(data)
 	fileType := http.DetectContentType(data)
 

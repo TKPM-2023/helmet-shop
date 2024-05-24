@@ -8,13 +8,14 @@ import (
 )
 
 type Config struct {
-	MysqlUri     int    `env:"MYSQL_URI"`
-	S3BucketName string `env:"S3_BUCKET_NAME"`
-	S3Region     string `env:"S3_REGION"`
-	S3ApiKey     string `env:"S3_API_KEY"`
-	S3SecretKey  string `env:"S3_SECRET_KEY"`
-	S3Domain     string `env:"S3_DOMAIN"`
-	SystemSecret string `env:"SYSTEM_SECRET"`
+	MysqlUri            string `env:"MYSQL_URI"`
+	S3BucketName        string `env:"S3_BUCKET_NAME"`
+	S3Region            string `env:"S3_REGION"`
+	S3ApiKey            string `env:"S3_API_KEY"`
+	S3SecretKey         string `env:"S3_SECRET_KEY"`
+	S3Domain            string `env:"S3_DOMAIN"`
+	SystemSecret        string `env:"SYSTEM_SECRET"`
+	SystemTimeOutSecond int    `env:"SYSTEM_TIME_OUT_SECOND" env-default:"30"`
 }
 
 var (

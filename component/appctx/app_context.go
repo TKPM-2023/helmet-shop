@@ -2,6 +2,7 @@ package appctx
 
 import (
 	"github.com/orgball2608/helmet-shop-be/component/uploadprovider"
+	"github.com/orgball2608/helmet-shop-be/config"
 	"github.com/orgball2608/helmet-shop-be/pubsub"
 	"gorm.io/gorm"
 )
@@ -16,16 +17,20 @@ type AppContext interface {
 type appCtx struct {
 	db             *gorm.DB
 	uploadProvider uploadprovider.UploadProvider
-	secretKey      string
+	config         *config.Config
 	ps             pubsub.Pubsub
 }
 
-func NewAppContext(db *gorm.DB, uploadProvider uploadprovider.UploadProvider,
-	secretKey string, ps pubsub.Pubsub) *appCtx {
+func NewAppContext(
+	db *gorm.DB,
+	uploadProvider uploadprovider.UploadProvider,
+	config *config.Config,
+	ps pubsub.Pubsub,
+) *appCtx {
 	return &appCtx{
 		db:             db,
 		uploadProvider: uploadProvider,
-		secretKey:      secretKey,
+		config:         config,
 		ps:             ps,
 	}
 }
@@ -43,5 +48,5 @@ func (ctx *appCtx) UploadProvider() uploadprovider.UploadProvider {
 }
 
 func (ctx *appCtx) GetSecretKey() string {
-	return ctx.secretKey
+	return ctx.config.S3SecretKey
 }
