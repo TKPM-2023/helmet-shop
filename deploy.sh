@@ -7,7 +7,7 @@ DEPLOY_CONNECT=root@[ip-server]
 echo "Downloading packages..."
 go mod download
 echo "Compiling..."
-CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o app
+CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o app cmd/main.go
 
 echo "Docker building..."
 docker build -t ${APP_NAME} -f ./Dockerfile .
