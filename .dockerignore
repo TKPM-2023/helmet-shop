@@ -27,3 +27,4 @@ go.work
 /.dockerignore
 /.github/
 /README.md
+!/tmp/

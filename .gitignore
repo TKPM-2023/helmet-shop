@@ -4,3 +4,5 @@ run.sh
 build-out
 .env
 __debug_bin
+/tmp/build-errors.log
+/tmp/main
